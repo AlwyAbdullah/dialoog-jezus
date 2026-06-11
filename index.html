@@ -16,6 +16,7 @@
 /* ===================================================================
    RUANG TUMBUH — halaman pengenalan buku
    Gaya: editorial-vintage, kertas hangat, kartu katalog perpustakaan
+   Multi-bahasa: ID / EN / NL (lihat kamus I18N di bagian <script>)
    =================================================================== */
 
 :root{
@@ -101,9 +102,31 @@ nav .links a{
   white-space:nowrap;
 }
 nav .links a:hover, nav .links a.aktif{ background:var(--ink); color:var(--cream); }
+
+/* tombol pindah bahasa */
+.lang{
+  display:flex; gap:3px;
+  background:var(--paper-deep);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:3px;
+  margin-left:8px;
+  flex-shrink:0;
+}
+.lang button{
+  border:none; background:none; cursor:pointer;
+  font-family:var(--mono); font-size:.72rem; font-weight:700;
+  letter-spacing:.06em;
+  padding:6px 11px; border-radius:999px;
+  color:var(--ink-soft);
+  transition:.2s;
+}
+.lang button:hover{ color:var(--ink); }
+.lang button.aktif{ background:var(--terracotta); color:var(--cream); }
+
 @media (max-width:880px){
   nav .links{ display:none; }
-  nav{ padding:10px 18px; }
+  nav{ padding:8px 10px 8px 16px; }
 }
 
 /* ============ HERO ============ */
@@ -147,7 +170,7 @@ header::before{
   box-shadow:3px 3px 0 var(--forest);
   margin-bottom:26px;
 }
-.kicker .dot{ width:8px; height:8px; border-radius:50%; background:var(--terracotta); animation:denyut 1.6s infinite; }
+.kicker .dot{ width:8px; height:8px; border-radius:50%; background:var(--terracotta); animation:denyut 1.6s infinite; flex-shrink:0; }
 @keyframes denyut{ 0%,100%{ transform:scale(1); opacity:1 } 50%{ transform:scale(1.5); opacity:.5 } }
 
 h1{
@@ -703,12 +726,18 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <nav>
   <a class="brand" href="#atas">Ruang<span>Tumbuh.</span></a>
   <div class="links">
-    <a href="#tentang">Tentang</a>
-    <a href="#isi">Isi Buku</a>
-    <a href="#kutipan">Kutipan</a>
-    <a href="#penulis">Penulis</a>
-    <a href="#detail">Detail</a>
-    <a href="#daftarisi">Daftar Isi</a>
+    <a href="#tentang"   data-i18n="nav_tentang">Tentang</a>
+    <a href="#isi"       data-i18n="nav_isi">Isi Buku</a>
+    <a href="#kutipan"   data-i18n="nav_kutipan">Kutipan</a>
+    <a href="#penulis"   data-i18n="nav_penulis">Penulis</a>
+    <a href="#detail"    data-i18n="nav_detail">Detail</a>
+    <a href="#daftarisi" data-i18n="nav_daftar">Daftar Isi</a>
+  </div>
+  <!-- tombol pindah bahasa -->
+  <div class="lang" role="group" aria-label="Pilih bahasa">
+    <button data-lang="id" class="aktif" title="Bahasa Indonesia">ID</button>
+    <button data-lang="en" title="English">EN</button>
+    <button data-lang="nl" title="Nederlands">NL</button>
   </div>
 </nav>
 
@@ -716,17 +745,17 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <header id="atas">
   <div class="wrap hero-grid">
     <div>
-      <span class="kicker"><span class="dot"></span> Baru terbit &middot; 2026</span>
+      <span class="kicker" data-i18n="kicker"><span class="dot"></span> Baru terbit &middot; 2026</span>
 
-      <!-- GANTI DI SINI : judul buku -->
-      <h1>
+      <!-- GANTI DI SINI : judul buku (lihat juga kamus I18N di <script>) -->
+      <h1 data-i18n="h1">
         Bertumbuh itu<br>
         tidak harus <em>buru-buru</em>,<br>
         yang penting <span class="coretan">tumbuh.<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg></span>
       </h1>
 
       <!-- GANTI DI SINI : tagline / kalimat penangkap -->
-      <p class="hero-sub">
+      <p class="hero-sub" data-i18n="hero_sub">
         <b>Ruang Tumbuh</b> adalah kumpulan catatan tentang menjadi manusia
         di dunia yang selalu meminta kita lebih cepat. Halaman ini dibuat
         bukan untuk menjual apa pun — hanya untuk bercerita tentang sebuah buku.
@@ -736,14 +765,14 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
         <!-- GANTI DI SINI : inisial & nama penulis -->
         <div class="ava">AA</div>
         <div>
-          <small>Ditulis oleh</small>
+          <small data-i18n="chip_small">Ditulis oleh</small>
           <b>Alwi Abdullah</b>
         </div>
       </div>
 
       <div class="hero-aksi">
-        <a class="tbl isi" href="#tentang">Kenalan dengan bukunya ↓</a>
-        <a class="tbl garis" href="#kutipan">Baca cuplikannya</a>
+        <a class="tbl isi"   href="#tentang" data-i18n="btn1">Kenalan dengan bukunya ↓</a>
+        <a class="tbl garis" href="#kutipan" data-i18n="btn2">Baca cuplikannya</a>
       </div>
     </div>
 
@@ -752,7 +781,7 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
       <svg class="stiker" viewBox="0 0 124 124" aria-hidden="true">
         <circle cx="62" cy="62" r="62" fill="#D45A38"/>
         <circle cx="62" cy="62" r="22" fill="#F6F0E3"/>
-        <text><textPath href="#lingkar">baru terbit · baru terbit · baru terbit ·</textPath></text>
+        <text><textPath href="#lingkar" data-i18n="stiker">baru terbit · baru terbit · baru terbit ·</textPath></text>
         <defs><path id="lingkar" d="M62,62 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
         <text x="62" y="67" text-anchor="middle" style="fill:#D45A38;font-size:20px;letter-spacing:0">✺</text>
       </svg>
@@ -762,7 +791,7 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
         <div class="halaman"></div>
         <div class="muka">
           <!-- GANTI DI SINI : teks pada sampul buku -->
-          <div class="sampul-atas">Sebuah catatan perjalanan batin</div>
+          <div class="sampul-atas" data-i18n="sampul_atas">Sebuah catatan perjalanan batin</div>
           <svg class="sampul-bunga" viewBox="0 0 100 160" fill="none" stroke="#F6F0E3" stroke-width="2">
             <path d="M50 155 Q 48 90 50 40"/>
             <path d="M50 70 Q 25 60 18 35 Q 45 40 50 70"/>
@@ -782,42 +811,37 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
     </div>
   </div>
 
-  <a class="gulir" href="#tentang">gulir</a>
+  <a class="gulir" href="#tentang" data-i18n="gulir">gulir</a>
 </header>
 
-<!-- ================= MARQUEE ================= -->
+<!-- ================= MARQUEE (diisi ulang oleh JS sesuai bahasa) ================= -->
 <div class="marquee" aria-hidden="true">
-  <div class="jalur" id="jalurMarquee">
-    <span>sebuah buku tentang bertumbuh <i>✺</i></span>
-    <span>bukan halaman jualan <i>✦</i></span>
-    <span>hanya cerita tentang sebuah buku <i>✺</i></span>
-    <span>pelan-pelan saja <i>✦</i></span>
-  </div>
+  <div class="jalur" id="jalurMarquee"></div>
 </div>
 
 <!-- ================= TENTANG BUKU ================= -->
 <section id="tentang">
   <div class="wrap">
-    <div class="label-bab muncul">01 — Tentang Buku</div>
-    <h2 class="muncul">Apa yang sebenarnya sedang <em>diceritakan</em> buku ini?</h2>
+    <div class="label-bab muncul" data-i18n="s1_label">01 — Tentang Buku</div>
+    <h2 class="muncul" data-i18n="s1_h2">Apa yang sebenarnya sedang <em>diceritakan</em> buku ini?</h2>
 
     <div class="isi-grid">
       <div class="muncul">
-        <!-- GANTI DI SINI : sinopsis buku (2-3 paragraf) -->
-        <p class="kapital">
+        <!-- GANTI DI SINI : sinopsis buku (2-3 paragraf, lihat kamus I18N) -->
+        <p class="kapital" data-i18n="s1_p1">
           Kita hidup di zaman yang mengukur segalanya dengan kecepatan:
           karier yang harus melesat sebelum tiga puluh, pencapaian yang harus
           terlihat, dan hidup yang harus selalu "berprogres". <b>Ruang Tumbuh</b>
           lahir dari kegelisahan sederhana — bagaimana jika kita boleh tumbuh
           dengan ritme kita sendiri?
         </p>
-        <p>
+        <p data-i18n="s1_p2">
           Lewat dua belas bab yang ditulis seperti surat kepada teman lama,
           buku ini mengajak pembaca menengok kembali makna proses: kegagalan
           yang ternyata menyuburkan, jeda yang ternyata menumbuhkan, dan
           perbandingan diri yang ternyata hanya mencuri kebahagiaan.
         </p>
-        <p>
+        <p data-i18n="s1_p3">
           Ini bukan buku motivasi yang berteriak. Ia lebih seperti teman duduk
           di sore hari — tidak menggurui, tidak menjanjikan perubahan instan,
           hanya menemani dan sesekali bertanya hal yang tepat.
@@ -825,14 +849,14 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
       </div>
 
       <div class="kartu-tema muncul">
-        <h3>Tema-tema yang diangkat</h3>
+        <h3 data-i18n="tema_h3">Tema-tema yang diangkat</h3>
         <!-- GANTI DI SINI : tema utama buku -->
         <ul>
-          <li>Berdamai dengan ritme hidup sendiri di tengah budaya serba cepat</li>
-          <li>Kegagalan sebagai pupuk, bukan vonis</li>
-          <li>Seni mengambil jeda tanpa merasa bersalah</li>
-          <li>Membangun makna, bukan sekadar pencapaian</li>
-          <li>Relasi yang menumbuhkan vs relasi yang menguras</li>
+          <li data-i18n="tema_1">Berdamai dengan ritme hidup sendiri di tengah budaya serba cepat</li>
+          <li data-i18n="tema_2">Kegagalan sebagai pupuk, bukan vonis</li>
+          <li data-i18n="tema_3">Seni mengambil jeda tanpa merasa bersalah</li>
+          <li data-i18n="tema_4">Membangun makna, bukan sekadar pencapaian</li>
+          <li data-i18n="tema_5">Relasi yang menumbuhkan vs relasi yang menguras</li>
         </ul>
       </div>
     </div>
@@ -842,46 +866,46 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <!-- ================= ISI / HIGHLIGHT ================= -->
 <section id="isi">
   <div class="wrap">
-    <div class="label-bab muncul">02 — Di Dalam Buku</div>
-    <h2 class="muncul">Yang akan kamu temukan di antara <em>halaman-halamannya</em></h2>
+    <div class="label-bab muncul" data-i18n="s2_label">02 — Di Dalam Buku</div>
+    <h2 class="muncul" data-i18n="s2_h2">Yang akan kamu temukan di antara <em>halaman-halamannya</em></h2>
 
     <div class="kartu-grid">
       <!-- GANTI DI SINI : 6 highlight isi buku -->
       <div class="kartu muncul">
         <div class="nomor">1</div>
         <div class="ikon">🌱</div>
-        <h3>12 esai reflektif</h3>
-        <p>Setiap bab ditulis ringkas dan bisa dibaca terpisah — cocok dibaca satu bab per malam sebelum tidur.</p>
+        <h3 data-i18n="k1_h">12 esai reflektif</h3>
+        <p data-i18n="k1_p">Setiap bab ditulis ringkas dan bisa dibaca terpisah — cocok dibaca satu bab per malam sebelum tidur.</p>
       </div>
       <div class="kartu muncul">
         <div class="nomor">2</div>
         <div class="ikon">✍️</div>
-        <h3>Ruang menulis pembaca</h3>
-        <p>Di akhir tiap bab ada halaman kosong dengan satu pertanyaan pemantik, untuk diisi dengan ceritamu sendiri.</p>
+        <h3 data-i18n="k2_h">Ruang menulis pembaca</h3>
+        <p data-i18n="k2_p">Di akhir tiap bab ada halaman kosong dengan satu pertanyaan pemantik, untuk diisi dengan ceritamu sendiri.</p>
       </div>
       <div class="kartu muncul">
         <div class="nomor">3</div>
         <div class="ikon">🍵</div>
-        <h3>Kisah-kisah nyata</h3>
-        <p>Potongan cerita dari orang-orang biasa — penjual kopi, guru honorer, perantau — yang tumbuh dengan caranya sendiri.</p>
+        <h3 data-i18n="k3_h">Kisah-kisah nyata</h3>
+        <p data-i18n="k3_p">Potongan cerita dari orang-orang biasa — penjual kopi, guru honorer, perantau — yang tumbuh dengan caranya sendiri.</p>
       </div>
       <div class="kartu muncul">
         <div class="nomor">4</div>
         <div class="ikon">🧭</div>
-        <h3>Peta refleksi diri</h3>
-        <p>Kerangka sederhana untuk memetakan di fase mana kamu sedang berada — tanpa skor, tanpa penilaian.</p>
+        <h3 data-i18n="k4_h">Peta refleksi diri</h3>
+        <p data-i18n="k4_p">Kerangka sederhana untuk memetakan di fase mana kamu sedang berada — tanpa skor, tanpa penilaian.</p>
       </div>
       <div class="kartu muncul">
         <div class="nomor">5</div>
         <div class="ikon">🖋️</div>
-        <h3>Ilustrasi tangan</h3>
-        <p>Tiap bab dibuka dengan sketsa botani yang digambar manual — karena tumbuh memang tidak pernah lurus sempurna.</p>
+        <h3 data-i18n="k5_h">Ilustrasi tangan</h3>
+        <p data-i18n="k5_p">Tiap bab dibuka dengan sketsa botani yang digambar manual — karena tumbuh memang tidak pernah lurus sempurna.</p>
       </div>
       <div class="kartu muncul">
         <div class="nomor">6</div>
         <div class="ikon">🌙</div>
-        <h3>Bab penutup yang tenang</h3>
-        <p>Sebuah surat dari penulis untuk pembaca — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p>
+        <h3 data-i18n="k6_h">Bab penutup yang tenang</h3>
+        <p data-i18n="k6_p">Sebuah surat dari penulis untuk pembaca — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p>
       </div>
     </div>
   </div>
@@ -890,31 +914,31 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <!-- ================= KUTIPAN ================= -->
 <section id="kutipan">
   <div class="wrap">
-    <div class="label-bab muncul">03 — Cuplikan</div>
-    <h2 class="muncul" style="color:var(--paper)">Beberapa kalimat dari dalam buku</h2>
+    <div class="label-bab muncul" data-i18n="s3_label">03 — Cuplikan</div>
+    <h2 class="muncul" style="color:var(--paper)" data-i18n="s3_h2">Beberapa kalimat dari dalam buku</h2>
 
     <div class="kutipan-rel muncul">
       <!-- GANTI DI SINI : kutipan asli dari buku -->
       <div class="kutip aktif">
-        <blockquote>
+        <blockquote data-i18n="q1">
           &ldquo;Pohon tidak pernah iri pada pohon lain yang lebih dulu berbuah.
           Ia hanya sibuk <mark>mengakar lebih dalam</mark>.&rdquo;
         </blockquote>
-        <cite>— Bab 3 · Tentang Membandingkan Diri</cite>
+        <cite data-i18n="q1_cite">— Bab 3 · Tentang Membandingkan Diri</cite>
       </div>
       <div class="kutip">
-        <blockquote>
+        <blockquote data-i18n="q2">
           &ldquo;Jeda bukan berarti berhenti. Tanah pun perlu dibiarkan kosong
           semusim, agar <mark>panen berikutnya</mark> tidak mengkhianati.&rdquo;
         </blockquote>
-        <cite>— Bab 7 · Tentang Mengambil Jeda</cite>
+        <cite data-i18n="q2_cite">— Bab 7 · Tentang Mengambil Jeda</cite>
       </div>
       <div class="kutip">
-        <blockquote>
+        <blockquote data-i18n="q3">
           &ldquo;Kita sering menyebutnya gagal. Padahal mungkin itu hanya
           cara hidup berkata: <mark>bukan lewat sini</mark>, coba jalan satunya.&rdquo;
         </blockquote>
-        <cite>— Bab 5 · Tentang Kegagalan</cite>
+        <cite data-i18n="q3_cite">— Bab 5 · Tentang Kegagalan</cite>
       </div>
     </div>
 
@@ -928,26 +952,26 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <!-- ================= PENULIS ================= -->
 <section id="penulis">
   <div class="wrap">
-    <div class="label-bab muncul">04 — Di Balik Buku</div>
-    <h2 class="muncul">Orang yang <em>menuliskannya</em></h2>
+    <div class="label-bab muncul" data-i18n="s4_label">04 — Di Balik Buku</div>
+    <h2 class="muncul" data-i18n="s4_h2">Orang yang <em>menuliskannya</em></h2>
 
     <div class="grid-penulis">
       <div class="polaroid muncul">
         <div class="selotip"></div>
         <!-- GANTI DI SINI : ganti div .foto dengan <img src="foto-penulis.jpg" alt="..."> -->
-        <div class="foto">tempat foto penulis<br>(ganti dengan foto asli)</div>
-        <div class="ket">— ditulis sambil ditemani kopi tubruk —</div>
+        <div class="foto" data-i18n="foto_ph">tempat foto penulis<br>(ganti dengan foto asli)</div>
+        <div class="ket" data-i18n="foto_ket">— ditulis sambil ditemani kopi tubruk —</div>
       </div>
 
       <div class="bio muncul">
         <!-- GANTI DI SINI : biografi penulis -->
-        <p>
+        <p data-i18n="bio_p1">
           <b>Alwi Abdullah</b> adalah penulis dan pengamat keseharian yang
           percaya bahwa cerita-cerita kecil menyimpan pelajaran paling besar.
           Sebelum menulis buku ini, ia menghabiskan bertahun-tahun menuliskan
           catatan harian yang tidak pernah ia niatkan untuk dibaca siapa pun.
         </p>
-        <p>
+        <p data-i18n="bio_p2">
           Ruang Tumbuh adalah buku pertamanya — ditulis selama dua tahun,
           sebagian besar di meja yang sama, pada jam-jam ketika rumah sudah
           sepi. Ia menulis bukan karena merasa sudah selesai bertumbuh,
@@ -956,9 +980,9 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
         <div class="fakta">
           <!-- GANTI DI SINI : fakta singkat penulis -->
           <span>📍 Indonesia</span>
-          <span>✍️ Menulis sejak 2018</span>
-          <span>📖 Buku pertama</span>
-          <span>☕ Tim kopi tubruk</span>
+          <span data-i18n="fakta_2">✍️ Menulis sejak 2018</span>
+          <span data-i18n="fakta_3">📖 Buku pertama</span>
+          <span data-i18n="fakta_4">☕ Tim kopi tubruk</span>
         </div>
       </div>
     </div>
@@ -968,25 +992,25 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <!-- ================= DETAIL BUKU ================= -->
 <section id="detail">
   <div class="wrap">
-    <div class="label-bab muncul">05 — Lembar Data</div>
-    <h2 class="muncul">Detail buku, ala kartu <em>katalog perpustakaan</em></h2>
+    <div class="label-bab muncul" data-i18n="s5_label">05 — Lembar Data</div>
+    <h2 class="muncul" data-i18n="s5_h2">Detail buku, ala kartu <em>katalog perpustakaan</em></h2>
 
     <div class="katalog muncul">
       <header>
-        <span>KARTU KATALOG <b>№ 001</b></span>
-        <span>RAK: PENGEMBANGAN DIRI</span>
+        <span data-i18n="cat_kiri">KARTU KATALOG <b>№ 001</b></span>
+        <span data-i18n="cat_kanan">RAK: PENGEMBANGAN DIRI</span>
       </header>
       <!-- GANTI DI SINI : data asli buku -->
-      <div class="baris"><div class="k">Judul</div><div>Ruang Tumbuh — Catatan tentang Bertumbuh Pelan di Dunia yang Terburu-buru</div></div>
-      <div class="baris"><div class="k">Penulis</div><div>Alwi Abdullah</div></div>
-      <div class="baris"><div class="k">Penerbit</div><div>Penerbit Contoh Pustaka</div></div>
-      <div class="baris"><div class="k">Tahun terbit</div><div>2026 (cetakan pertama)</div></div>
-      <div class="baris"><div class="k">Tebal</div><div>248 halaman</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_judul">Judul</div><div data-i18n="rv_judul">Ruang Tumbuh — Catatan tentang Bertumbuh Pelan di Dunia yang Terburu-buru</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_penulis">Penulis</div><div>Alwi Abdullah</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_penerbit">Penerbit</div><div>Penerbit Contoh Pustaka</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_tahun">Tahun terbit</div><div data-i18n="rv_tahun">2026 (cetakan pertama)</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_tebal">Tebal</div><div data-i18n="rv_tebal">248 halaman</div></div>
       <div class="baris"><div class="k">ISBN</div><div>978-602-XXXXX-X-X</div></div>
-      <div class="baris"><div class="k">Bahasa</div><div>Indonesia</div></div>
-      <div class="baris"><div class="k">Kategori</div><div>Esai / Pengembangan Diri / Refleksi</div></div>
-      <div class="baris"><div class="k">Format</div><div>Cetak &amp; e-book <em style="color:var(--ink-soft)">(sekadar informasi, bukan ajakan membeli)</em></div></div>
-      <div class="cap">telah<br>diterbitkan</div>
+      <div class="baris"><div class="k" data-i18n="rk_bahasa">Bahasa</div><div data-i18n="rv_bahasa">Indonesia</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_kategori">Kategori</div><div data-i18n="rv_kategori">Esai / Pengembangan Diri / Refleksi</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_format">Format</div><div data-i18n="rv_format">Cetak &amp; e-book <em style="color:var(--ink-soft)">(sekadar informasi, bukan ajakan membeli)</em></div></div>
+      <div class="cap" data-i18n="cap">telah<br>diterbitkan</div>
     </div>
   </div>
 </section>
@@ -994,52 +1018,52 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <!-- ================= DAFTAR ISI ================= -->
 <section id="daftarisi">
   <div class="wrap">
-    <div class="label-bab muncul">06 — Daftar Isi</div>
-    <h2 class="muncul">Dua belas bab, dibaca <em>pelan-pelan</em> saja</h2>
+    <div class="label-bab muncul" data-i18n="s6_label">06 — Daftar Isi</div>
+    <h2 class="muncul" data-i18n="s6_h2">Dua belas bab, dibaca <em>pelan-pelan</em> saja</h2>
 
     <div class="bab-list muncul">
       <!-- GANTI DI SINI : daftar bab asli (contoh menampilkan 6 dari 12) -->
-      <div class="bab"><div class="no">01</div><div><h3>Berangkat dari Gelisah</h3><p>Mengapa kita selalu merasa tertinggal, dan dari mana perasaan itu datang.</p></div><div class="hal">hlm. 1</div></div>
-      <div class="bab"><div class="no">02</div><div><h3>Ritme yang Dipinjam</h3><p>Tentang hidup dengan kecepatan orang lain — dan cara mengembalikannya.</p></div><div class="hal">hlm. 21</div></div>
-      <div class="bab"><div class="no">03</div><div><h3>Pohon Tidak Saling Iri</h3><p>Membandingkan diri, media sosial, dan akar yang tidak terlihat.</p></div><div class="hal">hlm. 43</div></div>
-      <div class="bab"><div class="no">05</div><div><h3>Bukan Lewat Sini</h3><p>Membaca ulang kegagalan sebagai petunjuk arah, bukan titik akhir.</p></div><div class="hal">hlm. 87</div></div>
-      <div class="bab"><div class="no">07</div><div><h3>Tanah yang Diistirahatkan</h3><p>Seni mengambil jeda tanpa rasa bersalah di budaya yang memuja sibuk.</p></div><div class="hal">hlm. 131</div></div>
-      <div class="bab"><div class="no">12</div><div><h3>Surat untuk yang Sedang Tumbuh</h3><p>Bab penutup — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p></div><div class="hal">hlm. 233</div></div>
+      <div class="bab"><div class="no">01</div><div><h3 data-i18n="bab1_h">Berangkat dari Gelisah</h3><p data-i18n="bab1_p">Mengapa kita selalu merasa tertinggal, dan dari mana perasaan itu datang.</p></div><div class="hal" data-i18n="hal1">hlm. 1</div></div>
+      <div class="bab"><div class="no">02</div><div><h3 data-i18n="bab2_h">Ritme yang Dipinjam</h3><p data-i18n="bab2_p">Tentang hidup dengan kecepatan orang lain — dan cara mengembalikannya.</p></div><div class="hal" data-i18n="hal2">hlm. 21</div></div>
+      <div class="bab"><div class="no">03</div><div><h3 data-i18n="bab3_h">Pohon Tidak Saling Iri</h3><p data-i18n="bab3_p">Membandingkan diri, media sosial, dan akar yang tidak terlihat.</p></div><div class="hal" data-i18n="hal3">hlm. 43</div></div>
+      <div class="bab"><div class="no">05</div><div><h3 data-i18n="bab4_h">Bukan Lewat Sini</h3><p data-i18n="bab4_p">Membaca ulang kegagalan sebagai petunjuk arah, bukan titik akhir.</p></div><div class="hal" data-i18n="hal4">hlm. 87</div></div>
+      <div class="bab"><div class="no">07</div><div><h3 data-i18n="bab5_h">Tanah yang Diistirahatkan</h3><p data-i18n="bab5_p">Seni mengambil jeda tanpa rasa bersalah di budaya yang memuja sibuk.</p></div><div class="hal" data-i18n="hal5">hlm. 131</div></div>
+      <div class="bab"><div class="no">12</div><div><h3 data-i18n="bab6_h">Surat untuk yang Sedang Tumbuh</h3><p data-i18n="bab6_p">Bab penutup — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p></div><div class="hal" data-i18n="hal6">hlm. 233</div></div>
     </div>
-    <p class="catatan-jujur muncul">…dan enam bab lainnya yang sengaja tidak dibocorkan di sini. 🌿</p>
+    <p class="catatan-jujur muncul" data-i18n="s6_note">…dan enam bab lainnya yang sengaja tidak dibocorkan di sini. 🌿</p>
   </div>
 </section>
 
 <!-- ================= UNTUK SIAPA ================= -->
 <section id="pembaca">
   <div class="wrap">
-    <div class="label-bab muncul">07 — Untuk Siapa</div>
-    <h2 class="muncul">Jujur saja: buku ini tidak untuk <em>semua orang</em></h2>
+    <div class="label-bab muncul" data-i18n="s7_label">07 — Untuk Siapa</div>
+    <h2 class="muncul" data-i18n="s7_h2">Jujur saja: buku ini tidak untuk <em>semua orang</em></h2>
 
     <div class="dua-kolom">
       <!-- GANTI DI SINI : sesuaikan target pembaca -->
       <div class="kolom-cocok ya muncul">
-        <h3>🌿 Buku ini untukmu, jika…</h3>
+        <h3 data-i18n="ya_h3">🌿 Buku ini untukmu, jika…</h3>
         <ul>
-          <li>Kamu sering merasa tertinggal dari teman-teman seusiamu</li>
-          <li>Kamu lelah dengan konten motivasi yang serba berteriak</li>
-          <li>Kamu suka bacaan reflektif yang bisa dicicil per bab</li>
-          <li>Kamu sedang di fase transisi — lulus, pindah, memulai ulang</li>
-          <li>Kamu ingin menulis ulang ceritamu sendiri, pelan-pelan</li>
+          <li data-i18n="ya_1">Kamu sering merasa tertinggal dari teman-teman seusiamu</li>
+          <li data-i18n="ya_2">Kamu lelah dengan konten motivasi yang serba berteriak</li>
+          <li data-i18n="ya_3">Kamu suka bacaan reflektif yang bisa dicicil per bab</li>
+          <li data-i18n="ya_4">Kamu sedang di fase transisi — lulus, pindah, memulai ulang</li>
+          <li data-i18n="ya_5">Kamu ingin menulis ulang ceritamu sendiri, pelan-pelan</li>
         </ul>
       </div>
       <div class="kolom-cocok tidak muncul">
-        <h3>🍂 Mungkin bukan untukmu, jika…</h3>
+        <h3 data-i18n="no_h3">🍂 Mungkin bukan untukmu, jika…</h3>
         <ul>
-          <li>Kamu mencari langkah praktis "sukses dalam 30 hari"</li>
-          <li>Kamu butuh data, riset, dan grafik di tiap argumen</li>
-          <li>Kamu kurang menikmati gaya tulisan personal seperti surat</li>
-          <li>Kamu ingin jawaban tegas, bukan pertanyaan untuk direnungkan</li>
+          <li data-i18n="no_1">Kamu mencari langkah praktis "sukses dalam 30 hari"</li>
+          <li data-i18n="no_2">Kamu butuh data, riset, dan grafik di tiap argumen</li>
+          <li data-i18n="no_3">Kamu kurang menikmati gaya tulisan personal seperti surat</li>
+          <li data-i18n="no_4">Kamu ingin jawaban tegas, bukan pertanyaan untuk direnungkan</li>
         </ul>
       </div>
     </div>
 
-    <p class="catatan-jujur muncul">
+    <p class="catatan-jujur muncul" data-i18n="s7_note">
       &ldquo;Dan kalau ternyata bukan untukmu — tidak apa-apa. Buku, seperti manusia, punya jodohnya masing-masing.&rdquo;
     </p>
   </div>
@@ -1051,19 +1075,19 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
     <div class="footer-grid">
       <div>
         <div class="judul-kecil">Ruang Tumbuh — 2026</div>
-        <p class="besar">Terima kasih sudah mampir dan <em>berkenalan</em> dengan buku ini.</p>
+        <p class="besar" data-i18n="f_terima">Terima kasih sudah mampir dan <em>berkenalan</em> dengan buku ini.</p>
       </div>
       <div>
-        <div class="judul-kecil">Jelajahi</div>
+        <div class="judul-kecil" data-i18n="f_jelajah">Jelajahi</div>
         <ul>
-          <li><a href="#tentang">Tentang buku</a></li>
-          <li><a href="#kutipan">Cuplikan</a></li>
-          <li><a href="#penulis">Tentang penulis</a></li>
-          <li><a href="#daftarisi">Daftar isi</a></li>
+          <li><a href="#tentang"   data-i18n="f_l1">Tentang buku</a></li>
+          <li><a href="#kutipan"   data-i18n="f_l2">Cuplikan</a></li>
+          <li><a href="#penulis"   data-i18n="f_l3">Tentang penulis</a></li>
+          <li><a href="#daftarisi" data-i18n="f_l4">Daftar isi</a></li>
         </ul>
       </div>
       <div>
-        <div class="judul-kecil">Sapa Penulis</div>
+        <div class="judul-kecil" data-i18n="f_sapa">Sapa Penulis</div>
         <!-- GANTI DI SINI : kontak & media sosial asli -->
         <ul>
           <li><a href="mailto:halo@contoh.com">✉️ halo@contoh.com</a></li>
@@ -1075,12 +1099,330 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
     </div>
     <div class="footer-bawah">
       <span>© 2026 Alwi Abdullah &amp; Penerbit Contoh Pustaka.</span>
-      <span>Halaman ini hanya memperkenalkan buku — tidak menjual apa pun. ✺</span>
+      <span data-i18n="f_note">Halaman ini hanya memperkenalkan buku — tidak menjual apa pun. ✺</span>
     </div>
   </div>
 </footer>
 
 <script>
+/* ===================================================================
+   KAMUS BAHASA (ID / EN / NL)
+   GANTI DI SINI : saat mengisi konten buku asli, perbarui ketiga
+   bahasa di bawah agar tombol pindah bahasa tetap akurat.
+   =================================================================== */
+const SVG_CORETAN = '<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg>';
+
+const I18N = {
+  /* ---------------- BAHASA INDONESIA ---------------- */
+  id: {
+    _title: "Ruang Tumbuh — Sebuah Buku oleh Alwi Abdullah",
+    _desc: "Halaman pengenalan buku 'Ruang Tumbuh' — catatan tentang bertumbuh pelan di dunia yang terburu-buru. Bukan halaman jualan, hanya cerita tentang sebuah buku.",
+    _marquee: ["sebuah buku tentang bertumbuh", "bukan halaman jualan", "hanya cerita tentang sebuah buku", "pelan-pelan saja"],
+    _prev: "Kutipan sebelumnya", _next: "Kutipan berikutnya",
+    nav_tentang:"Tentang", nav_isi:"Isi Buku", nav_kutipan:"Kutipan", nav_penulis:"Penulis", nav_detail:"Detail", nav_daftar:"Daftar Isi",
+    kicker:'<span class="dot"></span> Baru terbit &middot; 2026',
+    h1:`Bertumbuh itu<br>tidak harus <em>buru-buru</em>,<br>yang penting <span class="coretan">tumbuh.${SVG_CORETAN}</span>`,
+    hero_sub:"<b>Ruang Tumbuh</b> adalah kumpulan catatan tentang menjadi manusia di dunia yang selalu meminta kita lebih cepat. Halaman ini dibuat bukan untuk menjual apa pun — hanya untuk bercerita tentang sebuah buku.",
+    chip_small:"Ditulis oleh",
+    btn1:"Kenalan dengan bukunya ↓", btn2:"Baca cuplikannya",
+    stiker:"baru terbit · baru terbit · baru terbit ·",
+    sampul_atas:"Sebuah catatan perjalanan batin",
+    gulir:"gulir",
+    s1_label:"01 — Tentang Buku",
+    s1_h2:"Apa yang sebenarnya sedang <em>diceritakan</em> buku ini?",
+    s1_p1:'Kita hidup di zaman yang mengukur segalanya dengan kecepatan: karier yang harus melesat sebelum tiga puluh, pencapaian yang harus terlihat, dan hidup yang harus selalu "berprogres". <b>Ruang Tumbuh</b> lahir dari kegelisahan sederhana — bagaimana jika kita boleh tumbuh dengan ritme kita sendiri?',
+    s1_p2:"Lewat dua belas bab yang ditulis seperti surat kepada teman lama, buku ini mengajak pembaca menengok kembali makna proses: kegagalan yang ternyata menyuburkan, jeda yang ternyata menumbuhkan, dan perbandingan diri yang ternyata hanya mencuri kebahagiaan.",
+    s1_p3:"Ini bukan buku motivasi yang berteriak. Ia lebih seperti teman duduk di sore hari — tidak menggurui, tidak menjanjikan perubahan instan, hanya menemani dan sesekali bertanya hal yang tepat.",
+    tema_h3:"Tema-tema yang diangkat",
+    tema_1:"Berdamai dengan ritme hidup sendiri di tengah budaya serba cepat",
+    tema_2:"Kegagalan sebagai pupuk, bukan vonis",
+    tema_3:"Seni mengambil jeda tanpa merasa bersalah",
+    tema_4:"Membangun makna, bukan sekadar pencapaian",
+    tema_5:"Relasi yang menumbuhkan vs relasi yang menguras",
+    s2_label:"02 — Di Dalam Buku",
+    s2_h2:"Yang akan kamu temukan di antara <em>halaman-halamannya</em>",
+    k1_h:"12 esai reflektif", k1_p:"Setiap bab ditulis ringkas dan bisa dibaca terpisah — cocok dibaca satu bab per malam sebelum tidur.",
+    k2_h:"Ruang menulis pembaca", k2_p:"Di akhir tiap bab ada halaman kosong dengan satu pertanyaan pemantik, untuk diisi dengan ceritamu sendiri.",
+    k3_h:"Kisah-kisah nyata", k3_p:"Potongan cerita dari orang-orang biasa — penjual kopi, guru honorer, perantau — yang tumbuh dengan caranya sendiri.",
+    k4_h:"Peta refleksi diri", k4_p:"Kerangka sederhana untuk memetakan di fase mana kamu sedang berada — tanpa skor, tanpa penilaian.",
+    k5_h:"Ilustrasi tangan", k5_p:"Tiap bab dibuka dengan sketsa botani yang digambar manual — karena tumbuh memang tidak pernah lurus sempurna.",
+    k6_h:"Bab penutup yang tenang", k6_p:"Sebuah surat dari penulis untuk pembaca — ditulis untuk dibaca ulang setiap kali merasa tertinggal.",
+    s3_label:"03 — Cuplikan",
+    s3_h2:"Beberapa kalimat dari dalam buku",
+    q1:"&ldquo;Pohon tidak pernah iri pada pohon lain yang lebih dulu berbuah. Ia hanya sibuk <mark>mengakar lebih dalam</mark>.&rdquo;",
+    q1_cite:"— Bab 3 · Tentang Membandingkan Diri",
+    q2:"&ldquo;Jeda bukan berarti berhenti. Tanah pun perlu dibiarkan kosong semusim, agar <mark>panen berikutnya</mark> tidak mengkhianati.&rdquo;",
+    q2_cite:"— Bab 7 · Tentang Mengambil Jeda",
+    q3:"&ldquo;Kita sering menyebutnya gagal. Padahal mungkin itu hanya cara hidup berkata: <mark>bukan lewat sini</mark>, coba jalan satunya.&rdquo;",
+    q3_cite:"— Bab 5 · Tentang Kegagalan",
+    s4_label:"04 — Di Balik Buku",
+    s4_h2:"Orang yang <em>menuliskannya</em>",
+    foto_ph:"tempat foto penulis<br>(ganti dengan foto asli)",
+    foto_ket:"— ditulis sambil ditemani kopi tubruk —",
+    bio_p1:"<b>Alwi Abdullah</b> adalah penulis dan pengamat keseharian yang percaya bahwa cerita-cerita kecil menyimpan pelajaran paling besar. Sebelum menulis buku ini, ia menghabiskan bertahun-tahun menuliskan catatan harian yang tidak pernah ia niatkan untuk dibaca siapa pun.",
+    bio_p2:"Ruang Tumbuh adalah buku pertamanya — ditulis selama dua tahun, sebagian besar di meja yang sama, pada jam-jam ketika rumah sudah sepi. Ia menulis bukan karena merasa sudah selesai bertumbuh, melainkan justru karena sedang berada di tengah-tengahnya.",
+    fakta_2:"✍️ Menulis sejak 2018", fakta_3:"📖 Buku pertama", fakta_4:"☕ Tim kopi tubruk",
+    s5_label:"05 — Lembar Data",
+    s5_h2:"Detail buku, ala kartu <em>katalog perpustakaan</em>",
+    cat_kiri:"KARTU KATALOG <b>№ 001</b>", cat_kanan:"RAK: PENGEMBANGAN DIRI",
+    rk_judul:"Judul", rv_judul:"Ruang Tumbuh — Catatan tentang Bertumbuh Pelan di Dunia yang Terburu-buru",
+    rk_penulis:"Penulis", rk_penerbit:"Penerbit",
+    rk_tahun:"Tahun terbit", rv_tahun:"2026 (cetakan pertama)",
+    rk_tebal:"Tebal", rv_tebal:"248 halaman",
+    rk_bahasa:"Bahasa", rv_bahasa:"Indonesia",
+    rk_kategori:"Kategori", rv_kategori:"Esai / Pengembangan Diri / Refleksi",
+    rk_format:"Format", rv_format:'Cetak &amp; e-book <em style="color:var(--ink-soft)">(sekadar informasi, bukan ajakan membeli)</em>',
+    cap:"telah<br>diterbitkan",
+    s6_label:"06 — Daftar Isi",
+    s6_h2:"Dua belas bab, dibaca <em>pelan-pelan</em> saja",
+    bab1_h:"Berangkat dari Gelisah", bab1_p:"Mengapa kita selalu merasa tertinggal, dan dari mana perasaan itu datang.",
+    bab2_h:"Ritme yang Dipinjam", bab2_p:"Tentang hidup dengan kecepatan orang lain — dan cara mengembalikannya.",
+    bab3_h:"Pohon Tidak Saling Iri", bab3_p:"Membandingkan diri, media sosial, dan akar yang tidak terlihat.",
+    bab4_h:"Bukan Lewat Sini", bab4_p:"Membaca ulang kegagalan sebagai petunjuk arah, bukan titik akhir.",
+    bab5_h:"Tanah yang Diistirahatkan", bab5_p:"Seni mengambil jeda tanpa rasa bersalah di budaya yang memuja sibuk.",
+    bab6_h:"Surat untuk yang Sedang Tumbuh", bab6_p:"Bab penutup — ditulis untuk dibaca ulang setiap kali merasa tertinggal.",
+    hal1:"hlm. 1", hal2:"hlm. 21", hal3:"hlm. 43", hal4:"hlm. 87", hal5:"hlm. 131", hal6:"hlm. 233",
+    s6_note:"…dan enam bab lainnya yang sengaja tidak dibocorkan di sini. 🌿",
+    s7_label:"07 — Untuk Siapa",
+    s7_h2:"Jujur saja: buku ini tidak untuk <em>semua orang</em>",
+    ya_h3:"🌿 Buku ini untukmu, jika…",
+    ya_1:"Kamu sering merasa tertinggal dari teman-teman seusiamu",
+    ya_2:"Kamu lelah dengan konten motivasi yang serba berteriak",
+    ya_3:"Kamu suka bacaan reflektif yang bisa dicicil per bab",
+    ya_4:"Kamu sedang di fase transisi — lulus, pindah, memulai ulang",
+    ya_5:"Kamu ingin menulis ulang ceritamu sendiri, pelan-pelan",
+    no_h3:"🍂 Mungkin bukan untukmu, jika…",
+    no_1:'Kamu mencari langkah praktis "sukses dalam 30 hari"',
+    no_2:"Kamu butuh data, riset, dan grafik di tiap argumen",
+    no_3:"Kamu kurang menikmati gaya tulisan personal seperti surat",
+    no_4:"Kamu ingin jawaban tegas, bukan pertanyaan untuk direnungkan",
+    s7_note:"&ldquo;Dan kalau ternyata bukan untukmu — tidak apa-apa. Buku, seperti manusia, punya jodohnya masing-masing.&rdquo;",
+    f_terima:"Terima kasih sudah mampir dan <em>berkenalan</em> dengan buku ini.",
+    f_jelajah:"Jelajahi",
+    f_l1:"Tentang buku", f_l2:"Cuplikan", f_l3:"Tentang penulis", f_l4:"Daftar isi",
+    f_sapa:"Sapa Penulis",
+    f_note:"Halaman ini hanya memperkenalkan buku — tidak menjual apa pun. ✺"
+  },
+
+  /* ---------------- ENGLISH ---------------- */
+  en: {
+    _title: "Ruang Tumbuh — A Book by Alwi Abdullah",
+    _desc: "An introduction page for the book 'Ruang Tumbuh' — notes on growing slowly in a world that's always in a hurry. Not a sales page, just the story of a book.",
+    _marquee: ["a book about growing", "not a sales page", "just the story of a book", "take it slow"],
+    _prev: "Previous quote", _next: "Next quote",
+    nav_tentang:"About", nav_isi:"Inside", nav_kutipan:"Quotes", nav_penulis:"Author", nav_detail:"Details", nav_daftar:"Contents",
+    kicker:'<span class="dot"></span> Just published &middot; 2026',
+    h1:`You don't have to<br>grow <em>in a hurry</em> —<br>you just have to <span class="coretan">grow.${SVG_CORETAN}</span>`,
+    hero_sub:"<b>Ruang Tumbuh</b> (“Room to Grow”) is a collection of notes on being human in a world that keeps asking us to move faster. This page wasn't made to sell anything — only to tell the story of a book.",
+    chip_small:"Written by",
+    btn1:"Meet the book ↓", btn2:"Read an excerpt",
+    stiker:"out now · out now · out now · out now ·",
+    sampul_atas:"Notes from an inner journey",
+    gulir:"scroll",
+    s1_label:"01 — About the Book",
+    s1_h2:"What is this book really trying to <em>tell us</em>?",
+    s1_p1:"We live in an age that measures everything by speed: careers that must take off before thirty, achievements that must be visible, and lives that must always be “making progress”. <b>Ruang Tumbuh</b> was born from a simple unease — what if we were allowed to grow at our own rhythm?",
+    s1_p2:"Through twelve chapters written like letters to an old friend, this book invites readers to revisit the meaning of process: failures that turn out to be fertile, pauses that turn out to nurture growth, and self-comparison that turns out to only steal our joy.",
+    s1_p3:"This is not a motivational book that shouts. It's more like a friend sitting beside you in the late afternoon — never lecturing, never promising instant change, simply keeping you company and occasionally asking the right question.",
+    tema_h3:"Themes explored",
+    tema_1:"Making peace with your own rhythm in a culture obsessed with speed",
+    tema_2:"Failure as fertilizer, not a verdict",
+    tema_3:"The art of pausing without guilt",
+    tema_4:"Building meaning, not just achievements",
+    tema_5:"Relationships that grow you vs. relationships that drain you",
+    s2_label:"02 — Inside the Book",
+    s2_h2:"What you'll find between <em>its pages</em>",
+    k1_h:"12 reflective essays", k1_p:"Each chapter is short and self-contained — perfect for reading one chapter a night before bed.",
+    k2_h:"Space for you to write", k2_p:"At the end of every chapter there's a blank page with one prompt question, waiting to be filled with your own story.",
+    k3_h:"True stories", k3_p:"Story fragments from ordinary people — a coffee seller, an underpaid teacher, a wanderer — each growing in their own way.",
+    k4_h:"A self-reflection map", k4_p:"A simple framework to map which phase you're in right now — no scores, no judgment.",
+    k5_h:"Hand-drawn illustrations", k5_p:"Every chapter opens with a hand-drawn botanical sketch — because growth is never perfectly straight.",
+    k6_h:"A quiet closing chapter", k6_p:"A letter from the author to the reader — written to be reread every time you feel left behind.",
+    s3_label:"03 — Excerpts",
+    s3_h2:"A few lines from inside the book",
+    q1:"&ldquo;A tree is never jealous of another tree that bears fruit first. It is simply busy <mark>rooting deeper</mark>.&rdquo;",
+    q1_cite:"— Chapter 3 · On Comparing Yourself",
+    q2:"&ldquo;A pause doesn't mean stopping. Even soil is left fallow for a season, so the <mark>next harvest</mark> won't disappoint.&rdquo;",
+    q2_cite:"— Chapter 7 · On Taking Pauses",
+    q3:"&ldquo;We often call it failure. Perhaps it's just life's way of saying: <mark>not this way</mark> — try the other road.&rdquo;",
+    q3_cite:"— Chapter 5 · On Failure",
+    s4_label:"04 — Behind the Book",
+    s4_h2:"The person who <em>wrote it</em>",
+    foto_ph:"author photo goes here<br>(replace with a real photo)",
+    foto_ket:"— written in the company of strong black coffee —",
+    bio_p1:"<b>Alwi Abdullah</b> is a writer and observer of everyday life who believes that small stories hold the biggest lessons. Before writing this book, he spent years keeping a journal he never intended for anyone to read.",
+    bio_p2:"Ruang Tumbuh is his first book — written over two years, mostly at the same desk, in the hours after the house had gone quiet. He wrote it not because he had finished growing, but precisely because he was right in the middle of it.",
+    fakta_2:"✍️ Writing since 2018", fakta_3:"📖 First book", fakta_4:"☕ Team strong coffee",
+    s5_label:"05 — Data Sheet",
+    s5_h2:"Book details, in the style of a <em>library catalog card</em>",
+    cat_kiri:"CATALOG CARD <b>№ 001</b>", cat_kanan:"SHELF: PERSONAL GROWTH",
+    rk_judul:"Title", rv_judul:"Ruang Tumbuh — Notes on Growing Slowly in a World That's Always in a Hurry",
+    rk_penulis:"Author", rk_penerbit:"Publisher",
+    rk_tahun:"Published", rv_tahun:"2026 (first printing)",
+    rk_tebal:"Length", rv_tebal:"248 pages",
+    rk_bahasa:"Language", rv_bahasa:"Indonesian",
+    rk_kategori:"Category", rv_kategori:"Essays / Personal Growth / Reflection",
+    rk_format:"Format", rv_format:'Print &amp; e-book <em style="color:var(--ink-soft)">(just information, not an invitation to buy)</em>',
+    cap:"officially<br>published",
+    s6_label:"06 — Table of Contents",
+    s6_h2:"Twelve chapters, best read <em>slowly</em>",
+    bab1_h:"Setting Out from Unease", bab1_p:"Why we always feel left behind, and where that feeling comes from.",
+    bab2_h:"A Borrowed Rhythm", bab2_p:"On living at other people's speed — and how to give it back.",
+    bab3_h:"Trees Aren't Jealous of Each Other", bab3_p:"Self-comparison, social media, and the roots no one sees.",
+    bab4_h:"Not This Way", bab4_p:"Rereading failure as a signpost, not a dead end.",
+    bab5_h:"Land Left to Rest", bab5_p:"The art of pausing without guilt in a culture that worships busyness.",
+    bab6_h:"A Letter to Those Still Growing", bab6_p:"The closing chapter — written to be reread every time you feel left behind.",
+    hal1:"p. 1", hal2:"p. 21", hal3:"p. 43", hal4:"p. 87", hal5:"p. 131", hal6:"p. 233",
+    s6_note:"…and six more chapters deliberately left unspoiled here. 🌿",
+    s7_label:"07 — Who It's For",
+    s7_h2:"Honestly: this book isn't for <em>everyone</em>",
+    ya_h3:"🌿 This book is for you, if…",
+    ya_1:"You often feel left behind by friends your age",
+    ya_2:"You're tired of motivational content that keeps shouting at you",
+    ya_3:"You enjoy reflective reads you can savor one chapter at a time",
+    ya_4:"You're in a transition — graduating, moving, starting over",
+    ya_5:"You want to rewrite your own story, slowly",
+    no_h3:"🍂 Maybe not for you, if…",
+    no_1:'You\'re looking for practical steps to "success in 30 days"',
+    no_2:"You need data, research, and charts behind every argument",
+    no_3:"Personal, letter-like writing isn't really your thing",
+    no_4:"You want firm answers, not questions to sit with",
+    s7_note:"&ldquo;And if it turns out this book isn't for you — that's okay. Books, like people, each find their own match.&rdquo;",
+    f_terima:"Thank you for stopping by and <em>getting to know</em> this book.",
+    f_jelajah:"Explore",
+    f_l1:"About the book", f_l2:"Excerpts", f_l3:"About the author", f_l4:"Table of contents",
+    f_sapa:"Say Hello",
+    f_note:"This page only introduces a book — it sells nothing. ✺"
+  },
+
+  /* ---------------- NEDERLANDS ---------------- */
+  nl: {
+    _title: "Ruang Tumbuh — Een boek van Alwi Abdullah",
+    _desc: "Een kennismakingspagina voor het boek 'Ruang Tumbuh' — notities over langzaam groeien in een wereld die altijd haast heeft. Geen verkooppagina, alleen het verhaal van een boek.",
+    _marquee: ["een boek over groeien", "geen verkooppagina", "alleen het verhaal van een boek", "rustig aan"],
+    _prev: "Vorig citaat", _next: "Volgend citaat",
+    nav_tentang:"Over", nav_isi:"Inhoud", nav_kutipan:"Citaten", nav_penulis:"Auteur", nav_detail:"Details", nav_daftar:"Hoofdstukken",
+    kicker:'<span class="dot"></span> Net verschenen &middot; 2026',
+    h1:`Je hoeft niet<br><em>gehaast</em> te groeien —<br>als je maar <span class="coretan">groeit.${SVG_CORETAN}</span>`,
+    hero_sub:"<b>Ruang Tumbuh</b> (“Ruimte om te groeien”) is een verzameling notities over mens-zijn in een wereld die ons steeds sneller wil laten gaan. Deze pagina is niet gemaakt om iets te verkopen — alleen om het verhaal van een boek te vertellen.",
+    chip_small:"Geschreven door",
+    btn1:"Maak kennis met het boek ↓", btn2:"Lees een fragment",
+    stiker:"net uit · net uit · net uit · net uit ·",
+    sampul_atas:"Notities van een innerlijke reis",
+    gulir:"scroll",
+    s1_label:"01 — Over het boek",
+    s1_h2:"Wat probeert dit boek ons eigenlijk te <em>vertellen</em>?",
+    s1_p1:"We leven in een tijd die alles afmeet aan snelheid: carrières die vóór je dertigste moeten vliegen, prestaties die zichtbaar moeten zijn, en levens die altijd “vooruitgang” moeten boeken. <b>Ruang Tumbuh</b> is geboren uit een eenvoudige onrust — wat als we in ons eigen ritme mochten groeien?",
+    s1_p2:"In twaalf hoofdstukken, geschreven als brieven aan een oude vriend, nodigt dit boek de lezer uit om de betekenis van het proces opnieuw te bekijken: mislukkingen die vruchtbaar blijken, pauzes die je laten groeien, en jezelf vergelijken met anderen — wat alleen maar je geluk steelt.",
+    s1_p3:"Dit is geen motivatieboek dat schreeuwt. Het is eerder een vriend die 's middags naast je komt zitten — niet belerend, zonder beloftes van snelle verandering, gewoon gezelschap dat af en toe de juiste vraag stelt.",
+    tema_h3:"Thema's in dit boek",
+    tema_1:"Vrede sluiten met je eigen ritme in een cultuur die geobsedeerd is door snelheid",
+    tema_2:"Mislukking als mest, niet als vonnis",
+    tema_3:"De kunst van pauzeren zonder schuldgevoel",
+    tema_4:"Betekenis opbouwen, niet alleen prestaties",
+    tema_5:"Relaties die je laten groeien versus relaties die je uitputten",
+    s2_label:"02 — In het boek",
+    s2_h2:"Wat je vindt tussen <em>de pagina's</em>",
+    k1_h:"12 reflectieve essays", k1_p:"Elk hoofdstuk is kort en op zichzelf leesbaar — ideaal om er elke avond één te lezen voor het slapengaan.",
+    k2_h:"Schrijfruimte voor de lezer", k2_p:"Aan het eind van elk hoofdstuk staat een lege pagina met één startvraag, om in te vullen met jouw eigen verhaal.",
+    k3_h:"Echte verhalen", k3_p:"Verhaalfragmenten van gewone mensen — een koffieverkoper, een onderbetaalde leraar, een reiziger — die elk op hun eigen manier groeien.",
+    k4_h:"Een zelfreflectiekaart", k4_p:"Een eenvoudig kader om te zien in welke fase je nu zit — zonder scores, zonder oordeel.",
+    k5_h:"Handgetekende illustraties", k5_p:"Elk hoofdstuk opent met een handgetekende botanische schets — want groeien gaat nooit in een perfect rechte lijn.",
+    k6_h:"Een rustig slothoofdstuk", k6_p:"Een brief van de auteur aan de lezer — geschreven om te herlezen telkens als je je achtergebleven voelt.",
+    s3_label:"03 — Fragmenten",
+    s3_h2:"Een paar zinnen uit het boek",
+    q1:"&ldquo;Een boom is nooit jaloers op een andere boom die eerder vrucht draagt. Hij is gewoon druk bezig <mark>dieper te wortelen</mark>.&rdquo;",
+    q1_cite:"— Hoofdstuk 3 · Over jezelf vergelijken",
+    q2:"&ldquo;Een pauze betekent niet stoppen. Zelfs grond laat men een seizoen braak liggen, zodat de <mark>volgende oogst</mark> niet teleurstelt.&rdquo;",
+    q2_cite:"— Hoofdstuk 7 · Over pauzes nemen",
+    q3:"&ldquo;We noemen het vaak mislukken. Misschien is het gewoon het leven dat zegt: <mark>niet langs hier</mark> — probeer de andere weg.&rdquo;",
+    q3_cite:"— Hoofdstuk 5 · Over mislukken",
+    s4_label:"04 — Achter het boek",
+    s4_h2:"De persoon die het <em>schreef</em>",
+    foto_ph:"hier komt de auteursfoto<br>(vervang door een echte foto)",
+    foto_ket:"— geschreven met sterke zwarte koffie erbij —",
+    bio_p1:"<b>Alwi Abdullah</b> is een schrijver en waarnemer van het dagelijks leven, die gelooft dat kleine verhalen de grootste lessen bevatten. Voordat hij dit boek schreef, hield hij jarenlang een dagboek bij dat nooit bedoeld was om door iemand gelezen te worden.",
+    bio_p2:"Ruang Tumbuh is zijn eerste boek — twee jaar lang geschreven, grotendeels aan hetzelfde bureau, in de uren waarin het huis al stil was. Hij schreef het niet omdat hij klaar was met groeien, maar juist omdat hij er middenin zat.",
+    fakta_2:"✍️ Schrijft sinds 2018", fakta_3:"📖 Debuut", fakta_4:"☕ Team sterke koffie",
+    s5_label:"05 — Gegevensblad",
+    s5_h2:"Boekgegevens, in de stijl van een <em>bibliotheekkaart</em>",
+    cat_kiri:"CATALOGUSKAART <b>№ 001</b>", cat_kanan:"PLANK: PERSOONLIJKE GROEI",
+    rk_judul:"Titel", rv_judul:"Ruang Tumbuh — Notities over langzaam groeien in een wereld die altijd haast heeft",
+    rk_penulis:"Auteur", rk_penerbit:"Uitgever",
+    rk_tahun:"Verschenen", rv_tahun:"2026 (eerste druk)",
+    rk_tebal:"Omvang", rv_tebal:"248 pagina's",
+    rk_bahasa:"Taal", rv_bahasa:"Indonesisch",
+    rk_kategori:"Categorie", rv_kategori:"Essays / Persoonlijke groei / Reflectie",
+    rk_format:"Formaat", rv_format:'Gedrukt &amp; e-book <em style="color:var(--ink-soft)">(louter ter informatie, geen koopuitnodiging)</em>',
+    cap:"officieel<br>verschenen",
+    s6_label:"06 — Inhoudsopgave",
+    s6_h2:"Twaalf hoofdstukken, het best <em>langzaam</em> gelezen",
+    bab1_h:"Vertrekken vanuit onrust", bab1_p:"Waarom we ons altijd achtergebleven voelen, en waar dat gevoel vandaan komt.",
+    bab2_h:"Een geleend ritme", bab2_p:"Over leven op andermans tempo — en hoe je het teruggeeft.",
+    bab3_h:"Bomen zijn niet jaloers op elkaar", bab3_p:"Jezelf vergelijken, sociale media en de wortels die niemand ziet.",
+    bab4_h:"Niet langs hier", bab4_p:"Mislukking herlezen als wegwijzer, niet als eindpunt.",
+    bab5_h:"Grond die rust krijgt", bab5_p:"De kunst van pauzeren zonder schuldgevoel in een cultuur die druk-zijn aanbidt.",
+    bab6_h:"Een brief aan wie nog groeit", bab6_p:"Het slothoofdstuk — geschreven om te herlezen telkens als je je achtergebleven voelt.",
+    hal1:"blz. 1", hal2:"blz. 21", hal3:"blz. 43", hal4:"blz. 87", hal5:"blz. 131", hal6:"blz. 233",
+    s6_note:"…en zes andere hoofdstukken die we hier bewust niet verklappen. 🌿",
+    s7_label:"07 — Voor wie",
+    s7_h2:"Eerlijk gezegd: dit boek is niet voor <em>iedereen</em>",
+    ya_h3:"🌿 Dit boek is voor jou, als…",
+    ya_1:"Je je vaak achtergebleven voelt bij leeftijdsgenoten",
+    ya_2:"Je moe bent van motivatiecontent die constant schreeuwt",
+    ya_3:"Je houdt van reflectieve boeken die je hoofdstuk per hoofdstuk kunt lezen",
+    ya_4:"Je in een overgangsfase zit — afstuderen, verhuizen, opnieuw beginnen",
+    ya_5:"Je je eigen verhaal wilt herschrijven, rustig aan",
+    no_h3:"🍂 Misschien niet voor jou, als…",
+    no_1:'Je op zoek bent naar een stappenplan voor "succes in 30 dagen"',
+    no_2:"Je bij elk argument data, onderzoek en grafieken nodig hebt",
+    no_3:"Een persoonlijke, briefachtige schrijfstijl niets voor jou is",
+    no_4:"Je stellige antwoorden wilt, geen vragen om over na te denken",
+    s7_note:"&ldquo;En als dit boek toch niets voor jou blijkt — dat is oké. Boeken vinden, net als mensen, ieder hun eigen match.&rdquo;",
+    f_terima:"Bedankt voor je bezoek en de <em>kennismaking</em> met dit boek.",
+    f_jelajah:"Ontdek",
+    f_l1:"Over het boek", f_l2:"Fragmenten", f_l3:"Over de auteur", f_l4:"Inhoudsopgave",
+    f_sapa:"Zeg hallo",
+    f_note:"Deze pagina stelt alleen een boek voor — er wordt niets verkocht. ✺"
+  }
+};
+
+/* ============ terapkan bahasa ============ */
+const tombolBahasa = [...document.querySelectorAll('.lang button')];
+
+function setLang(lang){
+  const t = I18N[lang] || I18N.id;
+
+  /* semua elemen bertanda data-i18n */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.dataset.i18n];
+    if (v != null) el.innerHTML = v;
+  });
+
+  /* marquee dibangun ulang (teks + ikon selang-seling, lalu digandakan) */
+  const jalur = document.getElementById('jalurMarquee');
+  const ikon = ['✺','✦'];
+  const satuPutaran = t._marquee.map((teks,i) => `<span>${teks} <i>${ikon[i%2]}</i></span>`).join('');
+  jalur.innerHTML = satuPutaran + satuPutaran;
+
+  /* metadata & aksesibilitas */
+  document.documentElement.lang = lang;
+  document.title = t._title;
+  document.querySelector('meta[name="description"]').setAttribute('content', t._desc);
+  document.getElementById('kutipPrev').setAttribute('aria-label', t._prev);
+  document.getElementById('kutipNext').setAttribute('aria-label', t._next);
+
+  /* tandai tombol aktif & simpan pilihan */
+  tombolBahasa.forEach(b => b.classList.toggle('aktif', b.dataset.lang === lang));
+  try{ localStorage.setItem('bahasa', lang); }catch(e){}
+}
+
+tombolBahasa.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+let bahasaAwal = 'id';
+try{ bahasaAwal = localStorage.getItem('bahasa') || 'id'; }catch(e){}
+setLang(bahasaAwal);
+
 /* ============ animasi muncul saat scroll ============ */
 const pengamat = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('tampil'); pengamat.unobserve(e.target); } });
@@ -1117,10 +1459,6 @@ function tampilkanKutip(i){
 document.getElementById('kutipPrev').onclick = () => tampilkanKutip(idxKutip - 1);
 document.getElementById('kutipNext').onclick = () => tampilkanKutip(idxKutip + 1);
 setInterval(() => tampilkanKutip(idxKutip + 1), 8000); /* ganti otomatis tiap 8 detik */
-
-/* ============ duplikasi marquee agar mulus ============ */
-const jalur = document.getElementById('jalurMarquee');
-jalur.innerHTML += jalur.innerHTML;
 
 /* ============ tandai link nav yang aktif ============ */
 const navLinks = [...document.querySelectorAll('nav .links a')];

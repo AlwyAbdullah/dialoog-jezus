@@ -501,9 +501,64 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
   overflow-y:auto; flex:1;
   overscroll-behavior:contain;
 }
+#lezer .lees-layout{
+  width:min(1120px, 94vw); margin-inline:auto;
+  display:grid; grid-template-columns:minmax(0, 760px) 250px;
+  gap:clamp(28px, 4vw, 64px);
+  justify-content:center;
+  align-items:start;
+}
 #lezer article{
-  width:min(760px, 92vw); margin-inline:auto;
+  width:100%; max-width:760px; margin-inline:auto; min-width:0;
   padding:50px 0 40px;
+}
+
+/* ---- sidebar daftar isi di kanan tampilan baca ---- */
+.zijbalk{
+  position:sticky; top:0;
+  max-height:100%;
+  overflow:auto;
+  padding:54px 4px 40px 0;
+  overscroll-behavior:contain;
+}
+.zij-titel{
+  font-family:var(--mono); font-size:.74rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--terracotta);
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:14px;
+}
+.zij-titel::after{ content:""; height:1px; flex:1; background:var(--terracotta); opacity:.5; }
+.zij-item{
+  display:flex; gap:10px; align-items:baseline;
+  width:100%; text-align:left;
+  background:none; border:none; cursor:pointer;
+  font-family:var(--sans); font-size:.82rem; line-height:1.45;
+  color:var(--ink-soft);
+  padding:7px 10px; border-radius:10px;
+  border-left:2px solid transparent;
+  transition:.2s;
+}
+.zij-item:hover{ background:var(--cream); color:var(--ink); }
+.zij-item i{
+  font-style:italic; font-family:var(--serif); font-weight:700;
+  font-size:.78rem; color:var(--ink-soft);
+  min-width:20px; flex-shrink:0;
+}
+.zij-item.aktif{
+  background:var(--cream);
+  border-left-color:var(--terracotta);
+  color:var(--ink); font-weight:700;
+  border-radius:0 10px 10px 0;
+}
+.zij-item.aktif i{ color:var(--terracotta); }
+.zij-sep{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--forest);
+  padding:14px 10px 5px;
+}
+@media (max-width:1080px){
+  #lezer .lees-layout{ grid-template-columns:1fr; }
+  .zijbalk{ display:none; }
 }
 #lezer .hfd-label{
   font-family:var(--mono); font-size:.78rem; letter-spacing:.22em;
@@ -1053,6 +1108,7 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
     <div id="lezerVoortgang"></div>
   </div>
   <div class="blad" id="lezerBlad">
+    <div class="lees-layout">
     <article>
       <div class="hfd-label" id="lezerNr"></div>
       <h2 id="lezerTitel"></h2>
@@ -1068,6 +1124,11 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
       </div>
       <p class="bron-noot" data-i18n="lezer_noot">Teks asli terjemahan Belanda (1998) — ejaan dipertahankan apa adanya.</p>
     </article>
+    <aside class="zijbalk" aria-label="Inhoudsopgave">
+      <div class="zij-titel" data-i18n="zij_titel">Daftar Isi</div>
+      <nav id="zijLijst"></nav>
+    </aside>
+    </div>
   </div>
 </div>
 
@@ -1137,7 +1198,8 @@ const I18N = {
     f_sapa:"Kontak",
     f_note:"Halaman ini hanya menyajikan buku untuk dibaca — tidak menjual apa pun. ✺",
     lezer_terug:"← Daftar Isi",
-    lezer_noot:"Teks asli terjemahan Belanda (1998) — ejaan dipertahankan apa adanya."
+    lezer_noot:"Teks asli terjemahan Belanda (1998) — ejaan dipertahankan apa adanya.",
+    zij_titel:"Daftar Isi"
   },
 
   /* ---------------- ENGLISH ---------------- */
@@ -1197,7 +1259,8 @@ const I18N = {
     f_sapa:"Contact",
     f_note:"This page only presents a book to read — it sells nothing. ✺",
     lezer_terug:"← Contents",
-    lezer_noot:"Original Dutch translation text (1998) — spelling preserved as in the book."
+    lezer_noot:"Original Dutch translation text (1998) — spelling preserved as in the book.",
+    zij_titel:"Contents"
   },
 
   /* ---------------- NEDERLANDS ---------------- */
@@ -1257,7 +1320,8 @@ const I18N = {
     f_sapa:"Contact",
     f_note:"Deze pagina presenteert alleen een boek om te lezen — er wordt niets verkocht. ✺",
     lezer_terug:"← Inhoud",
-    lezer_noot:"Originele vertaaltekst (1998) — spelling behouden zoals in het boek."
+    lezer_noot:"Originele vertaaltekst (1998) — spelling behouden zoals in het boek.",
+    zij_titel:"Inhoud"
   }
 };
 
@@ -1316,6 +1380,21 @@ function buildTOC(){
   list.innerHTML = htmlOut;
   list.querySelectorAll('button.bab').forEach(b =>
     b.addEventListener('click', () => openLezer(+b.dataset.idx)));
+  buildZijbalk();
+}
+
+/* sidebar daftar isi di dalam tampilan baca */
+function buildZijbalk(){
+  const t = I18N[bahasa];
+  const el = document.getElementById('zijLijst');
+  let htmlOut = `<div class="zij-sep">${t._voorwerk}</div>`;
+  BOEK.forEach((h, i) => {
+    if (i === VOORWERK_N) htmlOut += `<div class="zij-sep">${t._dialoogdeel}</div>`;
+    htmlOut += `<button class="zij-item${i === hoofdstukIdx ? ' aktif' : ''}" data-idx="${i}"><i>${h.nr}</i><span>${h.titel}</span></button>`;
+  });
+  el.innerHTML = htmlOut;
+  el.querySelectorAll('.zij-item').forEach(b =>
+    b.addEventListener('click', () => openLezer(+b.dataset.idx)));
 }
 
 /* ============ TAMPILAN BACA ============ */
@@ -1341,6 +1420,12 @@ function vulLezer(i){
   next.disabled = i === BOEK.length-1;
   document.getElementById('lezerVorige2').disabled = i === 0;
   document.getElementById('lezerVolgende2').disabled = i === BOEK.length-1;
+
+  /* tandai bab aktif di sidebar & jaga tetap terlihat */
+  document.querySelectorAll('#zijLijst .zij-item').forEach(b =>
+    b.classList.toggle('aktif', +b.dataset.idx === i));
+  const akt = document.querySelector('#zijLijst .zij-item.aktif');
+  if (akt) akt.scrollIntoView({ block:'nearest' });
 }
 
 function openLezer(i, gantiHash = true){

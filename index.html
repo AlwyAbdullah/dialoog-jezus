@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- ============ GANTI DI SINI : judul tab & deskripsi SEO ============ -->
-<title>Ruang Tumbuh — Sebuah Buku oleh Alwi Abdullah</title>
-<meta name="description" content="Halaman pengenalan buku 'Ruang Tumbuh' — catatan tentang bertumbuh pelan di dunia yang terburu-buru. Bukan halaman jualan, hanya cerita tentang sebuah buku.">
-<!-- =================================================================== -->
+<title>Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary</title>
+<meta name="description" content="Teks lengkap buku 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' karya K.H. Bahaudin Mudhary — dialog sembilan malam di Sumenep, 1970. Baca gratis, bab demi bab.">
+<meta property="og:title" content="Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary">
+<meta property="og:image" content="book_front_cover.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,9 +14,10 @@
 
 <style>
 /* ===================================================================
-   RUANG TUMBUH — halaman pengenalan buku
+   DIALOOG OVER DE GODDELIJKHEID VAN JEZUS — halaman baca buku
    Gaya: editorial-vintage, kertas hangat, kartu katalog perpustakaan
-   Multi-bahasa: ID / EN / NL (lihat kamus I18N di bagian <script>)
+   Struktur: daftar isi → klik bab → tampilan baca teks lengkap
+   Multi-bahasa UI: ID / EN / NL (teks buku dalam bahasa Belanda)
    =================================================================== */
 
 :root{
@@ -130,7 +131,7 @@ nav .links a:hover, nav .links a.aktif{ background:var(--ink); color:var(--cream
 }
 
 /* ============ HERO ============ */
-header{
+header#atas{
   min-height:100svh;
   display:grid; align-items:center;
   position:relative;
@@ -143,7 +144,7 @@ header{
 }
 
 /* garis-garis halus seperti kertas tulis di latar hero */
-header::before{
+header#atas::before{
   content:"";
   position:absolute; inset:0;
   background-image:repeating-linear-gradient(transparent 0 38px, rgba(37,33,26,.045) 38px 39px);
@@ -175,8 +176,8 @@ header::before{
 
 h1{
   font-family:var(--serif);
-  font-size:clamp(2.9rem, 7.2vw, 5.6rem);
-  line-height:1.02;
+  font-size:clamp(2.7rem, 6.6vw, 5.1rem);
+  line-height:1.04;
   font-weight:600;
   letter-spacing:-.02em;
 }
@@ -203,6 +204,7 @@ h1 em{
   color:var(--ink-soft);
   max-width:54ch;
 }
+.hero-sub b{ color:var(--ink); }
 
 .penulis-chip{
   margin-top:32px;
@@ -226,13 +228,14 @@ h1 em{
   text-decoration:none; font-weight:700; font-size:.92rem;
   padding:14px 28px; border-radius:999px;
   transition:.25s;
+  border:none; cursor:pointer; font-family:var(--sans);
 }
 .tbl.isi{ background:var(--ink); color:var(--cream); box-shadow:4px 4px 0 var(--terracotta); }
 .tbl.isi:hover{ translate:2px 2px; box-shadow:1px 1px 0 var(--terracotta); }
-.tbl.garis{ border:1.5px solid var(--ink); }
+.tbl.garis{ border:1.5px solid var(--ink); background:none; }
 .tbl.garis:hover{ background:var(--ink); color:var(--cream); }
 
-/* ---- buku 3D ---- */
+/* ---- buku 3D dengan sampul asli ---- */
 .panggung{
   perspective:1400px;
   display:grid; place-items:center;
@@ -241,8 +244,8 @@ h1 em{
 }
 .buku{
   position:relative;
-  width:min(310px, 64vw);
-  aspect-ratio:0.68;
+  width:min(300px, 62vw);
+  aspect-ratio:0.7;
   transform-style:preserve-3d;
   transform:rotateY(-24deg) rotateX(4deg);
   transition:transform .5s cubic-bezier(.2,.7,.3,1);
@@ -254,23 +257,24 @@ h1 em{
 }
 .buku .muka{
   position:absolute; inset:0;
-  border-radius:6px 14px 14px 6px;
-  background:linear-gradient(150deg, var(--forest) 0%, var(--forest-deep) 70%);
+  border-radius:5px 12px 12px 5px;
+  overflow:hidden;
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.08),
     25px 35px 70px -20px rgba(37,33,26,.55);
-  padding:9% 9% 8%;
-  display:flex; flex-direction:column;
-  color:var(--paper);
-  overflow:hidden;
+  background:#10245c;
+}
+.buku .muka img{
+  width:100%; height:100%; object-fit:cover;
 }
 .buku .muka::after{ /* kilau halus di sampul */
   content:""; position:absolute; inset:0;
-  background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.10) 45%, transparent 60%);
+  background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.12) 45%, transparent 60%);
+  pointer-events:none;
 }
 .buku .punggung{
   position:absolute; top:0; bottom:0; left:0; width:42px;
-  background:linear-gradient(var(--forest-deep), #18332B);
+  background:linear-gradient(#1b3a8a, #0d1d4d);
   transform:rotateY(-90deg) translateX(-21px);
   transform-origin:left;
   border-radius:4px 0 0 4px;
@@ -282,21 +286,8 @@ h1 em{
   transform-origin:left;
   border-radius:0 3px 3px 0;
 }
-.sampul-atas{ font-family:var(--mono); font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; opacity:.75; border-bottom:1px solid rgba(246,240,227,.3); padding-bottom:10px; }
-.sampul-judul{
-  font-family:var(--serif); font-weight:600;
-  font-size:clamp(1.7rem, 3.4vw, 2.3rem);
-  line-height:1.05; margin-top:auto;
-}
-.sampul-judul em{ font-style:italic; color:var(--gold); font-variation-settings:"SOFT" 100; }
-.sampul-bawah{ margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end; font-size:.7rem; }
-.sampul-bawah .garis-emas{ width:34px; height:3px; background:var(--gold); margin-bottom:8px; }
-.sampul-bunga{
-  position:absolute; right:-14%; top:18%;
-  width:60%; opacity:.14;
-}
 
-/* stiker berputar "BARU TERBIT" */
+/* stiker berputar */
 .stiker{
   position:absolute; top:2%; right:4%;
   width:124px; height:124px;
@@ -363,7 +354,7 @@ h2{
   font-family:var(--serif); font-weight:600;
   font-size:clamp(2rem, 4.4vw, 3.3rem);
   line-height:1.08; letter-spacing:-.015em;
-  max-width:20ch;
+  max-width:22ch;
 }
 h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 100; }
 
@@ -406,53 +397,179 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
 }
 .kartu-tema li::before{ content:"✦"; color:var(--gold); flex-shrink:0; }
 
-/* ============ HIGHLIGHT / ISI ============ */
-#isi{ background:var(--paper-deep); }
-#isi::before, #isi::after{ /* sobekan kertas atas-bawah */
+/* ============ DAFTAR ISI (inti situs) ============ */
+#daftarisi{ background:var(--paper-deep); }
+#daftarisi::before, #daftarisi::after{ /* sobekan kertas atas-bawah */
   content:""; position:absolute; left:0; right:0; height:14px;
   background-image:radial-gradient(circle at 8px -4px, transparent 12px, var(--paper-deep) 13px);
   background-size:24px 14px;
 }
-#isi::before{ top:-13px; }
-#isi::after{ bottom:-13px; rotate:180deg; }
+#daftarisi::before{ top:-13px; }
+#daftarisi::after{ bottom:-13px; rotate:180deg; }
 
-.kartu-grid{
-  margin-top:56px;
-  display:grid; grid-template-columns:repeat(3, 1fr);
-  gap:22px;
+.toc-note{
+  margin-top:14px;
+  font-family:var(--mono); font-size:.84rem; color:var(--ink-soft);
+  display:flex; align-items:center; gap:10px;
 }
-@media (max-width:980px){ .kartu-grid{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:640px){ .kartu-grid{ grid-template-columns:1fr; } }
+.toc-note::before{ content:"☞"; color:var(--terracotta); font-size:1.1rem; }
 
-.kartu{
-  background:var(--cream);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:34px 30px 30px;
+.bab-list{ margin-top:42px; border-top:1px solid var(--line); }
+.bab{
+  display:grid;
+  grid-template-columns:90px 1fr auto;
+  gap:24px; align-items:center;
+  padding:24px 12px;
+  border-bottom:1px solid var(--line);
   position:relative;
-  transition:.35s cubic-bezier(.2,.7,.3,1);
+  transition:.3s;
+  cursor:pointer;
+  width:100%; text-align:left;
+  background:none; border-left:none; border-right:none; border-top:none;
+  font-family:var(--sans);
 }
-.kartu:nth-child(odd){ rotate:-.7deg; }
-.kartu:nth-child(even){ rotate:.8deg; }
-.kartu:hover{ rotate:0deg; translate:0 -8px; box-shadow:0 24px 44px -18px rgba(37,33,26,.3); }
-.kartu .nomor{
-  position:absolute; top:18px; right:24px;
+.bab:hover{ background:var(--cream); padding-left:26px; }
+.bab .no{
   font-family:var(--serif); font-style:italic;
-  font-size:3rem; color:var(--paper-deep);
-  -webkit-text-stroke:1px var(--line);
-  line-height:1;
+  font-size:2rem; color:transparent;
+  -webkit-text-stroke:1.2px var(--ink-soft);
+  transition:.3s;
 }
-.kartu .ikon{
-  width:54px; height:54px; border-radius:16px;
-  display:grid; place-items:center; font-size:1.5rem;
-  margin-bottom:20px;
-  rotate:-4deg;
+.bab:hover .no{ color:var(--terracotta); -webkit-text-stroke:0px; }
+.bab h3{ font-family:var(--serif); font-weight:600; font-size:clamp(1.05rem, 2vw, 1.4rem); color:var(--ink); }
+.bab p{ font-size:.86rem; color:var(--ink-soft); margin-top:4px; }
+.bab .kanan{ text-align:right; }
+.bab .hal{ font-family:var(--mono); font-size:.78rem; color:var(--ink-soft); white-space:nowrap; display:block; }
+.bab .lees{
+  display:inline-block; margin-top:6px;
+  font-size:.82rem; font-weight:700; color:var(--terracotta);
+  opacity:0; translate:-6px 0; transition:.3s;
+  white-space:nowrap;
 }
-.kartu:nth-child(3n+1) .ikon{ background:#F5DDD3; }
-.kartu:nth-child(3n+2) .ikon{ background:#D9E5DC; }
-.kartu:nth-child(3n)   .ikon{ background:#F0E4BC; }
-.kartu h3{ font-family:var(--serif); font-size:1.2rem; margin-bottom:10px; }
-.kartu p{ font-size:.92rem; color:var(--ink-soft); }
+.bab:hover .lees{ opacity:1; translate:0 0; }
+.bab.tussen{ /* pemisah kelompok (voorwerk / dialog) */
+  cursor:default; background:none!important;
+  padding:34px 12px 12px; border-bottom:none;
+  display:block;
+}
+.bab.tussen span{
+  font-family:var(--mono); font-size:.74rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--forest);
+}
+@media (max-width:640px){
+  .bab{ grid-template-columns:52px 1fr; }
+  .bab .no{ font-size:1.4rem; }
+  .bab .kanan{ display:none; }
+}
+
+/* ============ TAMPILAN BACA (lezer) ============ */
+#lezer{
+  position:fixed; inset:0; z-index:10001;
+  background:var(--paper);
+  display:none;
+  flex-direction:column;
+}
+#lezer.open{ display:flex; }
+#lezer .balk{
+  position:sticky; top:0; z-index:5;
+  background:rgba(246,240,227,.94);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+#lezer .balk .balk-in{
+  width:min(900px, 94vw); margin-inline:auto;
+  display:flex; align-items:center; gap:14px;
+  padding:14px 0;
+}
+#lezer .balk button{
+  border:1.5px solid var(--ink); background:none; cursor:pointer;
+  font-family:var(--sans); font-weight:700; font-size:.8rem;
+  padding:8px 16px; border-radius:999px;
+  transition:.25s; white-space:nowrap; color:var(--ink);
+}
+#lezer .balk button:hover{ background:var(--ink); color:var(--cream); }
+#lezer .balk .titel-klein{
+  font-family:var(--serif); font-weight:600; font-size:.95rem;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  flex:1; text-align:center;
+}
+#lezerVoortgang{
+  height:3px; width:0%;
+  background:linear-gradient(90deg, var(--terracotta), var(--gold));
+}
+#lezer .blad{
+  overflow-y:auto; flex:1;
+  overscroll-behavior:contain;
+}
+#lezer article{
+  width:min(760px, 92vw); margin-inline:auto;
+  padding:50px 0 40px;
+}
+#lezer .hfd-label{
+  font-family:var(--mono); font-size:.78rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--terracotta);
+  display:flex; align-items:center; gap:14px;
+}
+#lezer .hfd-label::after{ content:""; height:1px; width:56px; background:var(--terracotta); }
+#lezer h2{ margin-top:14px; max-width:none; }
+#lezer .hfd-sub{
+  margin-top:10px; font-family:var(--serif); font-style:italic;
+  color:var(--ink-soft); font-size:1.05rem;
+}
+#lezer .legenda{
+  margin-top:26px;
+  background:var(--cream); border:1px dashed var(--ink-soft);
+  border-radius:14px; padding:14px 20px;
+  font-size:.85rem; color:var(--ink-soft);
+  display:flex; flex-wrap:wrap; gap:8px 22px;
+}
+.legenda .wie{ display:inline-flex; align-items:center; gap:9px; }
+.legenda .wie i{
+  font-style:italic; font-family:var(--serif); font-weight:700;
+  width:24px; height:24px; border-radius:50%;
+  display:inline-grid; place-items:center; font-size:.8rem;
+}
+.legenda .wie.a i{ background:var(--forest); color:var(--paper); }
+.legenda .wie.b i{ background:var(--terracotta); color:var(--cream); }
+
+#lezer .tekst{ margin-top:36px; font-size:1.02rem; }
+#lezer .tekst p{ margin-bottom:1.25em; color:var(--ink); }
+#lezer .tekst ul{ margin:0 0 1.25em 1.2em; }
+#lezer .tekst li{ margin-bottom:.45em; color:var(--ink); }
+
+.beurt{
+  display:flex; gap:16px;
+  padding:13px 0;
+}
+.beurt + .beurt{ border-top:1px dashed rgba(37,33,26,.1); }
+.beurt .spreker{
+  flex-shrink:0;
+  width:34px; height:34px; border-radius:50%;
+  display:grid; place-items:center;
+  font-family:var(--serif); font-style:italic; font-weight:700; font-size:.95rem;
+}
+.beurt.a .spreker{ background:var(--forest); color:var(--paper); }
+.beurt.b .spreker{ background:var(--terracotta); color:var(--cream); }
+.beurt > div:last-child{ padding-top:4px; }
+.beurt.b > div:last-child{ color:var(--ink-soft); }
+
+#lezer .voet-nav{
+  display:flex; justify-content:space-between; gap:14px;
+  margin-top:60px; padding-top:30px;
+  border-top:1px solid var(--line);
+}
+#lezer .voet-nav button{
+  border:1.5px solid var(--ink); background:var(--cream); cursor:pointer;
+  font-family:var(--sans); font-weight:700; font-size:.88rem;
+  padding:13px 24px; border-radius:999px; transition:.25s;
+  max-width:46%; text-align:center; color:var(--ink);
+}
+#lezer .voet-nav button:hover{ background:var(--ink); color:var(--cream); }
+#lezer .voet-nav button:disabled{ opacity:.3; pointer-events:none; }
+#lezer .bron-noot{
+  margin-top:34px; text-align:center;
+  font-family:var(--mono); font-size:.74rem; color:var(--ink-soft);
+}
 
 /* ============ KUTIPAN ============ */
 #kutipan{
@@ -460,7 +577,7 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
   color:var(--paper);
   overflow:hidden;
 }
-#kutipan::before{ /* tanda kutip raksasa */
+#kutipan::before{
   content:"\201C";
   position:absolute; top:-.12em; left:2%;
   font-family:var(--serif); font-size:28rem; line-height:1;
@@ -470,7 +587,7 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
 #kutipan .label-bab{ color:var(--gold); }
 #kutipan .label-bab::after{ background:var(--gold); }
 
-.kutipan-rel{ position:relative; margin-top:30px; min-height:300px; }
+.kutipan-rel{ position:relative; margin-top:30px; min-height:280px; }
 .kutip{
   position:absolute; inset:0;
   opacity:0; translate:0 24px;
@@ -480,9 +597,9 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
 .kutip.aktif{ opacity:1; translate:0 0; pointer-events:auto; position:relative; }
 .kutip blockquote{
   font-family:var(--serif); font-style:italic;
-  font-size:clamp(1.5rem, 3.4vw, 2.5rem);
+  font-size:clamp(1.5rem, 3.4vw, 2.4rem);
   line-height:1.35; font-weight:400;
-  max-width:26ch;
+  max-width:28ch;
   font-variation-settings:"SOFT" 80;
 }
 .kutip blockquote mark{
@@ -577,7 +694,7 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
   position:relative;
   overflow:hidden;
 }
-.katalog::before{ /* lubang kartu katalog */
+.katalog::before{
   content:""; position:absolute; bottom:14px; left:50%; translate:-50% 0;
   width:26px; height:26px; border-radius:50%;
   background:var(--paper-deep);
@@ -611,64 +728,6 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
   padding:8px 14px;
   rotate:-9deg; opacity:.75;
   text-transform:uppercase; text-align:center; line-height:1.5;
-}
-
-/* ============ DAFTAR ISI ============ */
-.bab-list{ margin-top:52px; border-top:1px solid var(--line); }
-.bab{
-  display:grid;
-  grid-template-columns:90px 1fr auto;
-  gap:24px; align-items:center;
-  padding:26px 10px;
-  border-bottom:1px solid var(--line);
-  position:relative;
-  transition:.3s;
-  cursor:default;
-}
-.bab:hover{ background:var(--cream); padding-left:24px; }
-.bab .no{
-  font-family:var(--serif); font-style:italic;
-  font-size:2.2rem; color:transparent;
-  -webkit-text-stroke:1.2px var(--ink-soft);
-  transition:.3s;
-}
-.bab:hover .no{ color:var(--terracotta); -webkit-text-stroke:0px; }
-.bab h3{ font-family:var(--serif); font-weight:600; font-size:clamp(1.1rem, 2vw, 1.45rem); }
-.bab p{ font-size:.88rem; color:var(--ink-soft); margin-top:4px; }
-.bab .hal{ font-family:var(--mono); font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
-@media (max-width:640px){
-  .bab{ grid-template-columns:56px 1fr; }
-  .bab .no{ font-size:1.6rem; }
-  .bab .hal{ display:none; }
-}
-
-/* ============ UNTUK SIAPA ============ */
-#pembaca .dua-kolom{
-  margin-top:52px;
-  display:grid; grid-template-columns:1fr 1fr; gap:26px;
-}
-@media (max-width:820px){ #pembaca .dua-kolom{ grid-template-columns:1fr; } }
-.kolom-cocok{
-  border-radius:22px; padding:38px 34px;
-  position:relative;
-}
-.kolom-cocok.ya{ background:var(--forest); color:var(--paper); rotate:-.6deg; }
-.kolom-cocok.tidak{ background:var(--cream); border:1.5px dashed var(--ink-soft); rotate:.6deg; }
-.kolom-cocok h3{
-  font-family:var(--serif); font-size:1.45rem; margin-bottom:24px;
-  display:flex; align-items:center; gap:12px;
-}
-.kolom-cocok ul{ list-style:none; display:grid; gap:16px; }
-.kolom-cocok li{ display:flex; gap:14px; font-size:.95rem; line-height:1.6; }
-.kolom-cocok.ya li{ color:rgba(246,240,227,.88); }
-.kolom-cocok.tidak li{ color:var(--ink-soft); }
-.kolom-cocok li::before{ flex-shrink:0; font-weight:700; }
-.kolom-cocok.ya li::before{ content:"✓"; color:var(--gold); }
-.kolom-cocok.tidak li::before{ content:"✕"; color:var(--terracotta); }
-.catatan-jujur{
-  margin-top:30px; text-align:center;
-  font-family:var(--serif); font-style:italic;
-  color:var(--ink-soft); font-size:1.05rem;
 }
 
 /* ============ FOOTER ============ */
@@ -724,16 +783,14 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 
 <!-- ================= NAVBAR ================= -->
 <nav>
-  <a class="brand" href="#atas">Ruang<span>Tumbuh.</span></a>
+  <a class="brand" href="#atas">De<span>Dialoog.</span></a>
   <div class="links">
     <a href="#tentang"   data-i18n="nav_tentang">Tentang</a>
-    <a href="#isi"       data-i18n="nav_isi">Isi Buku</a>
+    <a href="#daftarisi" data-i18n="nav_daftar">Daftar Isi</a>
     <a href="#kutipan"   data-i18n="nav_kutipan">Kutipan</a>
     <a href="#penulis"   data-i18n="nav_penulis">Penulis</a>
     <a href="#detail"    data-i18n="nav_detail">Detail</a>
-    <a href="#daftarisi" data-i18n="nav_daftar">Daftar Isi</a>
   </div>
-  <!-- tombol pindah bahasa -->
   <div class="lang" role="group" aria-label="Pilih bahasa">
     <button data-lang="id" class="aktif" title="Bahasa Indonesia">ID</button>
     <button data-lang="en" title="English">EN</button>
@@ -745,43 +802,41 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <header id="atas">
   <div class="wrap hero-grid">
     <div>
-      <span class="kicker" data-i18n="kicker"><span class="dot"></span> Baru terbit &middot; 2026</span>
+      <span class="kicker" data-i18n="kicker"><span class="dot"></span> Terjemahan Belanda &middot; 1998</span>
 
-      <!-- GANTI DI SINI : judul buku (lihat juga kamus I18N di <script>) -->
       <h1 data-i18n="h1">
-        Bertumbuh itu<br>
-        tidak harus <em>buru-buru</em>,<br>
-        yang penting <span class="coretan">tumbuh.<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg></span>
+        Satu Tuhan,<br>
+        dua <em>keyakinan</em>,<br>
+        <span class="coretan">sembilan malam.<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg></span>
       </h1>
 
-      <!-- GANTI DI SINI : tagline / kalimat penangkap -->
       <p class="hero-sub" data-i18n="hero_sub">
-        <b>Ruang Tumbuh</b> adalah kumpulan catatan tentang menjadi manusia
-        di dunia yang selalu meminta kita lebih cepat. Halaman ini dibuat
-        bukan untuk menjual apa pun — hanya untuk bercerita tentang sebuah buku.
+        <b>Dialoog over de Goddelijkheid van Jezus</b> adalah catatan utuh
+        dialog sembilan malam di Sumenep (1970) antara K.H. Bahaudin Mudhary,
+        seorang ulama, dan Antonius Widuri, seorang Katolik. Seluruh teks
+        bukunya bisa dibaca gratis di halaman ini.
       </p>
 
       <div class="penulis-chip">
-        <!-- GANTI DI SINI : inisial & nama penulis -->
-        <div class="ava">AA</div>
+        <div class="ava">BM</div>
         <div>
           <small data-i18n="chip_small">Ditulis oleh</small>
-          <b>Alwi Abdullah</b>
+          <b>K.H. Bahaudin Mudhary</b>
         </div>
       </div>
 
       <div class="hero-aksi">
-        <a class="tbl isi"   href="#tentang" data-i18n="btn1">Kenalan dengan bukunya ↓</a>
-        <a class="tbl garis" href="#kutipan" data-i18n="btn2">Baca cuplikannya</a>
+        <a class="tbl isi"   href="#daftarisi" data-i18n="btn1">Mulai membaca ↓</a>
+        <a class="tbl garis" href="#tentang"   data-i18n="btn2">Tentang bukunya</a>
       </div>
     </div>
 
-    <!-- buku 3D -->
+    <!-- buku 3D dengan sampul asli -->
     <div class="panggung">
       <svg class="stiker" viewBox="0 0 124 124" aria-hidden="true">
         <circle cx="62" cy="62" r="62" fill="#D45A38"/>
         <circle cx="62" cy="62" r="22" fill="#F6F0E3"/>
-        <text><textPath href="#lingkar" data-i18n="stiker">baru terbit · baru terbit · baru terbit ·</textPath></text>
+        <text><textPath href="#lingkar" data-i18n="stiker">baca gratis · baca gratis · baca gratis ·</textPath></text>
         <defs><path id="lingkar" d="M62,62 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
         <text x="62" y="67" text-anchor="middle" style="fill:#D45A38;font-size:20px;letter-spacing:0">✺</text>
       </svg>
@@ -790,22 +845,7 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
         <div class="punggung"></div>
         <div class="halaman"></div>
         <div class="muka">
-          <!-- GANTI DI SINI : teks pada sampul buku -->
-          <div class="sampul-atas" data-i18n="sampul_atas">Sebuah catatan perjalanan batin</div>
-          <svg class="sampul-bunga" viewBox="0 0 100 160" fill="none" stroke="#F6F0E3" stroke-width="2">
-            <path d="M50 155 Q 48 90 50 40"/>
-            <path d="M50 70 Q 25 60 18 35 Q 45 40 50 70"/>
-            <path d="M50 55 Q 75 45 82 20 Q 55 25 50 55"/>
-            <circle cx="50" cy="32" r="9"/>
-          </svg>
-          <div class="sampul-judul">Ruang<br><em>Tumbuh</em></div>
-          <div class="sampul-bawah">
-            <div>
-              <div class="garis-emas"></div>
-              Alwi Abdullah
-            </div>
-            <div style="opacity:.6">2026</div>
-          </div>
+          <img src="book_front_cover.jpg" alt="Sampul buku Dialoog over de Goddelijkheid van Jezus uit de Bijbel — K.H. Bahaudin Mudhary">
         </div>
       </div>
     </div>
@@ -823,122 +863,76 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <section id="tentang">
   <div class="wrap">
     <div class="label-bab muncul" data-i18n="s1_label">01 — Tentang Buku</div>
-    <h2 class="muncul" data-i18n="s1_h2">Apa yang sebenarnya sedang <em>diceritakan</em> buku ini?</h2>
+    <h2 class="muncul" data-i18n="s1_h2">Sembilan malam dialog yang <em>benar-benar terjadi</em></h2>
 
     <div class="isi-grid">
       <div class="muncul">
-        <!-- GANTI DI SINI : sinopsis buku (2-3 paragraf, lihat kamus I18N) -->
         <p class="kapital" data-i18n="s1_p1">
-          Kita hidup di zaman yang mengukur segalanya dengan kecepatan:
-          karier yang harus melesat sebelum tiga puluh, pencapaian yang harus
-          terlihat, dan hidup yang harus selalu "berprogres". <b>Ruang Tumbuh</b>
-          lahir dari kegelisahan sederhana — bagaimana jika kita boleh tumbuh
-          dengan ritme kita sendiri?
+          Maret 1970, Sumenep, Madura. Seorang akuntan Katolik bernama Antonius
+          Widuri datang menemui K.H. Bahaudin Mudhary dengan satu permintaan:
+          berdialog tentang ketuhanan Yesus — jujur, terbuka, dan tanpa paksaan.
+          Kesepakatannya sederhana: percakapan dicatat kata demi kata, dan tidak
+          boleh ada yang saling menyinggung.
         </p>
         <p data-i18n="s1_p2">
-          Lewat dua belas bab yang ditulis seperti surat kepada teman lama,
-          buku ini mengajak pembaca menengok kembali makna proses: kegagalan
-          yang ternyata menyuburkan, jeda yang ternyata menumbuhkan, dan
-          perbandingan diri yang ternyata hanya mencuri kebahagiaan.
+          Dialog itu berlangsung sembilan malam. Caranya khas: Antonius diminta
+          membuka Alkitabnya sendiri, membacakan ayatnya, lalu keduanya
+          menimbangnya dengan akal sehat — ayat demi ayat, tenang dan saling
+          menghormati. Buku ini adalah transkrip utuh percakapan itu, lengkap
+          dengan dua pidato penutupnya.
         </p>
         <p data-i18n="s1_p3">
-          Ini bukan buku motivasi yang berteriak. Ia lebih seperti teman duduk
-          di sore hari — tidak menggurui, tidak menjanjikan perubahan instan,
-          hanya menemani dan sesekali bertanya hal yang tepat.
+          Yang termuat di sini adalah terjemahan Belanda (1998) dari buku asli
+          berbahasa Indonesia <b>"Dialog Masalah Ketuhanan Jesus"</b>. Seluruh
+          teksnya bisa dibaca gratis lewat daftar isi di bawah — halaman ini
+          tidak menjual apa pun.
         </p>
       </div>
 
       <div class="kartu-tema muncul">
-        <h3 data-i18n="tema_h3">Tema-tema yang diangkat</h3>
-        <!-- GANTI DI SINI : tema utama buku -->
+        <h3 data-i18n="tema_h3">Yang dibahas dalam dialog</h3>
         <ul>
-          <li data-i18n="tema_1">Berdamai dengan ritme hidup sendiri di tengah budaya serba cepat</li>
-          <li data-i18n="tema_2">Kegagalan sebagai pupuk, bukan vonis</li>
-          <li data-i18n="tema_3">Seni mengambil jeda tanpa merasa bersalah</li>
-          <li data-i18n="tema_4">Membangun makna, bukan sekadar pencapaian</li>
-          <li data-i18n="tema_5">Relasi yang menumbuhkan vs relasi yang menguras</li>
+          <li data-i18n="tema_1">Ketuhanan Yesus, ditelaah dari teks Alkitab sendiri</li>
+          <li data-i18n="tema_2">Makna "anak Allah" dan "anak manusia"</li>
+          <li data-i18n="tema_3">Dosa warisan dan tanggung jawab pribadi</li>
+          <li data-i18n="tema_4">Kisah Adam menurut Al-Quran</li>
+          <li data-i18n="tema_5">Teks-teks Alkitab yang saling bertentangan</li>
+          <li data-i18n="tema_6">Toleransi: dialog iman tanpa paksaan</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= ISI / HIGHLIGHT ================= -->
-<section id="isi">
+<!-- ================= DAFTAR ISI → BACA ================= -->
+<section id="daftarisi">
   <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s2_label">02 — Di Dalam Buku</div>
-    <h2 class="muncul" data-i18n="s2_h2">Yang akan kamu temukan di antara <em>halaman-halamannya</em></h2>
+    <div class="label-bab muncul" data-i18n="s2_label">02 — Daftar Isi</div>
+    <h2 class="muncul" data-i18n="s2_h2">Baca bukunya di sini, <em>bab demi bab</em></h2>
+    <p class="toc-note muncul" data-i18n="s2_note">Klik sebuah bagian untuk membuka teks lengkapnya. Teks buku dalam bahasa Belanda.</p>
 
-    <div class="kartu-grid">
-      <!-- GANTI DI SINI : 6 highlight isi buku -->
-      <div class="kartu muncul">
-        <div class="nomor">1</div>
-        <div class="ikon">🌱</div>
-        <h3 data-i18n="k1_h">12 esai reflektif</h3>
-        <p data-i18n="k1_p">Setiap bab ditulis ringkas dan bisa dibaca terpisah — cocok dibaca satu bab per malam sebelum tidur.</p>
-      </div>
-      <div class="kartu muncul">
-        <div class="nomor">2</div>
-        <div class="ikon">✍️</div>
-        <h3 data-i18n="k2_h">Ruang menulis pembaca</h3>
-        <p data-i18n="k2_p">Di akhir tiap bab ada halaman kosong dengan satu pertanyaan pemantik, untuk diisi dengan ceritamu sendiri.</p>
-      </div>
-      <div class="kartu muncul">
-        <div class="nomor">3</div>
-        <div class="ikon">🍵</div>
-        <h3 data-i18n="k3_h">Kisah-kisah nyata</h3>
-        <p data-i18n="k3_p">Potongan cerita dari orang-orang biasa — penjual kopi, guru honorer, perantau — yang tumbuh dengan caranya sendiri.</p>
-      </div>
-      <div class="kartu muncul">
-        <div class="nomor">4</div>
-        <div class="ikon">🧭</div>
-        <h3 data-i18n="k4_h">Peta refleksi diri</h3>
-        <p data-i18n="k4_p">Kerangka sederhana untuk memetakan di fase mana kamu sedang berada — tanpa skor, tanpa penilaian.</p>
-      </div>
-      <div class="kartu muncul">
-        <div class="nomor">5</div>
-        <div class="ikon">🖋️</div>
-        <h3 data-i18n="k5_h">Ilustrasi tangan</h3>
-        <p data-i18n="k5_p">Tiap bab dibuka dengan sketsa botani yang digambar manual — karena tumbuh memang tidak pernah lurus sempurna.</p>
-      </div>
-      <div class="kartu muncul">
-        <div class="nomor">6</div>
-        <div class="ikon">🌙</div>
-        <h3 data-i18n="k6_h">Bab penutup yang tenang</h3>
-        <p data-i18n="k6_p">Sebuah surat dari penulis untuk pembaca — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p>
-      </div>
-    </div>
+    <div class="bab-list muncul" id="tocList"><!-- diisi oleh JS dari boek.js --></div>
   </div>
 </section>
 
 <!-- ================= KUTIPAN ================= -->
 <section id="kutipan">
   <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s3_label">03 — Cuplikan</div>
+    <div class="label-bab muncul" data-i18n="s3_label">03 — Kutipan</div>
     <h2 class="muncul" style="color:var(--paper)" data-i18n="s3_h2">Beberapa kalimat dari dalam buku</h2>
 
     <div class="kutipan-rel muncul">
-      <!-- GANTI DI SINI : kutipan asli dari buku -->
       <div class="kutip aktif">
-        <blockquote data-i18n="q1">
-          &ldquo;Pohon tidak pernah iri pada pohon lain yang lebih dulu berbuah.
-          Ia hanya sibuk <mark>mengakar lebih dalam</mark>.&rdquo;
-        </blockquote>
-        <cite data-i18n="q1_cite">— Bab 3 · Tentang Membandingkan Diri</cite>
+        <blockquote>&ldquo;Wij moeten <mark>tolerant</mark> zijn met alle godsdiensten.&rdquo;</blockquote>
+        <cite>— K.H. Bahaudin Mudhary, slotspeech</cite>
       </div>
       <div class="kutip">
-        <blockquote data-i18n="q2">
-          &ldquo;Jeda bukan berarti berhenti. Tanah pun perlu dibiarkan kosong
-          semusim, agar <mark>panen berikutnya</mark> tidak mengkhianati.&rdquo;
-        </blockquote>
-        <cite data-i18n="q2_cite">— Bab 7 · Tentang Mengambil Jeda</cite>
+        <blockquote>&ldquo;Ik zoek de <mark>ware godsdienst</mark>&hellip; die overtuigt door rationeel onderzoek.&rdquo;</blockquote>
+        <cite>— Antonius Widuri, de eerste avond</cite>
       </div>
       <div class="kutip">
-        <blockquote data-i18n="q3">
-          &ldquo;Kita sering menyebutnya gagal. Padahal mungkin itu hanya
-          cara hidup berkata: <mark>bukan lewat sini</mark>, coba jalan satunya.&rdquo;
-        </blockquote>
-        <cite data-i18n="q3_cite">— Bab 5 · Tentang Kegagalan</cite>
+        <blockquote>&ldquo;Het is dus puur een <mark>dialoog</mark> tussen twee personen.&rdquo;</blockquote>
+        <cite>— Het begin van de ontmoeting</cite>
       </div>
     </div>
 
@@ -952,37 +946,36 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <!-- ================= PENULIS ================= -->
 <section id="penulis">
   <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s4_label">04 — Di Balik Buku</div>
-    <h2 class="muncul" data-i18n="s4_h2">Orang yang <em>menuliskannya</em></h2>
+    <div class="label-bab muncul" data-i18n="s4_label">04 — Penulis</div>
+    <h2 class="muncul" data-i18n="s4_h2">Orang di balik <em>dialog ini</em></h2>
 
     <div class="grid-penulis">
       <div class="polaroid muncul">
         <div class="selotip"></div>
-        <!-- GANTI DI SINI : ganti div .foto dengan <img src="foto-penulis.jpg" alt="..."> -->
-        <div class="foto" data-i18n="foto_ph">tempat foto penulis<br>(ganti dengan foto asli)</div>
-        <div class="ket" data-i18n="foto_ket">— ditulis sambil ditemani kopi tubruk —</div>
+        <!-- GANTI DI SINI : ganti div .foto dengan <img src="foto-penulis.jpg" alt="..."> bila ada foto -->
+        <div class="foto" data-i18n="foto_ph">tempat foto<br>K.H. Bahaudin Mudhary</div>
+        <div class="ket">— Sumenep, Madura, 1970 —</div>
       </div>
 
       <div class="bio muncul">
-        <!-- GANTI DI SINI : biografi penulis -->
         <p data-i18n="bio_p1">
-          <b>Alwi Abdullah</b> adalah penulis dan pengamat keseharian yang
-          percaya bahwa cerita-cerita kecil menyimpan pelajaran paling besar.
-          Sebelum menulis buku ini, ia menghabiskan bertahun-tahun menuliskan
-          catatan harian yang tidak pernah ia niatkan untuk dibaca siapa pun.
+          <b>K.H. Bahaudin Mudhary</b> (1921–1979) adalah ulama kelahiran
+          Sumenep, Madura. Ia menguasai banyak bahasa — Indonesia, Arab,
+          Inggris, Jerman, Belanda, Prancis — menggemari filsafat dan ilmu
+          kerohanian, serta piawai memainkan beragam alat musik.
         </p>
         <p data-i18n="bio_p2">
-          Ruang Tumbuh adalah buku pertamanya — ditulis selama dua tahun,
-          sebagian besar di meja yang sama, pada jam-jam ketika rumah sudah
-          sepi. Ia menulis bukan karena merasa sudah selesai bertumbuh,
-          melainkan justru karena sedang berada di tengah-tengahnya.
+          Hampir seluruh hidupnya diabdikan untuk mengajar: guru sekolah
+          Muallimin Muhammadiyah, kepala sekolah, dosen, pendiri sekolah Islam
+          di Madura (1949) dan Akademi Metafisika (1960-an). Dalam dialog ini
+          ia dikenang karena satu hal: hafal teks Alkitab di luar kepala, dan
+          menjawab semuanya dengan logika yang tenang.
         </p>
         <div class="fakta">
-          <!-- GANTI DI SINI : fakta singkat penulis -->
-          <span>📍 Indonesia</span>
-          <span data-i18n="fakta_2">✍️ Menulis sejak 2018</span>
-          <span data-i18n="fakta_3">📖 Buku pertama</span>
-          <span data-i18n="fakta_4">☕ Tim kopi tubruk</span>
+          <span data-i18n="fakta_1">📍 Sumenep, Madura</span>
+          <span data-i18n="fakta_2">🕌 Ulama &amp; pengajar</span>
+          <span data-i18n="fakta_3">🗣️ Menguasai 6 bahasa</span>
+          <span data-i18n="fakta_4">🎼 Pemain musik</span>
         </div>
       </div>
     </div>
@@ -998,74 +991,19 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
     <div class="katalog muncul">
       <header>
         <span data-i18n="cat_kiri">KARTU KATALOG <b>№ 001</b></span>
-        <span data-i18n="cat_kanan">RAK: PENGEMBANGAN DIRI</span>
+        <span data-i18n="cat_kanan">RAK: DIALOG ANTARAGAMA</span>
       </header>
-      <!-- GANTI DI SINI : data asli buku -->
-      <div class="baris"><div class="k" data-i18n="rk_judul">Judul</div><div data-i18n="rv_judul">Ruang Tumbuh — Catatan tentang Bertumbuh Pelan di Dunia yang Terburu-buru</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_penulis">Penulis</div><div>Alwi Abdullah</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_penerbit">Penerbit</div><div>Penerbit Contoh Pustaka</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_tahun">Tahun terbit</div><div data-i18n="rv_tahun">2026 (cetakan pertama)</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_tebal">Tebal</div><div data-i18n="rv_tebal">248 halaman</div></div>
-      <div class="baris"><div class="k">ISBN</div><div>978-602-XXXXX-X-X</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_bahasa">Bahasa</div><div data-i18n="rv_bahasa">Indonesia</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_kategori">Kategori</div><div data-i18n="rv_kategori">Esai / Pengembangan Diri / Refleksi</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_format">Format</div><div data-i18n="rv_format">Cetak &amp; e-book <em style="color:var(--ink-soft)">(sekadar informasi, bukan ajakan membeli)</em></div></div>
-      <div class="cap" data-i18n="cap">telah<br>diterbitkan</div>
+      <div class="baris"><div class="k" data-i18n="rk_judul">Judul</div><div>Dialoog over de Goddelijkheid van Jezus uit de Bijbel</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_penulis">Penulis</div><div>K.H. Bahaudin Mudhary (1921–1979)</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_asli">Judul asli</div><div data-i18n="rv_asli">"Dialog Masalah Ketuhanan Jesus" (bahasa Indonesia)</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_vertaling">Terjemahan</div><div data-i18n="rv_vertaling">Bahasa Belanda — Maret 1998</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_vorm">Bentuk</div><div data-i18n="rv_vorm">Tanya-jawab — dialog sembilan malam</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_plaats">Tempat &amp; waktu</div><div data-i18n="rv_plaats">Sumenep, Madura — Maret 1970</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_tebal">Tebal</div><div data-i18n="rv_tebal">72 halaman</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_kategori">Kategori</div><div data-i18n="rv_kategori">Agama / Dialog antaragama</div></div>
+      <div class="baris"><div class="k" data-i18n="rk_akses">Akses</div><div data-i18n="rv_akses">Dapat dibaca gratis dan utuh di halaman ini</div></div>
+      <div class="cap" data-i18n="cap">teks<br>lengkap</div>
     </div>
-  </div>
-</section>
-
-<!-- ================= DAFTAR ISI ================= -->
-<section id="daftarisi">
-  <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s6_label">06 — Daftar Isi</div>
-    <h2 class="muncul" data-i18n="s6_h2">Dua belas bab, dibaca <em>pelan-pelan</em> saja</h2>
-
-    <div class="bab-list muncul">
-      <!-- GANTI DI SINI : daftar bab asli (contoh menampilkan 6 dari 12) -->
-      <div class="bab"><div class="no">01</div><div><h3 data-i18n="bab1_h">Berangkat dari Gelisah</h3><p data-i18n="bab1_p">Mengapa kita selalu merasa tertinggal, dan dari mana perasaan itu datang.</p></div><div class="hal" data-i18n="hal1">hlm. 1</div></div>
-      <div class="bab"><div class="no">02</div><div><h3 data-i18n="bab2_h">Ritme yang Dipinjam</h3><p data-i18n="bab2_p">Tentang hidup dengan kecepatan orang lain — dan cara mengembalikannya.</p></div><div class="hal" data-i18n="hal2">hlm. 21</div></div>
-      <div class="bab"><div class="no">03</div><div><h3 data-i18n="bab3_h">Pohon Tidak Saling Iri</h3><p data-i18n="bab3_p">Membandingkan diri, media sosial, dan akar yang tidak terlihat.</p></div><div class="hal" data-i18n="hal3">hlm. 43</div></div>
-      <div class="bab"><div class="no">05</div><div><h3 data-i18n="bab4_h">Bukan Lewat Sini</h3><p data-i18n="bab4_p">Membaca ulang kegagalan sebagai petunjuk arah, bukan titik akhir.</p></div><div class="hal" data-i18n="hal4">hlm. 87</div></div>
-      <div class="bab"><div class="no">07</div><div><h3 data-i18n="bab5_h">Tanah yang Diistirahatkan</h3><p data-i18n="bab5_p">Seni mengambil jeda tanpa rasa bersalah di budaya yang memuja sibuk.</p></div><div class="hal" data-i18n="hal5">hlm. 131</div></div>
-      <div class="bab"><div class="no">12</div><div><h3 data-i18n="bab6_h">Surat untuk yang Sedang Tumbuh</h3><p data-i18n="bab6_p">Bab penutup — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p></div><div class="hal" data-i18n="hal6">hlm. 233</div></div>
-    </div>
-    <p class="catatan-jujur muncul" data-i18n="s6_note">…dan enam bab lainnya yang sengaja tidak dibocorkan di sini. 🌿</p>
-  </div>
-</section>
-
-<!-- ================= UNTUK SIAPA ================= -->
-<section id="pembaca">
-  <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s7_label">07 — Untuk Siapa</div>
-    <h2 class="muncul" data-i18n="s7_h2">Jujur saja: buku ini tidak untuk <em>semua orang</em></h2>
-
-    <div class="dua-kolom">
-      <!-- GANTI DI SINI : sesuaikan target pembaca -->
-      <div class="kolom-cocok ya muncul">
-        <h3 data-i18n="ya_h3">🌿 Buku ini untukmu, jika…</h3>
-        <ul>
-          <li data-i18n="ya_1">Kamu sering merasa tertinggal dari teman-teman seusiamu</li>
-          <li data-i18n="ya_2">Kamu lelah dengan konten motivasi yang serba berteriak</li>
-          <li data-i18n="ya_3">Kamu suka bacaan reflektif yang bisa dicicil per bab</li>
-          <li data-i18n="ya_4">Kamu sedang di fase transisi — lulus, pindah, memulai ulang</li>
-          <li data-i18n="ya_5">Kamu ingin menulis ulang ceritamu sendiri, pelan-pelan</li>
-        </ul>
-      </div>
-      <div class="kolom-cocok tidak muncul">
-        <h3 data-i18n="no_h3">🍂 Mungkin bukan untukmu, jika…</h3>
-        <ul>
-          <li data-i18n="no_1">Kamu mencari langkah praktis "sukses dalam 30 hari"</li>
-          <li data-i18n="no_2">Kamu butuh data, riset, dan grafik di tiap argumen</li>
-          <li data-i18n="no_3">Kamu kurang menikmati gaya tulisan personal seperti surat</li>
-          <li data-i18n="no_4">Kamu ingin jawaban tegas, bukan pertanyaan untuk direnungkan</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="catatan-jujur muncul" data-i18n="s7_note">
-      &ldquo;Dan kalau ternyata bukan untukmu — tidak apa-apa. Buku, seperti manusia, punya jodohnya masing-masing.&rdquo;
-    </p>
   </div>
 </section>
 
@@ -1074,354 +1012,381 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <div class="judul-kecil">Ruang Tumbuh — 2026</div>
-        <p class="besar" data-i18n="f_terima">Terima kasih sudah mampir dan <em>berkenalan</em> dengan buku ini.</p>
+        <div class="judul-kecil">Dialoog over de Goddelijkheid van Jezus — 1998</div>
+        <p class="besar" data-i18n="f_terima">Terima kasih sudah mampir dan <em>membaca</em> buku ini.</p>
       </div>
       <div>
         <div class="judul-kecil" data-i18n="f_jelajah">Jelajahi</div>
         <ul>
           <li><a href="#tentang"   data-i18n="f_l1">Tentang buku</a></li>
-          <li><a href="#kutipan"   data-i18n="f_l2">Cuplikan</a></li>
-          <li><a href="#penulis"   data-i18n="f_l3">Tentang penulis</a></li>
-          <li><a href="#daftarisi" data-i18n="f_l4">Daftar isi</a></li>
+          <li><a href="#daftarisi" data-i18n="f_l2">Daftar isi</a></li>
+          <li><a href="#kutipan"   data-i18n="f_l3">Kutipan</a></li>
+          <li><a href="#penulis"   data-i18n="f_l4">Tentang penulis</a></li>
         </ul>
       </div>
       <div>
-        <div class="judul-kecil" data-i18n="f_sapa">Sapa Penulis</div>
+        <div class="judul-kecil" data-i18n="f_sapa">Kontak</div>
         <!-- GANTI DI SINI : kontak & media sosial asli -->
         <ul>
           <li><a href="mailto:halo@contoh.com">✉️ halo@contoh.com</a></li>
           <li><a href="#">📷 Instagram</a></li>
-          <li><a href="#">🐦 X / Twitter</a></li>
           <li><a href="#">📚 Goodreads</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bawah">
-      <span>© 2026 Alwi Abdullah &amp; Penerbit Contoh Pustaka.</span>
-      <span data-i18n="f_note">Halaman ini hanya memperkenalkan buku — tidak menjual apa pun. ✺</span>
+      <span>© K.H. Bahaudin Mudhary &amp; de vertaler (1998).</span>
+      <span data-i18n="f_note">Halaman ini hanya menyajikan buku untuk dibaca — tidak menjual apa pun. ✺</span>
     </div>
   </div>
 </footer>
 
+<!-- ================= TAMPILAN BACA (overlay) ================= -->
+<div id="lezer" role="dialog" aria-modal="true">
+  <div class="balk">
+    <div class="balk-in">
+      <button id="lezerTerug" data-i18n="lezer_terug">← Daftar Isi</button>
+      <div class="titel-klein" id="lezerTitelKlein"></div>
+      <button id="lezerVorige2">←</button>
+      <button id="lezerVolgende2">→</button>
+    </div>
+    <div id="lezerVoortgang"></div>
+  </div>
+  <div class="blad" id="lezerBlad">
+    <article>
+      <div class="hfd-label" id="lezerNr"></div>
+      <h2 id="lezerTitel"></h2>
+      <p class="hfd-sub" id="lezerSub"></p>
+      <div class="legenda" id="lezerLegenda">
+        <span class="wie a"><i>A</i> K.H. Bahaudin Mudhary</span>
+        <span class="wie b"><i>B</i> Antonius Widuri / dhr. Markan</span>
+      </div>
+      <div class="tekst" id="lezerTekst"></div>
+      <div class="voet-nav">
+        <button id="lezerVorige"></button>
+        <button id="lezerVolgende"></button>
+      </div>
+      <p class="bron-noot" data-i18n="lezer_noot">Teks asli terjemahan Belanda (1998) — ejaan dipertahankan apa adanya.</p>
+    </article>
+  </div>
+</div>
+
+<script src="boek.js"></script>
 <script>
 /* ===================================================================
-   KAMUS BAHASA (ID / EN / NL)
-   GANTI DI SINI : saat mengisi konten buku asli, perbarui ketiga
-   bahasa di bawah agar tombol pindah bahasa tetap akurat.
+   KAMUS BAHASA UI (ID / EN / NL) — teks buku sendiri dalam bahasa
+   Belanda dan tidak ikut diterjemahkan (lihat boek.js).
    =================================================================== */
 const SVG_CORETAN = '<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg>';
 
 const I18N = {
   /* ---------------- BAHASA INDONESIA ---------------- */
   id: {
-    _title: "Ruang Tumbuh — Sebuah Buku oleh Alwi Abdullah",
-    _desc: "Halaman pengenalan buku 'Ruang Tumbuh' — catatan tentang bertumbuh pelan di dunia yang terburu-buru. Bukan halaman jualan, hanya cerita tentang sebuah buku.",
-    _marquee: ["sebuah buku tentang bertumbuh", "bukan halaman jualan", "hanya cerita tentang sebuah buku", "pelan-pelan saja"],
-    _prev: "Kutipan sebelumnya", _next: "Kutipan berikutnya",
-    nav_tentang:"Tentang", nav_isi:"Isi Buku", nav_kutipan:"Kutipan", nav_penulis:"Penulis", nav_detail:"Detail", nav_daftar:"Daftar Isi",
-    kicker:'<span class="dot"></span> Baru terbit &middot; 2026',
-    h1:`Bertumbuh itu<br>tidak harus <em>buru-buru</em>,<br>yang penting <span class="coretan">tumbuh.${SVG_CORETAN}</span>`,
-    hero_sub:"<b>Ruang Tumbuh</b> adalah kumpulan catatan tentang menjadi manusia di dunia yang selalu meminta kita lebih cepat. Halaman ini dibuat bukan untuk menjual apa pun — hanya untuk bercerita tentang sebuah buku.",
+    _title:"Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary",
+    _desc:"Teks lengkap buku 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' karya K.H. Bahaudin Mudhary — dialog sembilan malam di Sumenep, 1970. Baca gratis, bab demi bab.",
+    _marquee:["teks lengkap buku, bab demi bab","dialog nyata dari tahun 1970","bukan halaman jualan","baca pelan-pelan saja"],
+    _prev:"Kutipan sebelumnya", _next:"Kutipan berikutnya",
+    _lees:"Baca →", _vorige:"← Sebelumnya", _volgende:"Berikutnya →",
+    _voorwerk:"Bagian pembuka", _dialoogdeel:"Dialog & pidato",
+    nav_tentang:"Tentang", nav_daftar:"Daftar Isi", nav_kutipan:"Kutipan", nav_penulis:"Penulis", nav_detail:"Detail",
+    kicker:'<span class="dot"></span> Terjemahan Belanda &middot; 1998',
+    h1:`Satu Tuhan,<br>dua <em>keyakinan</em>,<br><span class="coretan">sembilan malam.${SVG_CORETAN}</span>`,
+    hero_sub:"<b>Dialoog over de Goddelijkheid van Jezus</b> adalah catatan utuh dialog sembilan malam di Sumenep (1970) antara K.H. Bahaudin Mudhary, seorang ulama, dan Antonius Widuri, seorang Katolik. Seluruh teks bukunya bisa dibaca gratis di halaman ini.",
     chip_small:"Ditulis oleh",
-    btn1:"Kenalan dengan bukunya ↓", btn2:"Baca cuplikannya",
-    stiker:"baru terbit · baru terbit · baru terbit ·",
-    sampul_atas:"Sebuah catatan perjalanan batin",
+    btn1:"Mulai membaca ↓", btn2:"Tentang bukunya",
+    stiker:"baca gratis · baca gratis · baca gratis ·",
     gulir:"gulir",
     s1_label:"01 — Tentang Buku",
-    s1_h2:"Apa yang sebenarnya sedang <em>diceritakan</em> buku ini?",
-    s1_p1:'Kita hidup di zaman yang mengukur segalanya dengan kecepatan: karier yang harus melesat sebelum tiga puluh, pencapaian yang harus terlihat, dan hidup yang harus selalu "berprogres". <b>Ruang Tumbuh</b> lahir dari kegelisahan sederhana — bagaimana jika kita boleh tumbuh dengan ritme kita sendiri?',
-    s1_p2:"Lewat dua belas bab yang ditulis seperti surat kepada teman lama, buku ini mengajak pembaca menengok kembali makna proses: kegagalan yang ternyata menyuburkan, jeda yang ternyata menumbuhkan, dan perbandingan diri yang ternyata hanya mencuri kebahagiaan.",
-    s1_p3:"Ini bukan buku motivasi yang berteriak. Ia lebih seperti teman duduk di sore hari — tidak menggurui, tidak menjanjikan perubahan instan, hanya menemani dan sesekali bertanya hal yang tepat.",
-    tema_h3:"Tema-tema yang diangkat",
-    tema_1:"Berdamai dengan ritme hidup sendiri di tengah budaya serba cepat",
-    tema_2:"Kegagalan sebagai pupuk, bukan vonis",
-    tema_3:"Seni mengambil jeda tanpa merasa bersalah",
-    tema_4:"Membangun makna, bukan sekadar pencapaian",
-    tema_5:"Relasi yang menumbuhkan vs relasi yang menguras",
-    s2_label:"02 — Di Dalam Buku",
-    s2_h2:"Yang akan kamu temukan di antara <em>halaman-halamannya</em>",
-    k1_h:"12 esai reflektif", k1_p:"Setiap bab ditulis ringkas dan bisa dibaca terpisah — cocok dibaca satu bab per malam sebelum tidur.",
-    k2_h:"Ruang menulis pembaca", k2_p:"Di akhir tiap bab ada halaman kosong dengan satu pertanyaan pemantik, untuk diisi dengan ceritamu sendiri.",
-    k3_h:"Kisah-kisah nyata", k3_p:"Potongan cerita dari orang-orang biasa — penjual kopi, guru honorer, perantau — yang tumbuh dengan caranya sendiri.",
-    k4_h:"Peta refleksi diri", k4_p:"Kerangka sederhana untuk memetakan di fase mana kamu sedang berada — tanpa skor, tanpa penilaian.",
-    k5_h:"Ilustrasi tangan", k5_p:"Tiap bab dibuka dengan sketsa botani yang digambar manual — karena tumbuh memang tidak pernah lurus sempurna.",
-    k6_h:"Bab penutup yang tenang", k6_p:"Sebuah surat dari penulis untuk pembaca — ditulis untuk dibaca ulang setiap kali merasa tertinggal.",
-    s3_label:"03 — Cuplikan",
+    s1_h2:"Sembilan malam dialog yang <em>benar-benar terjadi</em>",
+    s1_p1:"Maret 1970, Sumenep, Madura. Seorang akuntan Katolik bernama Antonius Widuri datang menemui K.H. Bahaudin Mudhary dengan satu permintaan: berdialog tentang ketuhanan Yesus — jujur, terbuka, dan tanpa paksaan. Kesepakatannya sederhana: percakapan dicatat kata demi kata, dan tidak boleh ada yang saling menyinggung.",
+    s1_p2:"Dialog itu berlangsung sembilan malam. Caranya khas: Antonius diminta membuka Alkitabnya sendiri, membacakan ayatnya, lalu keduanya menimbangnya dengan akal sehat — ayat demi ayat, tenang dan saling menghormati. Buku ini adalah transkrip utuh percakapan itu, lengkap dengan dua pidato penutupnya.",
+    s1_p3:'Yang termuat di sini adalah terjemahan Belanda (1998) dari buku asli berbahasa Indonesia <b>"Dialog Masalah Ketuhanan Jesus"</b>. Seluruh teksnya bisa dibaca gratis lewat daftar isi di bawah — halaman ini tidak menjual apa pun.',
+    tema_h3:"Yang dibahas dalam dialog",
+    tema_1:"Ketuhanan Yesus, ditelaah dari teks Alkitab sendiri",
+    tema_2:'Makna "anak Allah" dan "anak manusia"',
+    tema_3:"Dosa warisan dan tanggung jawab pribadi",
+    tema_4:"Kisah Adam menurut Al-Quran",
+    tema_5:"Teks-teks Alkitab yang saling bertentangan",
+    tema_6:"Toleransi: dialog iman tanpa paksaan",
+    s2_label:"02 — Daftar Isi",
+    s2_h2:"Baca bukunya di sini, <em>bab demi bab</em>",
+    s2_note:"Klik sebuah bagian untuk membuka teks lengkapnya. Teks buku dalam bahasa Belanda.",
+    s3_label:"03 — Kutipan",
     s3_h2:"Beberapa kalimat dari dalam buku",
-    q1:"&ldquo;Pohon tidak pernah iri pada pohon lain yang lebih dulu berbuah. Ia hanya sibuk <mark>mengakar lebih dalam</mark>.&rdquo;",
-    q1_cite:"— Bab 3 · Tentang Membandingkan Diri",
-    q2:"&ldquo;Jeda bukan berarti berhenti. Tanah pun perlu dibiarkan kosong semusim, agar <mark>panen berikutnya</mark> tidak mengkhianati.&rdquo;",
-    q2_cite:"— Bab 7 · Tentang Mengambil Jeda",
-    q3:"&ldquo;Kita sering menyebutnya gagal. Padahal mungkin itu hanya cara hidup berkata: <mark>bukan lewat sini</mark>, coba jalan satunya.&rdquo;",
-    q3_cite:"— Bab 5 · Tentang Kegagalan",
-    s4_label:"04 — Di Balik Buku",
-    s4_h2:"Orang yang <em>menuliskannya</em>",
-    foto_ph:"tempat foto penulis<br>(ganti dengan foto asli)",
-    foto_ket:"— ditulis sambil ditemani kopi tubruk —",
-    bio_p1:"<b>Alwi Abdullah</b> adalah penulis dan pengamat keseharian yang percaya bahwa cerita-cerita kecil menyimpan pelajaran paling besar. Sebelum menulis buku ini, ia menghabiskan bertahun-tahun menuliskan catatan harian yang tidak pernah ia niatkan untuk dibaca siapa pun.",
-    bio_p2:"Ruang Tumbuh adalah buku pertamanya — ditulis selama dua tahun, sebagian besar di meja yang sama, pada jam-jam ketika rumah sudah sepi. Ia menulis bukan karena merasa sudah selesai bertumbuh, melainkan justru karena sedang berada di tengah-tengahnya.",
-    fakta_2:"✍️ Menulis sejak 2018", fakta_3:"📖 Buku pertama", fakta_4:"☕ Tim kopi tubruk",
+    s4_label:"04 — Penulis",
+    s4_h2:"Orang di balik <em>dialog ini</em>",
+    foto_ph:"tempat foto<br>K.H. Bahaudin Mudhary",
+    bio_p1:"<b>K.H. Bahaudin Mudhary</b> (1921–1979) adalah ulama kelahiran Sumenep, Madura. Ia menguasai banyak bahasa — Indonesia, Arab, Inggris, Jerman, Belanda, Prancis — menggemari filsafat dan ilmu kerohanian, serta piawai memainkan beragam alat musik.",
+    bio_p2:"Hampir seluruh hidupnya diabdikan untuk mengajar: guru sekolah Muallimin Muhammadiyah, kepala sekolah, dosen, pendiri sekolah Islam di Madura (1949) dan Akademi Metafisika (1960-an). Dalam dialog ini ia dikenang karena satu hal: hafal teks Alkitab di luar kepala, dan menjawab semuanya dengan logika yang tenang.",
+    fakta_1:"📍 Sumenep, Madura", fakta_2:"🕌 Ulama & pengajar", fakta_3:"🗣️ Menguasai 6 bahasa", fakta_4:"🎼 Pemain musik",
     s5_label:"05 — Lembar Data",
     s5_h2:"Detail buku, ala kartu <em>katalog perpustakaan</em>",
-    cat_kiri:"KARTU KATALOG <b>№ 001</b>", cat_kanan:"RAK: PENGEMBANGAN DIRI",
-    rk_judul:"Judul", rv_judul:"Ruang Tumbuh — Catatan tentang Bertumbuh Pelan di Dunia yang Terburu-buru",
-    rk_penulis:"Penulis", rk_penerbit:"Penerbit",
-    rk_tahun:"Tahun terbit", rv_tahun:"2026 (cetakan pertama)",
-    rk_tebal:"Tebal", rv_tebal:"248 halaman",
-    rk_bahasa:"Bahasa", rv_bahasa:"Indonesia",
-    rk_kategori:"Kategori", rv_kategori:"Esai / Pengembangan Diri / Refleksi",
-    rk_format:"Format", rv_format:'Cetak &amp; e-book <em style="color:var(--ink-soft)">(sekadar informasi, bukan ajakan membeli)</em>',
-    cap:"telah<br>diterbitkan",
-    s6_label:"06 — Daftar Isi",
-    s6_h2:"Dua belas bab, dibaca <em>pelan-pelan</em> saja",
-    bab1_h:"Berangkat dari Gelisah", bab1_p:"Mengapa kita selalu merasa tertinggal, dan dari mana perasaan itu datang.",
-    bab2_h:"Ritme yang Dipinjam", bab2_p:"Tentang hidup dengan kecepatan orang lain — dan cara mengembalikannya.",
-    bab3_h:"Pohon Tidak Saling Iri", bab3_p:"Membandingkan diri, media sosial, dan akar yang tidak terlihat.",
-    bab4_h:"Bukan Lewat Sini", bab4_p:"Membaca ulang kegagalan sebagai petunjuk arah, bukan titik akhir.",
-    bab5_h:"Tanah yang Diistirahatkan", bab5_p:"Seni mengambil jeda tanpa rasa bersalah di budaya yang memuja sibuk.",
-    bab6_h:"Surat untuk yang Sedang Tumbuh", bab6_p:"Bab penutup — ditulis untuk dibaca ulang setiap kali merasa tertinggal.",
-    hal1:"hlm. 1", hal2:"hlm. 21", hal3:"hlm. 43", hal4:"hlm. 87", hal5:"hlm. 131", hal6:"hlm. 233",
-    s6_note:"…dan enam bab lainnya yang sengaja tidak dibocorkan di sini. 🌿",
-    s7_label:"07 — Untuk Siapa",
-    s7_h2:"Jujur saja: buku ini tidak untuk <em>semua orang</em>",
-    ya_h3:"🌿 Buku ini untukmu, jika…",
-    ya_1:"Kamu sering merasa tertinggal dari teman-teman seusiamu",
-    ya_2:"Kamu lelah dengan konten motivasi yang serba berteriak",
-    ya_3:"Kamu suka bacaan reflektif yang bisa dicicil per bab",
-    ya_4:"Kamu sedang di fase transisi — lulus, pindah, memulai ulang",
-    ya_5:"Kamu ingin menulis ulang ceritamu sendiri, pelan-pelan",
-    no_h3:"🍂 Mungkin bukan untukmu, jika…",
-    no_1:'Kamu mencari langkah praktis "sukses dalam 30 hari"',
-    no_2:"Kamu butuh data, riset, dan grafik di tiap argumen",
-    no_3:"Kamu kurang menikmati gaya tulisan personal seperti surat",
-    no_4:"Kamu ingin jawaban tegas, bukan pertanyaan untuk direnungkan",
-    s7_note:"&ldquo;Dan kalau ternyata bukan untukmu — tidak apa-apa. Buku, seperti manusia, punya jodohnya masing-masing.&rdquo;",
-    f_terima:"Terima kasih sudah mampir dan <em>berkenalan</em> dengan buku ini.",
+    cat_kiri:"KARTU KATALOG <b>№ 001</b>", cat_kanan:"RAK: DIALOG ANTARAGAMA",
+    rk_judul:"Judul", rk_penulis:"Penulis",
+    rk_asli:"Judul asli", rv_asli:'"Dialog Masalah Ketuhanan Jesus" (bahasa Indonesia)',
+    rk_vertaling:"Terjemahan", rv_vertaling:"Bahasa Belanda — Maret 1998",
+    rk_vorm:"Bentuk", rv_vorm:"Tanya-jawab — dialog sembilan malam",
+    rk_plaats:"Tempat & waktu", rv_plaats:"Sumenep, Madura — Maret 1970",
+    rk_tebal:"Tebal", rv_tebal:"72 halaman",
+    rk_kategori:"Kategori", rv_kategori:"Agama / Dialog antaragama",
+    rk_akses:"Akses", rv_akses:"Dapat dibaca gratis dan utuh di halaman ini",
+    cap:"teks<br>lengkap",
+    f_terima:"Terima kasih sudah mampir dan <em>membaca</em> buku ini.",
     f_jelajah:"Jelajahi",
-    f_l1:"Tentang buku", f_l2:"Cuplikan", f_l3:"Tentang penulis", f_l4:"Daftar isi",
-    f_sapa:"Sapa Penulis",
-    f_note:"Halaman ini hanya memperkenalkan buku — tidak menjual apa pun. ✺"
+    f_l1:"Tentang buku", f_l2:"Daftar isi", f_l3:"Kutipan", f_l4:"Tentang penulis",
+    f_sapa:"Kontak",
+    f_note:"Halaman ini hanya menyajikan buku untuk dibaca — tidak menjual apa pun. ✺",
+    lezer_terug:"← Daftar Isi",
+    lezer_noot:"Teks asli terjemahan Belanda (1998) — ejaan dipertahankan apa adanya."
   },
 
   /* ---------------- ENGLISH ---------------- */
   en: {
-    _title: "Ruang Tumbuh — A Book by Alwi Abdullah",
-    _desc: "An introduction page for the book 'Ruang Tumbuh' — notes on growing slowly in a world that's always in a hurry. Not a sales page, just the story of a book.",
-    _marquee: ["a book about growing", "not a sales page", "just the story of a book", "take it slow"],
-    _prev: "Previous quote", _next: "Next quote",
-    nav_tentang:"About", nav_isi:"Inside", nav_kutipan:"Quotes", nav_penulis:"Author", nav_detail:"Details", nav_daftar:"Contents",
-    kicker:'<span class="dot"></span> Just published &middot; 2026',
-    h1:`You don't have to<br>grow <em>in a hurry</em> —<br>you just have to <span class="coretan">grow.${SVG_CORETAN}</span>`,
-    hero_sub:"<b>Ruang Tumbuh</b> (“Room to Grow”) is a collection of notes on being human in a world that keeps asking us to move faster. This page wasn't made to sell anything — only to tell the story of a book.",
+    _title:"Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary",
+    _desc:"The full text of 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' by K.H. Bahaudin Mudhary — a nine-evening dialogue held in Sumenep, 1970. Free to read, chapter by chapter.",
+    _marquee:["the full text, chapter by chapter","a real dialogue from 1970","not a sales page","take your time reading"],
+    _prev:"Previous quote", _next:"Next quote",
+    _lees:"Read →", _vorige:"← Previous", _volgende:"Next →",
+    _voorwerk:"Front matter", _dialoogdeel:"The dialogue & speeches",
+    nav_tentang:"About", nav_daftar:"Contents", nav_kutipan:"Quotes", nav_penulis:"Author", nav_detail:"Details",
+    kicker:'<span class="dot"></span> Dutch translation &middot; 1998',
+    h1:`One God,<br>two <em>faiths</em>,<br><span class="coretan">nine evenings.${SVG_CORETAN}</span>`,
+    hero_sub:"<b>Dialoog over de Goddelijkheid van Jezus</b> is the complete record of a nine-evening dialogue held in Sumenep (1970) between K.H. Bahaudin Mudhary, an Islamic scholar, and Antonius Widuri, a Catholic. The full text of the book can be read here, free.",
     chip_small:"Written by",
-    btn1:"Meet the book ↓", btn2:"Read an excerpt",
-    stiker:"out now · out now · out now · out now ·",
-    sampul_atas:"Notes from an inner journey",
+    btn1:"Start reading ↓", btn2:"About the book",
+    stiker:"read it free · read it free · read it free ·",
     gulir:"scroll",
     s1_label:"01 — About the Book",
-    s1_h2:"What is this book really trying to <em>tell us</em>?",
-    s1_p1:"We live in an age that measures everything by speed: careers that must take off before thirty, achievements that must be visible, and lives that must always be “making progress”. <b>Ruang Tumbuh</b> was born from a simple unease — what if we were allowed to grow at our own rhythm?",
-    s1_p2:"Through twelve chapters written like letters to an old friend, this book invites readers to revisit the meaning of process: failures that turn out to be fertile, pauses that turn out to nurture growth, and self-comparison that turns out to only steal our joy.",
-    s1_p3:"This is not a motivational book that shouts. It's more like a friend sitting beside you in the late afternoon — never lecturing, never promising instant change, simply keeping you company and occasionally asking the right question.",
-    tema_h3:"Themes explored",
-    tema_1:"Making peace with your own rhythm in a culture obsessed with speed",
-    tema_2:"Failure as fertilizer, not a verdict",
-    tema_3:"The art of pausing without guilt",
-    tema_4:"Building meaning, not just achievements",
-    tema_5:"Relationships that grow you vs. relationships that drain you",
-    s2_label:"02 — Inside the Book",
-    s2_h2:"What you'll find between <em>its pages</em>",
-    k1_h:"12 reflective essays", k1_p:"Each chapter is short and self-contained — perfect for reading one chapter a night before bed.",
-    k2_h:"Space for you to write", k2_p:"At the end of every chapter there's a blank page with one prompt question, waiting to be filled with your own story.",
-    k3_h:"True stories", k3_p:"Story fragments from ordinary people — a coffee seller, an underpaid teacher, a wanderer — each growing in their own way.",
-    k4_h:"A self-reflection map", k4_p:"A simple framework to map which phase you're in right now — no scores, no judgment.",
-    k5_h:"Hand-drawn illustrations", k5_p:"Every chapter opens with a hand-drawn botanical sketch — because growth is never perfectly straight.",
-    k6_h:"A quiet closing chapter", k6_p:"A letter from the author to the reader — written to be reread every time you feel left behind.",
-    s3_label:"03 — Excerpts",
-    s3_h2:"A few lines from inside the book",
-    q1:"&ldquo;A tree is never jealous of another tree that bears fruit first. It is simply busy <mark>rooting deeper</mark>.&rdquo;",
-    q1_cite:"— Chapter 3 · On Comparing Yourself",
-    q2:"&ldquo;A pause doesn't mean stopping. Even soil is left fallow for a season, so the <mark>next harvest</mark> won't disappoint.&rdquo;",
-    q2_cite:"— Chapter 7 · On Taking Pauses",
-    q3:"&ldquo;We often call it failure. Perhaps it's just life's way of saying: <mark>not this way</mark> — try the other road.&rdquo;",
-    q3_cite:"— Chapter 5 · On Failure",
-    s4_label:"04 — Behind the Book",
-    s4_h2:"The person who <em>wrote it</em>",
-    foto_ph:"author photo goes here<br>(replace with a real photo)",
-    foto_ket:"— written in the company of strong black coffee —",
-    bio_p1:"<b>Alwi Abdullah</b> is a writer and observer of everyday life who believes that small stories hold the biggest lessons. Before writing this book, he spent years keeping a journal he never intended for anyone to read.",
-    bio_p2:"Ruang Tumbuh is his first book — written over two years, mostly at the same desk, in the hours after the house had gone quiet. He wrote it not because he had finished growing, but precisely because he was right in the middle of it.",
-    fakta_2:"✍️ Writing since 2018", fakta_3:"📖 First book", fakta_4:"☕ Team strong coffee",
+    s1_h2:"Nine evenings of dialogue that <em>really happened</em>",
+    s1_p1:"March 1970, Sumenep, Madura. A Catholic accountant named Antonius Widuri came to see K.H. Bahaudin Mudhary with one request: a dialogue about the divinity of Jesus — honest, open, and without coercion. The agreement was simple: the conversation would be recorded word for word, and no one was to give offence.",
+    s1_p2:"The dialogue lasted nine evenings. Its method was distinctive: Antonius was asked to open his own Bible and read the verse aloud, after which the two weighed it together with common sense — verse by verse, calm and respectful. This book is the complete transcript of that conversation, including the two closing speeches.",
+    s1_p3:'What you find here is the Dutch translation (1998) of the original Indonesian book <b>"Dialog Masalah Ketuhanan Jesus"</b>. The entire text can be read for free via the table of contents below — this page sells nothing.',
+    tema_h3:"Discussed in the dialogue",
+    tema_1:"The divinity of Jesus, examined from the Bible's own texts",
+    tema_2:'The meaning of "son of God" and "son of man"',
+    tema_3:"Original sin and personal responsibility",
+    tema_4:"The story of Adam according to the Quran",
+    tema_5:"Contradictory passages in the Bible",
+    tema_6:"Tolerance: a dialogue of faith without coercion",
+    s2_label:"02 — Table of Contents",
+    s2_h2:"Read the book here, <em>chapter by chapter</em>",
+    s2_note:"Click a section to open its full text. The book text is in Dutch.",
+    s3_label:"03 — Quotes",
+    s3_h2:"A few lines from the book",
+    s4_label:"04 — The Author",
+    s4_h2:"The man behind <em>this dialogue</em>",
+    foto_ph:"photo of<br>K.H. Bahaudin Mudhary goes here",
+    bio_p1:"<b>K.H. Bahaudin Mudhary</b> (1921–1979) was an Islamic scholar born in Sumenep, Madura. He spoke many languages — Indonesian, Arabic, English, German, Dutch, French — loved philosophy and spirituality, and played a wide range of musical instruments.",
+    bio_p2:"He devoted nearly his whole life to teaching: teacher at the Muallimin Muhammadiyah school, headmaster, lecturer, founder of an Islamic school on Madura (1949) and of an Academy of Metaphysics (1960s). In this dialogue he is remembered for one thing above all: knowing the Bible by heart, and answering everything with calm logic.",
+    fakta_1:"📍 Sumenep, Madura", fakta_2:"🕌 Scholar & teacher", fakta_3:"🗣️ Spoke 6 languages", fakta_4:"🎼 Musician",
     s5_label:"05 — Data Sheet",
     s5_h2:"Book details, in the style of a <em>library catalog card</em>",
-    cat_kiri:"CATALOG CARD <b>№ 001</b>", cat_kanan:"SHELF: PERSONAL GROWTH",
-    rk_judul:"Title", rv_judul:"Ruang Tumbuh — Notes on Growing Slowly in a World That's Always in a Hurry",
-    rk_penulis:"Author", rk_penerbit:"Publisher",
-    rk_tahun:"Published", rv_tahun:"2026 (first printing)",
-    rk_tebal:"Length", rv_tebal:"248 pages",
-    rk_bahasa:"Language", rv_bahasa:"Indonesian",
-    rk_kategori:"Category", rv_kategori:"Essays / Personal Growth / Reflection",
-    rk_format:"Format", rv_format:'Print &amp; e-book <em style="color:var(--ink-soft)">(just information, not an invitation to buy)</em>',
-    cap:"officially<br>published",
-    s6_label:"06 — Table of Contents",
-    s6_h2:"Twelve chapters, best read <em>slowly</em>",
-    bab1_h:"Setting Out from Unease", bab1_p:"Why we always feel left behind, and where that feeling comes from.",
-    bab2_h:"A Borrowed Rhythm", bab2_p:"On living at other people's speed — and how to give it back.",
-    bab3_h:"Trees Aren't Jealous of Each Other", bab3_p:"Self-comparison, social media, and the roots no one sees.",
-    bab4_h:"Not This Way", bab4_p:"Rereading failure as a signpost, not a dead end.",
-    bab5_h:"Land Left to Rest", bab5_p:"The art of pausing without guilt in a culture that worships busyness.",
-    bab6_h:"A Letter to Those Still Growing", bab6_p:"The closing chapter — written to be reread every time you feel left behind.",
-    hal1:"p. 1", hal2:"p. 21", hal3:"p. 43", hal4:"p. 87", hal5:"p. 131", hal6:"p. 233",
-    s6_note:"…and six more chapters deliberately left unspoiled here. 🌿",
-    s7_label:"07 — Who It's For",
-    s7_h2:"Honestly: this book isn't for <em>everyone</em>",
-    ya_h3:"🌿 This book is for you, if…",
-    ya_1:"You often feel left behind by friends your age",
-    ya_2:"You're tired of motivational content that keeps shouting at you",
-    ya_3:"You enjoy reflective reads you can savor one chapter at a time",
-    ya_4:"You're in a transition — graduating, moving, starting over",
-    ya_5:"You want to rewrite your own story, slowly",
-    no_h3:"🍂 Maybe not for you, if…",
-    no_1:'You\'re looking for practical steps to "success in 30 days"',
-    no_2:"You need data, research, and charts behind every argument",
-    no_3:"Personal, letter-like writing isn't really your thing",
-    no_4:"You want firm answers, not questions to sit with",
-    s7_note:"&ldquo;And if it turns out this book isn't for you — that's okay. Books, like people, each find their own match.&rdquo;",
-    f_terima:"Thank you for stopping by and <em>getting to know</em> this book.",
+    cat_kiri:"CATALOG CARD <b>№ 001</b>", cat_kanan:"SHELF: INTERFAITH DIALOGUE",
+    rk_judul:"Title", rk_penulis:"Author",
+    rk_asli:"Original title", rv_asli:'"Dialog Masalah Ketuhanan Jesus" (Indonesian)',
+    rk_vertaling:"Translation", rv_vertaling:"Dutch — March 1998",
+    rk_vorm:"Form", rv_vorm:"Q&A — a dialogue over nine evenings",
+    rk_plaats:"Place & time", rv_plaats:"Sumenep, Madura — March 1970",
+    rk_tebal:"Length", rv_tebal:"72 pages",
+    rk_kategori:"Category", rv_kategori:"Religion / Interfaith dialogue",
+    rk_akses:"Access", rv_akses:"Free to read in full on this page",
+    cap:"full<br>text",
+    f_terima:"Thank you for stopping by and <em>reading</em> this book.",
     f_jelajah:"Explore",
-    f_l1:"About the book", f_l2:"Excerpts", f_l3:"About the author", f_l4:"Table of contents",
-    f_sapa:"Say Hello",
-    f_note:"This page only introduces a book — it sells nothing. ✺"
+    f_l1:"About the book", f_l2:"Table of contents", f_l3:"Quotes", f_l4:"About the author",
+    f_sapa:"Contact",
+    f_note:"This page only presents a book to read — it sells nothing. ✺",
+    lezer_terug:"← Contents",
+    lezer_noot:"Original Dutch translation text (1998) — spelling preserved as in the book."
   },
 
   /* ---------------- NEDERLANDS ---------------- */
   nl: {
-    _title: "Ruang Tumbuh — Een boek van Alwi Abdullah",
-    _desc: "Een kennismakingspagina voor het boek 'Ruang Tumbuh' — notities over langzaam groeien in een wereld die altijd haast heeft. Geen verkooppagina, alleen het verhaal van een boek.",
-    _marquee: ["een boek over groeien", "geen verkooppagina", "alleen het verhaal van een boek", "rustig aan"],
-    _prev: "Vorig citaat", _next: "Volgend citaat",
-    nav_tentang:"Over", nav_isi:"Inhoud", nav_kutipan:"Citaten", nav_penulis:"Auteur", nav_detail:"Details", nav_daftar:"Hoofdstukken",
-    kicker:'<span class="dot"></span> Net verschenen &middot; 2026',
-    h1:`Je hoeft niet<br><em>gehaast</em> te groeien —<br>als je maar <span class="coretan">groeit.${SVG_CORETAN}</span>`,
-    hero_sub:"<b>Ruang Tumbuh</b> (“Ruimte om te groeien”) is een verzameling notities over mens-zijn in een wereld die ons steeds sneller wil laten gaan. Deze pagina is niet gemaakt om iets te verkopen — alleen om het verhaal van een boek te vertellen.",
+    _title:"Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary",
+    _desc:"De volledige tekst van 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' van K.H. Bahaudin Mudhary — een dialoog van negen avonden in Sumenep, 1970. Gratis te lezen, hoofdstuk voor hoofdstuk.",
+    _marquee:["de volledige tekst, hoofdstuk voor hoofdstuk","een echte dialoog uit 1970","geen verkooppagina","lees rustig mee"],
+    _prev:"Vorig citaat", _next:"Volgend citaat",
+    _lees:"Lees →", _vorige:"← Vorige", _volgende:"Volgende →",
+    _voorwerk:"Voorwerk", _dialoogdeel:"De dialoog & speeches",
+    nav_tentang:"Over", nav_daftar:"Inhoud", nav_kutipan:"Citaten", nav_penulis:"Auteur", nav_detail:"Details",
+    kicker:'<span class="dot"></span> Nederlandse vertaling &middot; 1998',
+    h1:`Eén God,<br>twee <em>gelovigen</em>,<br><span class="coretan">negen avonden.${SVG_CORETAN}</span>`,
+    hero_sub:"<b>Dialoog over de Goddelijkheid van Jezus</b> is het volledige verslag van een dialoog van negen avonden in Sumenep (1970) tussen K.H. Bahaudin Mudhary, een islamitische geleerde, en Antonius Widuri, een katholiek. De volledige tekst van het boek is hier gratis te lezen.",
     chip_small:"Geschreven door",
-    btn1:"Maak kennis met het boek ↓", btn2:"Lees een fragment",
-    stiker:"net uit · net uit · net uit · net uit ·",
-    sampul_atas:"Notities van een innerlijke reis",
+    btn1:"Begin met lezen ↓", btn2:"Over het boek",
+    stiker:"gratis lezen · gratis lezen · gratis lezen ·",
     gulir:"scroll",
     s1_label:"01 — Over het boek",
-    s1_h2:"Wat probeert dit boek ons eigenlijk te <em>vertellen</em>?",
-    s1_p1:"We leven in een tijd die alles afmeet aan snelheid: carrières die vóór je dertigste moeten vliegen, prestaties die zichtbaar moeten zijn, en levens die altijd “vooruitgang” moeten boeken. <b>Ruang Tumbuh</b> is geboren uit een eenvoudige onrust — wat als we in ons eigen ritme mochten groeien?",
-    s1_p2:"In twaalf hoofdstukken, geschreven als brieven aan een oude vriend, nodigt dit boek de lezer uit om de betekenis van het proces opnieuw te bekijken: mislukkingen die vruchtbaar blijken, pauzes die je laten groeien, en jezelf vergelijken met anderen — wat alleen maar je geluk steelt.",
-    s1_p3:"Dit is geen motivatieboek dat schreeuwt. Het is eerder een vriend die 's middags naast je komt zitten — niet belerend, zonder beloftes van snelle verandering, gewoon gezelschap dat af en toe de juiste vraag stelt.",
-    tema_h3:"Thema's in dit boek",
-    tema_1:"Vrede sluiten met je eigen ritme in een cultuur die geobsedeerd is door snelheid",
-    tema_2:"Mislukking als mest, niet als vonnis",
-    tema_3:"De kunst van pauzeren zonder schuldgevoel",
-    tema_4:"Betekenis opbouwen, niet alleen prestaties",
-    tema_5:"Relaties die je laten groeien versus relaties die je uitputten",
-    s2_label:"02 — In het boek",
-    s2_h2:"Wat je vindt tussen <em>de pagina's</em>",
-    k1_h:"12 reflectieve essays", k1_p:"Elk hoofdstuk is kort en op zichzelf leesbaar — ideaal om er elke avond één te lezen voor het slapengaan.",
-    k2_h:"Schrijfruimte voor de lezer", k2_p:"Aan het eind van elk hoofdstuk staat een lege pagina met één startvraag, om in te vullen met jouw eigen verhaal.",
-    k3_h:"Echte verhalen", k3_p:"Verhaalfragmenten van gewone mensen — een koffieverkoper, een onderbetaalde leraar, een reiziger — die elk op hun eigen manier groeien.",
-    k4_h:"Een zelfreflectiekaart", k4_p:"Een eenvoudig kader om te zien in welke fase je nu zit — zonder scores, zonder oordeel.",
-    k5_h:"Handgetekende illustraties", k5_p:"Elk hoofdstuk opent met een handgetekende botanische schets — want groeien gaat nooit in een perfect rechte lijn.",
-    k6_h:"Een rustig slothoofdstuk", k6_p:"Een brief van de auteur aan de lezer — geschreven om te herlezen telkens als je je achtergebleven voelt.",
-    s3_label:"03 — Fragmenten",
+    s1_h2:"Negen avonden dialoog die <em>echt hebben plaatsgevonden</em>",
+    s1_p1:"Maart 1970, Sumenep, Madura. Een katholieke accountant, Antonius Widuri, zocht K.H. Bahaudin Mudhary op met één verzoek: een dialoog over de goddelijkheid van Jezus — eerlijk, open en zonder dwang. De afspraak was eenvoudig: het gesprek zou woord voor woord worden vastgelegd, en niemand mocht beledigd worden.",
+    s1_p2:"De dialoog duurde negen avonden. De werkwijze was kenmerkend: Antonius werd gevraagd zijn eigen Bijbel te openen en de tekst voor te lezen, waarna beiden die samen met gezond verstand wogen — tekst voor tekst, rustig en respectvol. Dit boek is het volledige verslag van dat gesprek, inclusief de twee slotspeeches.",
+    s1_p3:'Wat u hier vindt is de Nederlandse vertaling (1998) van het oorspronkelijke Indonesische boek <b>"Dialog Masalah Ketuhanan Jesus"</b>. De volledige tekst is gratis te lezen via de inhoudsopgave hieronder — deze pagina verkoopt niets.',
+    tema_h3:"Besproken in de dialoog",
+    tema_1:"De goddelijkheid van Jezus, onderzocht vanuit de Bijbeltekst zelf",
+    tema_2:'De betekenis van "zoon van God" en "mensenzoon"',
+    tema_3:"Erfzonde en eigen verantwoordelijkheid",
+    tema_4:"Het verhaal van Adam volgens de Koran",
+    tema_5:"Tegenstrijdige teksten in de Bijbel",
+    tema_6:"Tolerantie: een geloofsdialoog zonder dwang",
+    s2_label:"02 — Inhoudsopgave",
+    s2_h2:"Lees het boek hier, <em>hoofdstuk voor hoofdstuk</em>",
+    s2_note:"Klik op een deel om de volledige tekst te openen.",
+    s3_label:"03 — Citaten",
     s3_h2:"Een paar zinnen uit het boek",
-    q1:"&ldquo;Een boom is nooit jaloers op een andere boom die eerder vrucht draagt. Hij is gewoon druk bezig <mark>dieper te wortelen</mark>.&rdquo;",
-    q1_cite:"— Hoofdstuk 3 · Over jezelf vergelijken",
-    q2:"&ldquo;Een pauze betekent niet stoppen. Zelfs grond laat men een seizoen braak liggen, zodat de <mark>volgende oogst</mark> niet teleurstelt.&rdquo;",
-    q2_cite:"— Hoofdstuk 7 · Over pauzes nemen",
-    q3:"&ldquo;We noemen het vaak mislukken. Misschien is het gewoon het leven dat zegt: <mark>niet langs hier</mark> — probeer de andere weg.&rdquo;",
-    q3_cite:"— Hoofdstuk 5 · Over mislukken",
-    s4_label:"04 — Achter het boek",
-    s4_h2:"De persoon die het <em>schreef</em>",
-    foto_ph:"hier komt de auteursfoto<br>(vervang door een echte foto)",
-    foto_ket:"— geschreven met sterke zwarte koffie erbij —",
-    bio_p1:"<b>Alwi Abdullah</b> is een schrijver en waarnemer van het dagelijks leven, die gelooft dat kleine verhalen de grootste lessen bevatten. Voordat hij dit boek schreef, hield hij jarenlang een dagboek bij dat nooit bedoeld was om door iemand gelezen te worden.",
-    bio_p2:"Ruang Tumbuh is zijn eerste boek — twee jaar lang geschreven, grotendeels aan hetzelfde bureau, in de uren waarin het huis al stil was. Hij schreef het niet omdat hij klaar was met groeien, maar juist omdat hij er middenin zat.",
-    fakta_2:"✍️ Schrijft sinds 2018", fakta_3:"📖 Debuut", fakta_4:"☕ Team sterke koffie",
+    s4_label:"04 — De auteur",
+    s4_h2:"De man achter <em>deze dialoog</em>",
+    foto_ph:"hier komt de foto van<br>K.H. Bahaudin Mudhary",
+    bio_p1:"<b>K.H. Bahaudin Mudhary</b> (1921–1979) was een islamitische geleerde, geboren in Sumenep, Madura. Hij sprak veel talen — Indonesisch, Arabisch, Engels, Duits, Nederlands, Frans — hield van filosofie en het spirituele, en bespeelde uiteenlopende muziekinstrumenten.",
+    bio_p2:"Vrijwel zijn hele leven stond in het teken van onderwijs: leraar aan de Muallimin Moehammadiyah-school, hoofdleraar, docent, stichter van een islamitische school op Madura (1949) en van de Academie Metafysica (jaren '60). In deze dialoog wordt hij om één ding herinnerd: hij kende de Bijbelteksten uit zijn hoofd, en beantwoordde alles met rustige logica.",
+    fakta_1:"📍 Sumenep, Madura", fakta_2:"🕌 Geleerde & leraar", fakta_3:"🗣️ Sprak 6 talen", fakta_4:"🎼 Musicus",
     s5_label:"05 — Gegevensblad",
     s5_h2:"Boekgegevens, in de stijl van een <em>bibliotheekkaart</em>",
-    cat_kiri:"CATALOGUSKAART <b>№ 001</b>", cat_kanan:"PLANK: PERSOONLIJKE GROEI",
-    rk_judul:"Titel", rv_judul:"Ruang Tumbuh — Notities over langzaam groeien in een wereld die altijd haast heeft",
-    rk_penulis:"Auteur", rk_penerbit:"Uitgever",
-    rk_tahun:"Verschenen", rv_tahun:"2026 (eerste druk)",
-    rk_tebal:"Omvang", rv_tebal:"248 pagina's",
-    rk_bahasa:"Taal", rv_bahasa:"Indonesisch",
-    rk_kategori:"Categorie", rv_kategori:"Essays / Persoonlijke groei / Reflectie",
-    rk_format:"Formaat", rv_format:'Gedrukt &amp; e-book <em style="color:var(--ink-soft)">(louter ter informatie, geen koopuitnodiging)</em>',
-    cap:"officieel<br>verschenen",
-    s6_label:"06 — Inhoudsopgave",
-    s6_h2:"Twaalf hoofdstukken, het best <em>langzaam</em> gelezen",
-    bab1_h:"Vertrekken vanuit onrust", bab1_p:"Waarom we ons altijd achtergebleven voelen, en waar dat gevoel vandaan komt.",
-    bab2_h:"Een geleend ritme", bab2_p:"Over leven op andermans tempo — en hoe je het teruggeeft.",
-    bab3_h:"Bomen zijn niet jaloers op elkaar", bab3_p:"Jezelf vergelijken, sociale media en de wortels die niemand ziet.",
-    bab4_h:"Niet langs hier", bab4_p:"Mislukking herlezen als wegwijzer, niet als eindpunt.",
-    bab5_h:"Grond die rust krijgt", bab5_p:"De kunst van pauzeren zonder schuldgevoel in een cultuur die druk-zijn aanbidt.",
-    bab6_h:"Een brief aan wie nog groeit", bab6_p:"Het slothoofdstuk — geschreven om te herlezen telkens als je je achtergebleven voelt.",
-    hal1:"blz. 1", hal2:"blz. 21", hal3:"blz. 43", hal4:"blz. 87", hal5:"blz. 131", hal6:"blz. 233",
-    s6_note:"…en zes andere hoofdstukken die we hier bewust niet verklappen. 🌿",
-    s7_label:"07 — Voor wie",
-    s7_h2:"Eerlijk gezegd: dit boek is niet voor <em>iedereen</em>",
-    ya_h3:"🌿 Dit boek is voor jou, als…",
-    ya_1:"Je je vaak achtergebleven voelt bij leeftijdsgenoten",
-    ya_2:"Je moe bent van motivatiecontent die constant schreeuwt",
-    ya_3:"Je houdt van reflectieve boeken die je hoofdstuk per hoofdstuk kunt lezen",
-    ya_4:"Je in een overgangsfase zit — afstuderen, verhuizen, opnieuw beginnen",
-    ya_5:"Je je eigen verhaal wilt herschrijven, rustig aan",
-    no_h3:"🍂 Misschien niet voor jou, als…",
-    no_1:'Je op zoek bent naar een stappenplan voor "succes in 30 dagen"',
-    no_2:"Je bij elk argument data, onderzoek en grafieken nodig hebt",
-    no_3:"Een persoonlijke, briefachtige schrijfstijl niets voor jou is",
-    no_4:"Je stellige antwoorden wilt, geen vragen om over na te denken",
-    s7_note:"&ldquo;En als dit boek toch niets voor jou blijkt — dat is oké. Boeken vinden, net als mensen, ieder hun eigen match.&rdquo;",
-    f_terima:"Bedankt voor je bezoek en de <em>kennismaking</em> met dit boek.",
+    cat_kiri:"CATALOGUSKAART <b>№ 001</b>", cat_kanan:"PLANK: INTERRELIGIEUZE DIALOOG",
+    rk_judul:"Titel", rk_penulis:"Auteur",
+    rk_asli:"Oorspronkelijke titel", rv_asli:'"Dialog Masalah Ketuhanan Jesus" (Indonesisch)',
+    rk_vertaling:"Vertaling", rv_vertaling:"Nederlands — maart 1998",
+    rk_vorm:"Vorm", rv_vorm:"Vraag en antwoord — een dialoog van negen avonden",
+    rk_plaats:"Plaats & tijd", rv_plaats:"Sumenep, Madura — maart 1970",
+    rk_tebal:"Omvang", rv_tebal:"72 pagina's",
+    rk_kategori:"Categorie", rv_kategori:"Religie / Interreligieuze dialoog",
+    rk_akses:"Toegang", rv_akses:"Volledig en gratis te lezen op deze pagina",
+    cap:"volledige<br>tekst",
+    f_terima:"Bedankt voor je bezoek en het <em>lezen</em> van dit boek.",
     f_jelajah:"Ontdek",
-    f_l1:"Over het boek", f_l2:"Fragmenten", f_l3:"Over de auteur", f_l4:"Inhoudsopgave",
-    f_sapa:"Zeg hallo",
-    f_note:"Deze pagina stelt alleen een boek voor — er wordt niets verkocht. ✺"
+    f_l1:"Over het boek", f_l2:"Inhoudsopgave", f_l3:"Citaten", f_l4:"Over de auteur",
+    f_sapa:"Contact",
+    f_note:"Deze pagina presenteert alleen een boek om te lezen — er wordt niets verkocht. ✺",
+    lezer_terug:"← Inhoud",
+    lezer_noot:"Originele vertaaltekst (1998) — spelling behouden zoals in het boek."
   }
 };
 
-/* ============ terapkan bahasa ============ */
+/* ============ status bahasa ============ */
 const tombolBahasa = [...document.querySelectorAll('.lang button')];
+let bahasa = 'id';
+try{ bahasa = localStorage.getItem('bahasa') || 'id'; }catch(e){}
 
 function setLang(lang){
-  const t = I18N[lang] || I18N.id;
+  bahasa = I18N[lang] ? lang : 'id';
+  const t = I18N[bahasa];
 
-  /* semua elemen bertanda data-i18n */
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = t[el.dataset.i18n];
     if (v != null) el.innerHTML = v;
   });
 
-  /* marquee dibangun ulang (teks + ikon selang-seling, lalu digandakan) */
+  /* marquee */
   const jalur = document.getElementById('jalurMarquee');
   const ikon = ['✺','✦'];
   const satuPutaran = t._marquee.map((teks,i) => `<span>${teks} <i>${ikon[i%2]}</i></span>`).join('');
   jalur.innerHTML = satuPutaran + satuPutaran;
 
   /* metadata & aksesibilitas */
-  document.documentElement.lang = lang;
+  document.documentElement.lang = bahasa;
   document.title = t._title;
   document.querySelector('meta[name="description"]').setAttribute('content', t._desc);
   document.getElementById('kutipPrev').setAttribute('aria-label', t._prev);
   document.getElementById('kutipNext').setAttribute('aria-label', t._next);
 
-  /* tandai tombol aktif & simpan pilihan */
-  tombolBahasa.forEach(b => b.classList.toggle('aktif', b.dataset.lang === lang));
-  try{ localStorage.setItem('bahasa', lang); }catch(e){}
+  tombolBahasa.forEach(b => b.classList.toggle('aktif', b.dataset.lang === bahasa));
+  try{ localStorage.setItem('bahasa', bahasa); }catch(e){}
+
+  buildTOC();
+  if (hoofdstukIdx >= 0) vulLezer(hoofdstukIdx); /* segarkan label tombol pembaca */
 }
 
 tombolBahasa.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
-let bahasaAwal = 'id';
-try{ bahasaAwal = localStorage.getItem('bahasa') || 'id'; }catch(e){}
-setLang(bahasaAwal);
+/* ============ DAFTAR ISI dari boek.js ============ */
+const VOORWERK_N = 4; /* 4 bagian pertama = voorwerk (I–IV) */
+
+function buildTOC(){
+  const t = I18N[bahasa];
+  const list = document.getElementById('tocList');
+  let htmlOut = `<div class="bab tussen"><span>${t._voorwerk}</span></div>`;
+  BOEK.forEach((h, i) => {
+    if (i === VOORWERK_N) htmlOut += `<div class="bab tussen"><span>${t._dialoogdeel}</span></div>`;
+    htmlOut += `
+    <button class="bab" data-idx="${i}">
+      <span class="no">${h.nr}</span>
+      <span><h3>${h.titel}</h3><p>${h.sub}</p></span>
+      <span class="kanan"><span class="hal">${h.blz}</span><span class="lees">${t._lees}</span></span>
+    </button>`;
+  });
+  list.innerHTML = htmlOut;
+  list.querySelectorAll('button.bab').forEach(b =>
+    b.addEventListener('click', () => openLezer(+b.dataset.idx)));
+}
+
+/* ============ TAMPILAN BACA ============ */
+const lezer = document.getElementById('lezer');
+const lezerBlad = document.getElementById('lezerBlad');
+let hoofdstukIdx = -1;
+
+function vulLezer(i){
+  const t = I18N[bahasa];
+  const h = BOEK[i];
+  document.getElementById('lezerNr').textContent = h.nr + ' — ' + h.blz;
+  document.getElementById('lezerTitel').textContent = h.titel;
+  document.getElementById('lezerTitelKlein').textContent = h.nr + '. ' + h.titel;
+  document.getElementById('lezerSub').textContent = h.sub;
+  document.getElementById('lezerTekst').innerHTML = h.html;
+  document.getElementById('lezerLegenda').style.display = h.html.includes('class="beurt') ? 'flex' : 'none';
+
+  const prev = document.getElementById('lezerVorige');
+  const next = document.getElementById('lezerVolgende');
+  prev.textContent = i > 0 ? `${t._vorige}  ·  ${BOEK[i-1].titel}` : t._vorige;
+  next.textContent = i < BOEK.length-1 ? `${BOEK[i+1].titel}  ·  ${t._volgende}` : t._volgende;
+  prev.disabled = i === 0;
+  next.disabled = i === BOEK.length-1;
+  document.getElementById('lezerVorige2').disabled = i === 0;
+  document.getElementById('lezerVolgende2').disabled = i === BOEK.length-1;
+}
+
+function openLezer(i, gantiHash = true){
+  hoofdstukIdx = Math.max(0, Math.min(i, BOEK.length-1));
+  vulLezer(hoofdstukIdx);
+  lezer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  lezerBlad.scrollTop = 0;
+  if (gantiHash) history.pushState(null, '', '#lees-' + BOEK[hoofdstukIdx].id);
+}
+
+function sluitLezer(gantiHash = true){
+  if (hoofdstukIdx < 0) return;
+  hoofdstukIdx = -1;
+  lezer.classList.remove('open');
+  document.body.style.overflow = '';
+  if (gantiHash) history.pushState(null, '', '#daftarisi');
+}
+
+document.getElementById('lezerTerug').addEventListener('click', () => sluitLezer());
+document.getElementById('lezerVorige').addEventListener('click', () => openLezer(hoofdstukIdx-1));
+document.getElementById('lezerVolgende').addEventListener('click', () => openLezer(hoofdstukIdx+1));
+document.getElementById('lezerVorige2').addEventListener('click', () => openLezer(hoofdstukIdx-1));
+document.getElementById('lezerVolgende2').addEventListener('click', () => openLezer(hoofdstukIdx+1));
+addEventListener('keydown', e => { if (e.key === 'Escape') sluitLezer(); });
+
+/* deep-link: #lees-<id> membuka bab langsung */
+function checkHash(){
+  const m = location.hash.match(/^#lees-(.+)$/);
+  if (m){
+    const i = BOEK.findIndex(h => h.id === m[1]);
+    if (i >= 0){ openLezer(i, false); return; }
+  }
+  sluitLezer(false);
+}
+addEventListener('popstate', checkHash);
+
+/* progress bar di dalam tampilan baca */
+lezerBlad.addEventListener('scroll', () => {
+  const v = lezerBlad.scrollTop / (lezerBlad.scrollHeight - lezerBlad.clientHeight) * 100;
+  document.getElementById('lezerVoortgang').style.width = (isFinite(v) ? v : 0) + '%';
+}, { passive:true });
+
+/* ============ init bahasa + TOC + deep-link ============ */
+setLang(bahasa);
+checkHash();
 
 /* ============ animasi muncul saat scroll ============ */
 const pengamat = new IntersectionObserver(entries => {
@@ -1429,7 +1394,7 @@ const pengamat = new IntersectionObserver(entries => {
 }, { threshold:.12 });
 document.querySelectorAll('.muncul').forEach(el => pengamat.observe(el));
 
-/* ============ progress bar baca ============ */
+/* ============ progress bar halaman ============ */
 const bar = document.getElementById('progress');
 addEventListener('scroll', () => {
   const t = document.documentElement;
@@ -1458,7 +1423,7 @@ function tampilkanKutip(i){
 }
 document.getElementById('kutipPrev').onclick = () => tampilkanKutip(idxKutip - 1);
 document.getElementById('kutipNext').onclick = () => tampilkanKutip(idxKutip + 1);
-setInterval(() => tampilkanKutip(idxKutip + 1), 8000); /* ganti otomatis tiap 8 detik */
+setInterval(() => tampilkanKutip(idxKutip + 1), 8000);
 
 /* ============ tandai link nav yang aktif ============ */
 const navLinks = [...document.querySelectorAll('nav .links a')];

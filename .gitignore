@@ -1,2 +1,8 @@
 .vercel
 .claude/settings.local.json
+
+# sumber & berkas kerja lokal (tidak perlu ikut deploy)
+Dialoog_Lengkap_Final.pdf
+_dialoog_extract.txt
+_parse_boek.py
+_check_boek.js

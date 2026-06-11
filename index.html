@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============ GANTI DI SINI : judul tab & deskripsi SEO ============ -->
+<title>Ruang Tumbuh — Sebuah Buku oleh Alwi Abdullah</title>
+<meta name="description" content="Halaman pengenalan buku 'Ruang Tumbuh' — catatan tentang bertumbuh pelan di dunia yang terburu-buru. Bukan halaman jualan, hanya cerita tentang sebuah buku.">
+<!-- =================================================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ===================================================================
+   RUANG TUMBUH — halaman pengenalan buku
+   Gaya: editorial-vintage, kertas hangat, kartu katalog perpustakaan
+   =================================================================== */
+
+:root{
+  --paper:        #F6F0E3;
+  --paper-deep:   #EFE6D2;
+  --ink:          #25211A;
+  --ink-soft:     #5C5446;
+  --terracotta:   #D45A38;
+  --terra-deep:   #B8492B;
+  --forest:       #2E5A4C;
+  --forest-deep:  #21443A;
+  --gold:         #C9A227;
+  --cream:        #FFFDF6;
+  --line:         rgba(37,33,26,.16);
+
+  --serif: "Fraunces", Georgia, serif;
+  --sans:  "Plus Jakarta Sans", system-ui, sans-serif;
+  --mono:  "Courier Prime", "Courier New", monospace;
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{ background:var(--terracotta); color:var(--cream); }
+
+/* ---- tekstur kertas (grain halus di seluruh halaman) ---- */
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:9990;
+  opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img{ max-width:100%; display:block; }
+a{ color:inherit; }
+
+.wrap{ width:min(1180px, 92vw); margin-inline:auto; }
+
+/* ============ progress bar baca ============ */
+#progress{
+  position:fixed; top:0; left:0; height:4px; width:0%;
+  background:linear-gradient(90deg, var(--terracotta), var(--gold));
+  z-index:10000;
+  transition:width .1s linear;
+}
+
+/* ============ NAVBAR ============ */
+nav{
+  position:fixed; top:14px; left:50%; translate:-50% 0;
+  z-index:9999;
+  display:flex; align-items:center; gap:6px;
+  background:rgba(255,253,246,.82);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 10px 8px 18px;
+  box-shadow:0 10px 30px -12px rgba(37,33,26,.25);
+  width:max-content; max-width:94vw;
+}
+nav .brand{
+  font-family:var(--serif); font-weight:700; font-size:1.05rem;
+  letter-spacing:.01em; margin-right:10px; text-decoration:none;
+  white-space:nowrap;
+}
+nav .brand span{ color:var(--terracotta); }
+nav .links{ display:flex; gap:2px; }
+nav .links a{
+  text-decoration:none; font-size:.82rem; font-weight:600;
+  padding:8px 13px; border-radius:999px; color:var(--ink-soft);
+  transition:.25s;
+  white-space:nowrap;
+}
+nav .links a:hover, nav .links a.aktif{ background:var(--ink); color:var(--cream); }
+@media (max-width:880px){
+  nav .links{ display:none; }
+  nav{ padding:10px 18px; }
+}
+
+/* ============ HERO ============ */
+header{
+  min-height:100svh;
+  display:grid; align-items:center;
+  position:relative;
+  padding:130px 0 70px;
+  background:
+    radial-gradient(900px 500px at 85% 10%, rgba(212,90,56,.10), transparent 60%),
+    radial-gradient(700px 500px at 5% 90%, rgba(46,90,76,.12), transparent 60%),
+    var(--paper);
+  overflow:hidden;
+}
+
+/* garis-garis halus seperti kertas tulis di latar hero */
+header::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:repeating-linear-gradient(transparent 0 38px, rgba(37,33,26,.045) 38px 39px);
+  mask-image:radial-gradient(800px 600px at 30% 40%, #000, transparent 75%);
+  pointer-events:none;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:clamp(30px, 5vw, 70px);
+  align-items:center;
+}
+@media (max-width:880px){ .hero-grid{ grid-template-columns:1fr; } }
+
+.kicker{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:.8rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--forest);
+  border:1.5px solid var(--forest);
+  padding:7px 16px; border-radius:999px;
+  rotate:-1.5deg;
+  background:var(--cream);
+  box-shadow:3px 3px 0 var(--forest);
+  margin-bottom:26px;
+}
+.kicker .dot{ width:8px; height:8px; border-radius:50%; background:var(--terracotta); animation:denyut 1.6s infinite; }
+@keyframes denyut{ 0%,100%{ transform:scale(1); opacity:1 } 50%{ transform:scale(1.5); opacity:.5 } }
+
+h1{
+  font-family:var(--serif);
+  font-size:clamp(2.9rem, 7.2vw, 5.6rem);
+  line-height:1.02;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+h1 em{
+  font-style:italic;
+  font-variation-settings:"SOFT" 100, "WONK" 1;
+  color:var(--terracotta);
+}
+.coretan{ position:relative; white-space:nowrap; }
+.coretan svg{
+  position:absolute; left:-2%; bottom:-.18em; width:104%; height:.45em;
+  overflow:visible;
+}
+.coretan svg path{
+  fill:none; stroke:var(--gold); stroke-width:7; stroke-linecap:round;
+  stroke-dasharray:1000; stroke-dashoffset:1000;
+  animation:gambar 1.4s .9s ease forwards;
+}
+@keyframes gambar{ to{ stroke-dashoffset:0 } }
+
+.hero-sub{
+  margin-top:26px;
+  font-size:clamp(1rem, 1.4vw, 1.15rem);
+  color:var(--ink-soft);
+  max-width:54ch;
+}
+
+.penulis-chip{
+  margin-top:32px;
+  display:inline-flex; align-items:center; gap:14px;
+  background:var(--cream); border:1px solid var(--line);
+  padding:10px 22px 10px 12px; border-radius:999px;
+  box-shadow:0 8px 22px -10px rgba(37,33,26,.25);
+}
+.penulis-chip .ava{
+  width:44px; height:44px; border-radius:50%;
+  background:linear-gradient(135deg, var(--forest), var(--gold));
+  display:grid; place-items:center;
+  color:var(--cream); font-family:var(--serif); font-weight:700;
+}
+.penulis-chip small{ display:block; font-size:.72rem; color:var(--ink-soft); letter-spacing:.08em; text-transform:uppercase; }
+.penulis-chip b{ font-size:.95rem; }
+
+.hero-aksi{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
+.tbl{
+  display:inline-flex; align-items:center; gap:10px;
+  text-decoration:none; font-weight:700; font-size:.92rem;
+  padding:14px 28px; border-radius:999px;
+  transition:.25s;
+}
+.tbl.isi{ background:var(--ink); color:var(--cream); box-shadow:4px 4px 0 var(--terracotta); }
+.tbl.isi:hover{ translate:2px 2px; box-shadow:1px 1px 0 var(--terracotta); }
+.tbl.garis{ border:1.5px solid var(--ink); }
+.tbl.garis:hover{ background:var(--ink); color:var(--cream); }
+
+/* ---- buku 3D ---- */
+.panggung{
+  perspective:1400px;
+  display:grid; place-items:center;
+  position:relative;
+  padding:30px 0;
+}
+.buku{
+  position:relative;
+  width:min(310px, 64vw);
+  aspect-ratio:0.68;
+  transform-style:preserve-3d;
+  transform:rotateY(-24deg) rotateX(4deg);
+  transition:transform .5s cubic-bezier(.2,.7,.3,1);
+  animation:melayang 5.5s ease-in-out infinite;
+}
+@keyframes melayang{
+  0%,100%{ translate:0 0 }
+  50%{ translate:0 -16px }
+}
+.buku .muka{
+  position:absolute; inset:0;
+  border-radius:6px 14px 14px 6px;
+  background:linear-gradient(150deg, var(--forest) 0%, var(--forest-deep) 70%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.08),
+    25px 35px 70px -20px rgba(37,33,26,.55);
+  padding:9% 9% 8%;
+  display:flex; flex-direction:column;
+  color:var(--paper);
+  overflow:hidden;
+}
+.buku .muka::after{ /* kilau halus di sampul */
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.10) 45%, transparent 60%);
+}
+.buku .punggung{
+  position:absolute; top:0; bottom:0; left:0; width:42px;
+  background:linear-gradient(var(--forest-deep), #18332B);
+  transform:rotateY(-90deg) translateX(-21px);
+  transform-origin:left;
+  border-radius:4px 0 0 4px;
+}
+.buku .halaman{
+  position:absolute; top:1.2%; bottom:1.2%; right:-14px; width:16px;
+  background:repeating-linear-gradient(90deg, #FFFDF6 0 2px, #E8E0CC 2px 4px);
+  transform:rotateY(38deg);
+  transform-origin:left;
+  border-radius:0 3px 3px 0;
+}
+.sampul-atas{ font-family:var(--mono); font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; opacity:.75; border-bottom:1px solid rgba(246,240,227,.3); padding-bottom:10px; }
+.sampul-judul{
+  font-family:var(--serif); font-weight:600;
+  font-size:clamp(1.7rem, 3.4vw, 2.3rem);
+  line-height:1.05; margin-top:auto;
+}
+.sampul-judul em{ font-style:italic; color:var(--gold); font-variation-settings:"SOFT" 100; }
+.sampul-bawah{ margin-top:auto; display:flex; justify-content:space-between; align-items:flex-end; font-size:.7rem; }
+.sampul-bawah .garis-emas{ width:34px; height:3px; background:var(--gold); margin-bottom:8px; }
+.sampul-bunga{
+  position:absolute; right:-14%; top:18%;
+  width:60%; opacity:.14;
+}
+
+/* stiker berputar "BARU TERBIT" */
+.stiker{
+  position:absolute; top:2%; right:4%;
+  width:124px; height:124px;
+  animation:putar 14s linear infinite;
+  z-index:3;
+  filter:drop-shadow(0 8px 16px rgba(37,33,26,.25));
+}
+@keyframes putar{ to{ rotate:360deg } }
+.stiker text{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:3.5px;
+  fill:var(--cream); text-transform:uppercase;
+}
+@media (max-width:880px){ .stiker{ width:96px; height:96px; right:0; top:-2%; } }
+
+/* panah scroll */
+.gulir{
+  position:absolute; bottom:26px; left:50%; translate:-50% 0;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.25em;
+  text-transform:uppercase; color:var(--ink-soft);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  text-decoration:none;
+}
+.gulir::after{
+  content:""; width:1px; height:42px;
+  background:linear-gradient(var(--ink-soft), transparent);
+  animation:turun 1.8s ease-in-out infinite;
+}
+@keyframes turun{ 0%{ transform:scaleY(.2); transform-origin:top } 60%{ transform:scaleY(1); transform-origin:top } 100%{ opacity:0 } }
+
+/* ============ MARQUEE ============ */
+.marquee{
+  background:var(--ink); color:var(--paper);
+  overflow:hidden; white-space:nowrap;
+  rotate:-1.2deg; scale:1.03 1;
+  padding:16px 0;
+  border-block:3px solid var(--terracotta);
+  position:relative; z-index:5;
+}
+.marquee .jalur{
+  display:inline-flex; gap:0;
+  animation:jalan 26s linear infinite;
+}
+.marquee span{
+  font-family:var(--serif); font-style:italic; font-size:1.15rem;
+  padding:0 22px;
+  display:inline-flex; align-items:center; gap:22px;
+}
+.marquee i{ font-style:normal; color:var(--gold); }
+@keyframes jalan{ to{ translate:-50% 0 } }
+
+/* ============ SECTION dasar ============ */
+section{ padding:clamp(80px, 11vw, 140px) 0; position:relative; }
+
+.label-bab{
+  display:flex; align-items:center; gap:16px;
+  font-family:var(--mono); font-size:.78rem;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--terracotta);
+  margin-bottom:18px;
+}
+.label-bab::after{ content:""; height:1px; width:64px; background:var(--terracotta); }
+
+h2{
+  font-family:var(--serif); font-weight:600;
+  font-size:clamp(2rem, 4.4vw, 3.3rem);
+  line-height:1.08; letter-spacing:-.015em;
+  max-width:20ch;
+}
+h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 100; }
+
+/* animasi muncul saat scroll */
+.muncul{ opacity:0; translate:0 36px; transition:opacity .8s ease, translate .8s cubic-bezier(.2,.7,.3,1); }
+.muncul.tampil{ opacity:1; translate:0 0; }
+.muncul:nth-child(2){ transition-delay:.08s } .muncul:nth-child(3){ transition-delay:.16s }
+.muncul:nth-child(4){ transition-delay:.24s } .muncul:nth-child(5){ transition-delay:.32s }
+
+/* ============ TENTANG BUKU ============ */
+#tentang .isi-grid{
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:clamp(30px, 5vw, 80px);
+  margin-top:48px; align-items:start;
+}
+@media (max-width:880px){ #tentang .isi-grid{ grid-template-columns:1fr; } }
+
+.kapital::first-letter{
+  font-family:var(--serif);
+  font-size:4.4em; float:left; line-height:.78;
+  padding:6px 14px 0 0;
+  color:var(--terracotta); font-weight:600;
+}
+#tentang p{ color:var(--ink-soft); font-size:1.03rem; margin-bottom:1.2em; }
+#tentang p b{ color:var(--ink); }
+
+.kartu-tema{
+  background:var(--cream);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:30px 32px;
+  rotate:1.2deg;
+  box-shadow:8px 10px 0 var(--paper-deep), 8px 10px 0 1px var(--line);
+}
+.kartu-tema h3{ font-family:var(--serif); font-size:1.25rem; margin-bottom:16px; }
+.kartu-tema ul{ list-style:none; display:grid; gap:12px; }
+.kartu-tema li{
+  display:flex; gap:12px; align-items:baseline;
+  font-size:.95rem; color:var(--ink-soft);
+}
+.kartu-tema li::before{ content:"✦"; color:var(--gold); flex-shrink:0; }
+
+/* ============ HIGHLIGHT / ISI ============ */
+#isi{ background:var(--paper-deep); }
+#isi::before, #isi::after{ /* sobekan kertas atas-bawah */
+  content:""; position:absolute; left:0; right:0; height:14px;
+  background-image:radial-gradient(circle at 8px -4px, transparent 12px, var(--paper-deep) 13px);
+  background-size:24px 14px;
+}
+#isi::before{ top:-13px; }
+#isi::after{ bottom:-13px; rotate:180deg; }
+
+.kartu-grid{
+  margin-top:56px;
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:22px;
+}
+@media (max-width:980px){ .kartu-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){ .kartu-grid{ grid-template-columns:1fr; } }
+
+.kartu{
+  background:var(--cream);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:34px 30px 30px;
+  position:relative;
+  transition:.35s cubic-bezier(.2,.7,.3,1);
+}
+.kartu:nth-child(odd){ rotate:-.7deg; }
+.kartu:nth-child(even){ rotate:.8deg; }
+.kartu:hover{ rotate:0deg; translate:0 -8px; box-shadow:0 24px 44px -18px rgba(37,33,26,.3); }
+.kartu .nomor{
+  position:absolute; top:18px; right:24px;
+  font-family:var(--serif); font-style:italic;
+  font-size:3rem; color:var(--paper-deep);
+  -webkit-text-stroke:1px var(--line);
+  line-height:1;
+}
+.kartu .ikon{
+  width:54px; height:54px; border-radius:16px;
+  display:grid; place-items:center; font-size:1.5rem;
+  margin-bottom:20px;
+  rotate:-4deg;
+}
+.kartu:nth-child(3n+1) .ikon{ background:#F5DDD3; }
+.kartu:nth-child(3n+2) .ikon{ background:#D9E5DC; }
+.kartu:nth-child(3n)   .ikon{ background:#F0E4BC; }
+.kartu h3{ font-family:var(--serif); font-size:1.2rem; margin-bottom:10px; }
+.kartu p{ font-size:.92rem; color:var(--ink-soft); }
+
+/* ============ KUTIPAN ============ */
+#kutipan{
+  background:var(--forest-deep);
+  color:var(--paper);
+  overflow:hidden;
+}
+#kutipan::before{ /* tanda kutip raksasa */
+  content:"\201C";
+  position:absolute; top:-.12em; left:2%;
+  font-family:var(--serif); font-size:28rem; line-height:1;
+  color:rgba(246,240,227,.06);
+  pointer-events:none;
+}
+#kutipan .label-bab{ color:var(--gold); }
+#kutipan .label-bab::after{ background:var(--gold); }
+
+.kutipan-rel{ position:relative; margin-top:30px; min-height:300px; }
+.kutip{
+  position:absolute; inset:0;
+  opacity:0; translate:0 24px;
+  transition:opacity .7s ease, translate .7s ease;
+  pointer-events:none;
+}
+.kutip.aktif{ opacity:1; translate:0 0; pointer-events:auto; position:relative; }
+.kutip blockquote{
+  font-family:var(--serif); font-style:italic;
+  font-size:clamp(1.5rem, 3.4vw, 2.5rem);
+  line-height:1.35; font-weight:400;
+  max-width:26ch;
+  font-variation-settings:"SOFT" 80;
+}
+.kutip blockquote mark{
+  background:none; color:var(--gold);
+  border-bottom:2px solid var(--gold);
+}
+.kutip cite{
+  display:block; margin-top:28px;
+  font-family:var(--mono); font-style:normal; font-size:.8rem;
+  letter-spacing:.18em; text-transform:uppercase; opacity:.65;
+}
+.kutip-nav{ display:flex; gap:10px; margin-top:40px; }
+.kutip-nav button{
+  width:46px; height:46px; border-radius:50%;
+  border:1.5px solid rgba(246,240,227,.4);
+  background:none; color:var(--paper);
+  font-size:1.1rem; cursor:pointer; transition:.25s;
+}
+.kutip-nav button:hover{ background:var(--gold); border-color:var(--gold); color:var(--ink); }
+
+/* ============ PENULIS ============ */
+#penulis .grid-penulis{
+  display:grid; grid-template-columns:.8fr 1.2fr;
+  gap:clamp(36px, 6vw, 90px); align-items:center;
+  margin-top:50px;
+}
+@media (max-width:880px){ #penulis .grid-penulis{ grid-template-columns:1fr; } }
+
+.polaroid{
+  background:#fff;
+  padding:16px 16px 60px;
+  rotate:-2.5deg;
+  box-shadow:0 22px 45px -16px rgba(37,33,26,.4);
+  position:relative;
+  width:min(360px, 100%);
+  margin-inline:auto;
+  transition:.4s;
+}
+.polaroid:hover{ rotate:0deg; scale:1.02; }
+.polaroid .selotip{
+  position:absolute; top:-16px; left:50%; translate:-50% 0; rotate:3deg;
+  width:120px; height:34px;
+  background:rgba(201,162,39,.4);
+  backdrop-filter:blur(1px);
+  box-shadow:0 2px 5px rgba(37,33,26,.12);
+}
+.polaroid .foto{
+  aspect-ratio:.95;
+  background:
+    radial-gradient(circle at 35% 30%, #E7DDC6, transparent 50%),
+    linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
+  display:grid; place-items:center;
+  font-family:var(--serif); font-style:italic;
+  color:var(--paper); font-size:.9rem;
+  text-align:center; padding:20px;
+}
+.polaroid .ket{
+  position:absolute; bottom:16px; left:0; right:0;
+  text-align:center;
+  font-family:var(--serif); font-style:italic; font-size:1.05rem;
+  color:var(--ink-soft);
+}
+#penulis .bio p{ color:var(--ink-soft); margin-bottom:1.1em; }
+#penulis .bio p b{ color:var(--ink); }
+.fakta{
+  margin-top:28px;
+  display:flex; flex-wrap:wrap; gap:10px;
+}
+.fakta span{
+  font-family:var(--mono); font-size:.78rem;
+  border:1px solid var(--line); background:var(--cream);
+  padding:7px 16px; border-radius:999px;
+}
+
+/* ============ DETAIL — kartu katalog perpustakaan ============ */
+#detail{ background:var(--paper-deep); }
+#detail::before{
+  content:""; position:absolute; left:0; right:0; top:-13px; height:14px;
+  background-image:radial-gradient(circle at 8px -4px, transparent 12px, var(--paper-deep) 13px);
+  background-size:24px 14px;
+}
+
+.katalog{
+  margin-top:52px;
+  background:#FBF7EA;
+  border:1px solid var(--line);
+  border-radius:6px;
+  max-width:760px; margin-inline:auto;
+  font-family:var(--mono);
+  box-shadow:0 20px 40px -18px rgba(37,33,26,.35), 0 0 0 6px var(--cream), 0 0 0 7px var(--line);
+  rotate:.6deg;
+  position:relative;
+  overflow:hidden;
+}
+.katalog::before{ /* lubang kartu katalog */
+  content:""; position:absolute; bottom:14px; left:50%; translate:-50% 0;
+  width:26px; height:26px; border-radius:50%;
+  background:var(--paper-deep);
+  box-shadow:inset 0 2px 5px rgba(37,33,26,.25);
+}
+.katalog header{
+  all:unset; display:flex; justify-content:space-between; align-items:center;
+  padding:18px 30px;
+  border-bottom:2px solid var(--terracotta);
+  background:repeating-linear-gradient(90deg, transparent 0 6px, rgba(212,90,56,.06) 6px 12px);
+  font-size:.8rem; letter-spacing:.2em; text-transform:uppercase;
+}
+.katalog header b{ color:var(--terracotta); }
+.katalog .baris{
+  display:grid; grid-template-columns:200px 1fr;
+  padding:13px 30px;
+  border-bottom:1px dashed var(--line);
+  font-size:.92rem;
+  transition:background .2s;
+}
+.katalog .baris:hover{ background:rgba(201,162,39,.08); }
+.katalog .baris:last-of-type{ border-bottom:none; padding-bottom:54px; }
+.katalog .baris .k{ color:var(--ink-soft); text-transform:uppercase; font-size:.78rem; letter-spacing:.12em; padding-top:2px; }
+@media (max-width:640px){ .katalog .baris{ grid-template-columns:1fr; gap:2px; } }
+.cap{
+  position:absolute; right:26px; bottom:30px;
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.15em;
+  color:var(--terra-deep);
+  border:2px solid var(--terra-deep);
+  border-radius:8px;
+  padding:8px 14px;
+  rotate:-9deg; opacity:.75;
+  text-transform:uppercase; text-align:center; line-height:1.5;
+}
+
+/* ============ DAFTAR ISI ============ */
+.bab-list{ margin-top:52px; border-top:1px solid var(--line); }
+.bab{
+  display:grid;
+  grid-template-columns:90px 1fr auto;
+  gap:24px; align-items:center;
+  padding:26px 10px;
+  border-bottom:1px solid var(--line);
+  position:relative;
+  transition:.3s;
+  cursor:default;
+}
+.bab:hover{ background:var(--cream); padding-left:24px; }
+.bab .no{
+  font-family:var(--serif); font-style:italic;
+  font-size:2.2rem; color:transparent;
+  -webkit-text-stroke:1.2px var(--ink-soft);
+  transition:.3s;
+}
+.bab:hover .no{ color:var(--terracotta); -webkit-text-stroke:0px; }
+.bab h3{ font-family:var(--serif); font-weight:600; font-size:clamp(1.1rem, 2vw, 1.45rem); }
+.bab p{ font-size:.88rem; color:var(--ink-soft); margin-top:4px; }
+.bab .hal{ font-family:var(--mono); font-size:.8rem; color:var(--ink-soft); white-space:nowrap; }
+@media (max-width:640px){
+  .bab{ grid-template-columns:56px 1fr; }
+  .bab .no{ font-size:1.6rem; }
+  .bab .hal{ display:none; }
+}
+
+/* ============ UNTUK SIAPA ============ */
+#pembaca .dua-kolom{
+  margin-top:52px;
+  display:grid; grid-template-columns:1fr 1fr; gap:26px;
+}
+@media (max-width:820px){ #pembaca .dua-kolom{ grid-template-columns:1fr; } }
+.kolom-cocok{
+  border-radius:22px; padding:38px 34px;
+  position:relative;
+}
+.kolom-cocok.ya{ background:var(--forest); color:var(--paper); rotate:-.6deg; }
+.kolom-cocok.tidak{ background:var(--cream); border:1.5px dashed var(--ink-soft); rotate:.6deg; }
+.kolom-cocok h3{
+  font-family:var(--serif); font-size:1.45rem; margin-bottom:24px;
+  display:flex; align-items:center; gap:12px;
+}
+.kolom-cocok ul{ list-style:none; display:grid; gap:16px; }
+.kolom-cocok li{ display:flex; gap:14px; font-size:.95rem; line-height:1.6; }
+.kolom-cocok.ya li{ color:rgba(246,240,227,.88); }
+.kolom-cocok.tidak li{ color:var(--ink-soft); }
+.kolom-cocok li::before{ flex-shrink:0; font-weight:700; }
+.kolom-cocok.ya li::before{ content:"✓"; color:var(--gold); }
+.kolom-cocok.tidak li::before{ content:"✕"; color:var(--terracotta); }
+.catatan-jujur{
+  margin-top:30px; text-align:center;
+  font-family:var(--serif); font-style:italic;
+  color:var(--ink-soft); font-size:1.05rem;
+}
+
+/* ============ FOOTER ============ */
+footer{
+  background:var(--ink); color:var(--paper);
+  padding:90px 0 40px;
+  margin-top:60px;
+  position:relative;
+}
+footer::before{
+  content:""; position:absolute; left:0; right:0; top:-13px; height:14px;
+  background-image:radial-gradient(circle at 8px -4px, transparent 12px, var(--ink) 13px);
+  background-size:24px 14px;
+}
+.footer-grid{
+  display:grid; grid-template-columns:1.4fr 1fr 1fr;
+  gap:40px; margin-bottom:70px;
+}
+@media (max-width:820px){ .footer-grid{ grid-template-columns:1fr; } }
+footer .judul-kecil{
+  font-family:var(--mono); font-size:.74rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:18px;
+}
+footer .besar{
+  font-family:var(--serif); font-size:clamp(1.6rem, 3vw, 2.3rem);
+  line-height:1.2; font-weight:500; max-width:18ch;
+}
+footer .besar em{ font-style:italic; color:var(--terracotta); }
+footer ul{ list-style:none; display:grid; gap:10px; }
+footer ul a{
+  text-decoration:none; color:rgba(246,240,227,.7);
+  font-size:.92rem; transition:.2s;
+}
+footer ul a:hover{ color:var(--gold); padding-left:6px; }
+.footer-bawah{
+  border-top:1px solid rgba(246,240,227,.15);
+  padding-top:28px;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px;
+  font-size:.82rem; color:rgba(246,240,227,.55);
+  font-family:var(--mono);
+}
+
+/* hormati preferensi pengguna yang sensitif gerakan */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation:none!important; transition:none!important; }
+  .muncul{ opacity:1; translate:0 0; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ================= NAVBAR ================= -->
+<nav>
+  <a class="brand" href="#atas">Ruang<span>Tumbuh.</span></a>
+  <div class="links">
+    <a href="#tentang">Tentang</a>
+    <a href="#isi">Isi Buku</a>
+    <a href="#kutipan">Kutipan</a>
+    <a href="#penulis">Penulis</a>
+    <a href="#detail">Detail</a>
+    <a href="#daftarisi">Daftar Isi</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="atas">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker"><span class="dot"></span> Baru terbit &middot; 2026</span>
+
+      <!-- GANTI DI SINI : judul buku -->
+      <h1>
+        Bertumbuh itu<br>
+        tidak harus <em>buru-buru</em>,<br>
+        yang penting <span class="coretan">tumbuh.<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg></span>
+      </h1>
+
+      <!-- GANTI DI SINI : tagline / kalimat penangkap -->
+      <p class="hero-sub">
+        <b>Ruang Tumbuh</b> adalah kumpulan catatan tentang menjadi manusia
+        di dunia yang selalu meminta kita lebih cepat. Halaman ini dibuat
+        bukan untuk menjual apa pun — hanya untuk bercerita tentang sebuah buku.
+      </p>
+
+      <div class="penulis-chip">
+        <!-- GANTI DI SINI : inisial & nama penulis -->
+        <div class="ava">AA</div>
+        <div>
+          <small>Ditulis oleh</small>
+          <b>Alwi Abdullah</b>
+        </div>
+      </div>
+
+      <div class="hero-aksi">
+        <a class="tbl isi" href="#tentang">Kenalan dengan bukunya ↓</a>
+        <a class="tbl garis" href="#kutipan">Baca cuplikannya</a>
+      </div>
+    </div>
+
+    <!-- buku 3D -->
+    <div class="panggung">
+      <svg class="stiker" viewBox="0 0 124 124" aria-hidden="true">
+        <circle cx="62" cy="62" r="62" fill="#D45A38"/>
+        <circle cx="62" cy="62" r="22" fill="#F6F0E3"/>
+        <text><textPath href="#lingkar">baru terbit · baru terbit · baru terbit ·</textPath></text>
+        <defs><path id="lingkar" d="M62,62 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
+        <text x="62" y="67" text-anchor="middle" style="fill:#D45A38;font-size:20px;letter-spacing:0">✺</text>
+      </svg>
+
+      <div class="buku" id="buku3d">
+        <div class="punggung"></div>
+        <div class="halaman"></div>
+        <div class="muka">
+          <!-- GANTI DI SINI : teks pada sampul buku -->
+          <div class="sampul-atas">Sebuah catatan perjalanan batin</div>
+          <svg class="sampul-bunga" viewBox="0 0 100 160" fill="none" stroke="#F6F0E3" stroke-width="2">
+            <path d="M50 155 Q 48 90 50 40"/>
+            <path d="M50 70 Q 25 60 18 35 Q 45 40 50 70"/>
+            <path d="M50 55 Q 75 45 82 20 Q 55 25 50 55"/>
+            <circle cx="50" cy="32" r="9"/>
+          </svg>
+          <div class="sampul-judul">Ruang<br><em>Tumbuh</em></div>
+          <div class="sampul-bawah">
+            <div>
+              <div class="garis-emas"></div>
+              Alwi Abdullah
+            </div>
+            <div style="opacity:.6">2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a class="gulir" href="#tentang">gulir</a>
+</header>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="jalur" id="jalurMarquee">
+    <span>sebuah buku tentang bertumbuh <i>✺</i></span>
+    <span>bukan halaman jualan <i>✦</i></span>
+    <span>hanya cerita tentang sebuah buku <i>✺</i></span>
+    <span>pelan-pelan saja <i>✦</i></span>
+  </div>
+</div>
+
+<!-- ================= TENTANG BUKU ================= -->
+<section id="tentang">
+  <div class="wrap">
+    <div class="label-bab muncul">01 — Tentang Buku</div>
+    <h2 class="muncul">Apa yang sebenarnya sedang <em>diceritakan</em> buku ini?</h2>
+
+    <div class="isi-grid">
+      <div class="muncul">
+        <!-- GANTI DI SINI : sinopsis buku (2-3 paragraf) -->
+        <p class="kapital">
+          Kita hidup di zaman yang mengukur segalanya dengan kecepatan:
+          karier yang harus melesat sebelum tiga puluh, pencapaian yang harus
+          terlihat, dan hidup yang harus selalu "berprogres". <b>Ruang Tumbuh</b>
+          lahir dari kegelisahan sederhana — bagaimana jika kita boleh tumbuh
+          dengan ritme kita sendiri?
+        </p>
+        <p>
+          Lewat dua belas bab yang ditulis seperti surat kepada teman lama,
+          buku ini mengajak pembaca menengok kembali makna proses: kegagalan
+          yang ternyata menyuburkan, jeda yang ternyata menumbuhkan, dan
+          perbandingan diri yang ternyata hanya mencuri kebahagiaan.
+        </p>
+        <p>
+          Ini bukan buku motivasi yang berteriak. Ia lebih seperti teman duduk
+          di sore hari — tidak menggurui, tidak menjanjikan perubahan instan,
+          hanya menemani dan sesekali bertanya hal yang tepat.
+        </p>
+      </div>
+
+      <div class="kartu-tema muncul">
+        <h3>Tema-tema yang diangkat</h3>
+        <!-- GANTI DI SINI : tema utama buku -->
+        <ul>
+          <li>Berdamai dengan ritme hidup sendiri di tengah budaya serba cepat</li>
+          <li>Kegagalan sebagai pupuk, bukan vonis</li>
+          <li>Seni mengambil jeda tanpa merasa bersalah</li>
+          <li>Membangun makna, bukan sekadar pencapaian</li>
+          <li>Relasi yang menumbuhkan vs relasi yang menguras</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ISI / HIGHLIGHT ================= -->
+<section id="isi">
+  <div class="wrap">
+    <div class="label-bab muncul">02 — Di Dalam Buku</div>
+    <h2 class="muncul">Yang akan kamu temukan di antara <em>halaman-halamannya</em></h2>
+
+    <div class="kartu-grid">
+      <!-- GANTI DI SINI : 6 highlight isi buku -->
+      <div class="kartu muncul">
+        <div class="nomor">1</div>
+        <div class="ikon">🌱</div>
+        <h3>12 esai reflektif</h3>
+        <p>Setiap bab ditulis ringkas dan bisa dibaca terpisah — cocok dibaca satu bab per malam sebelum tidur.</p>
+      </div>
+      <div class="kartu muncul">
+        <div class="nomor">2</div>
+        <div class="ikon">✍️</div>
+        <h3>Ruang menulis pembaca</h3>
+        <p>Di akhir tiap bab ada halaman kosong dengan satu pertanyaan pemantik, untuk diisi dengan ceritamu sendiri.</p>
+      </div>
+      <div class="kartu muncul">
+        <div class="nomor">3</div>
+        <div class="ikon">🍵</div>
+        <h3>Kisah-kisah nyata</h3>
+        <p>Potongan cerita dari orang-orang biasa — penjual kopi, guru honorer, perantau — yang tumbuh dengan caranya sendiri.</p>
+      </div>
+      <div class="kartu muncul">
+        <div class="nomor">4</div>
+        <div class="ikon">🧭</div>
+        <h3>Peta refleksi diri</h3>
+        <p>Kerangka sederhana untuk memetakan di fase mana kamu sedang berada — tanpa skor, tanpa penilaian.</p>
+      </div>
+      <div class="kartu muncul">
+        <div class="nomor">5</div>
+        <div class="ikon">🖋️</div>
+        <h3>Ilustrasi tangan</h3>
+        <p>Tiap bab dibuka dengan sketsa botani yang digambar manual — karena tumbuh memang tidak pernah lurus sempurna.</p>
+      </div>
+      <div class="kartu muncul">
+        <div class="nomor">6</div>
+        <div class="ikon">🌙</div>
+        <h3>Bab penutup yang tenang</h3>
+        <p>Sebuah surat dari penulis untuk pembaca — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KUTIPAN ================= -->
+<section id="kutipan">
+  <div class="wrap">
+    <div class="label-bab muncul">03 — Cuplikan</div>
+    <h2 class="muncul" style="color:var(--paper)">Beberapa kalimat dari dalam buku</h2>
+
+    <div class="kutipan-rel muncul">
+      <!-- GANTI DI SINI : kutipan asli dari buku -->
+      <div class="kutip aktif">
+        <blockquote>
+          &ldquo;Pohon tidak pernah iri pada pohon lain yang lebih dulu berbuah.
+          Ia hanya sibuk <mark>mengakar lebih dalam</mark>.&rdquo;
+        </blockquote>
+        <cite>— Bab 3 · Tentang Membandingkan Diri</cite>
+      </div>
+      <div class="kutip">
+        <blockquote>
+          &ldquo;Jeda bukan berarti berhenti. Tanah pun perlu dibiarkan kosong
+          semusim, agar <mark>panen berikutnya</mark> tidak mengkhianati.&rdquo;
+        </blockquote>
+        <cite>— Bab 7 · Tentang Mengambil Jeda</cite>
+      </div>
+      <div class="kutip">
+        <blockquote>
+          &ldquo;Kita sering menyebutnya gagal. Padahal mungkin itu hanya
+          cara hidup berkata: <mark>bukan lewat sini</mark>, coba jalan satunya.&rdquo;
+        </blockquote>
+        <cite>— Bab 5 · Tentang Kegagalan</cite>
+      </div>
+    </div>
+
+    <div class="kutip-nav muncul">
+      <button id="kutipPrev" aria-label="Kutipan sebelumnya">←</button>
+      <button id="kutipNext" aria-label="Kutipan berikutnya">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PENULIS ================= -->
+<section id="penulis">
+  <div class="wrap">
+    <div class="label-bab muncul">04 — Di Balik Buku</div>
+    <h2 class="muncul">Orang yang <em>menuliskannya</em></h2>
+
+    <div class="grid-penulis">
+      <div class="polaroid muncul">
+        <div class="selotip"></div>
+        <!-- GANTI DI SINI : ganti div .foto dengan <img src="foto-penulis.jpg" alt="..."> -->
+        <div class="foto">tempat foto penulis<br>(ganti dengan foto asli)</div>
+        <div class="ket">— ditulis sambil ditemani kopi tubruk —</div>
+      </div>
+
+      <div class="bio muncul">
+        <!-- GANTI DI SINI : biografi penulis -->
+        <p>
+          <b>Alwi Abdullah</b> adalah penulis dan pengamat keseharian yang
+          percaya bahwa cerita-cerita kecil menyimpan pelajaran paling besar.
+          Sebelum menulis buku ini, ia menghabiskan bertahun-tahun menuliskan
+          catatan harian yang tidak pernah ia niatkan untuk dibaca siapa pun.
+        </p>
+        <p>
+          Ruang Tumbuh adalah buku pertamanya — ditulis selama dua tahun,
+          sebagian besar di meja yang sama, pada jam-jam ketika rumah sudah
+          sepi. Ia menulis bukan karena merasa sudah selesai bertumbuh,
+          melainkan justru karena sedang berada di tengah-tengahnya.
+        </p>
+        <div class="fakta">
+          <!-- GANTI DI SINI : fakta singkat penulis -->
+          <span>📍 Indonesia</span>
+          <span>✍️ Menulis sejak 2018</span>
+          <span>📖 Buku pertama</span>
+          <span>☕ Tim kopi tubruk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DETAIL BUKU ================= -->
+<section id="detail">
+  <div class="wrap">
+    <div class="label-bab muncul">05 — Lembar Data</div>
+    <h2 class="muncul">Detail buku, ala kartu <em>katalog perpustakaan</em></h2>
+
+    <div class="katalog muncul">
+      <header>
+        <span>KARTU KATALOG <b>№ 001</b></span>
+        <span>RAK: PENGEMBANGAN DIRI</span>
+      </header>
+      <!-- GANTI DI SINI : data asli buku -->
+      <div class="baris"><div class="k">Judul</div><div>Ruang Tumbuh — Catatan tentang Bertumbuh Pelan di Dunia yang Terburu-buru</div></div>
+      <div class="baris"><div class="k">Penulis</div><div>Alwi Abdullah</div></div>
+      <div class="baris"><div class="k">Penerbit</div><div>Penerbit Contoh Pustaka</div></div>
+      <div class="baris"><div class="k">Tahun terbit</div><div>2026 (cetakan pertama)</div></div>
+      <div class="baris"><div class="k">Tebal</div><div>248 halaman</div></div>
+      <div class="baris"><div class="k">ISBN</div><div>978-602-XXXXX-X-X</div></div>
+      <div class="baris"><div class="k">Bahasa</div><div>Indonesia</div></div>
+      <div class="baris"><div class="k">Kategori</div><div>Esai / Pengembangan Diri / Refleksi</div></div>
+      <div class="baris"><div class="k">Format</div><div>Cetak &amp; e-book <em style="color:var(--ink-soft)">(sekadar informasi, bukan ajakan membeli)</em></div></div>
+      <div class="cap">telah<br>diterbitkan</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DAFTAR ISI ================= -->
+<section id="daftarisi">
+  <div class="wrap">
+    <div class="label-bab muncul">06 — Daftar Isi</div>
+    <h2 class="muncul">Dua belas bab, dibaca <em>pelan-pelan</em> saja</h2>
+
+    <div class="bab-list muncul">
+      <!-- GANTI DI SINI : daftar bab asli (contoh menampilkan 6 dari 12) -->
+      <div class="bab"><div class="no">01</div><div><h3>Berangkat dari Gelisah</h3><p>Mengapa kita selalu merasa tertinggal, dan dari mana perasaan itu datang.</p></div><div class="hal">hlm. 1</div></div>
+      <div class="bab"><div class="no">02</div><div><h3>Ritme yang Dipinjam</h3><p>Tentang hidup dengan kecepatan orang lain — dan cara mengembalikannya.</p></div><div class="hal">hlm. 21</div></div>
+      <div class="bab"><div class="no">03</div><div><h3>Pohon Tidak Saling Iri</h3><p>Membandingkan diri, media sosial, dan akar yang tidak terlihat.</p></div><div class="hal">hlm. 43</div></div>
+      <div class="bab"><div class="no">05</div><div><h3>Bukan Lewat Sini</h3><p>Membaca ulang kegagalan sebagai petunjuk arah, bukan titik akhir.</p></div><div class="hal">hlm. 87</div></div>
+      <div class="bab"><div class="no">07</div><div><h3>Tanah yang Diistirahatkan</h3><p>Seni mengambil jeda tanpa rasa bersalah di budaya yang memuja sibuk.</p></div><div class="hal">hlm. 131</div></div>
+      <div class="bab"><div class="no">12</div><div><h3>Surat untuk yang Sedang Tumbuh</h3><p>Bab penutup — ditulis untuk dibaca ulang setiap kali merasa tertinggal.</p></div><div class="hal">hlm. 233</div></div>
+    </div>
+    <p class="catatan-jujur muncul">…dan enam bab lainnya yang sengaja tidak dibocorkan di sini. 🌿</p>
+  </div>
+</section>
+
+<!-- ================= UNTUK SIAPA ================= -->
+<section id="pembaca">
+  <div class="wrap">
+    <div class="label-bab muncul">07 — Untuk Siapa</div>
+    <h2 class="muncul">Jujur saja: buku ini tidak untuk <em>semua orang</em></h2>
+
+    <div class="dua-kolom">
+      <!-- GANTI DI SINI : sesuaikan target pembaca -->
+      <div class="kolom-cocok ya muncul">
+        <h3>🌿 Buku ini untukmu, jika…</h3>
+        <ul>
+          <li>Kamu sering merasa tertinggal dari teman-teman seusiamu</li>
+          <li>Kamu lelah dengan konten motivasi yang serba berteriak</li>
+          <li>Kamu suka bacaan reflektif yang bisa dicicil per bab</li>
+          <li>Kamu sedang di fase transisi — lulus, pindah, memulai ulang</li>
+          <li>Kamu ingin menulis ulang ceritamu sendiri, pelan-pelan</li>
+        </ul>
+      </div>
+      <div class="kolom-cocok tidak muncul">
+        <h3>🍂 Mungkin bukan untukmu, jika…</h3>
+        <ul>
+          <li>Kamu mencari langkah praktis "sukses dalam 30 hari"</li>
+          <li>Kamu butuh data, riset, dan grafik di tiap argumen</li>
+          <li>Kamu kurang menikmati gaya tulisan personal seperti surat</li>
+          <li>Kamu ingin jawaban tegas, bukan pertanyaan untuk direnungkan</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="catatan-jujur muncul">
+      &ldquo;Dan kalau ternyata bukan untukmu — tidak apa-apa. Buku, seperti manusia, punya jodohnya masing-masing.&rdquo;
+    </p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="judul-kecil">Ruang Tumbuh — 2026</div>
+        <p class="besar">Terima kasih sudah mampir dan <em>berkenalan</em> dengan buku ini.</p>
+      </div>
+      <div>
+        <div class="judul-kecil">Jelajahi</div>
+        <ul>
+          <li><a href="#tentang">Tentang buku</a></li>
+          <li><a href="#kutipan">Cuplikan</a></li>
+          <li><a href="#penulis">Tentang penulis</a></li>
+          <li><a href="#daftarisi">Daftar isi</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="judul-kecil">Sapa Penulis</div>
+        <!-- GANTI DI SINI : kontak & media sosial asli -->
+        <ul>
+          <li><a href="mailto:halo@contoh.com">✉️ halo@contoh.com</a></li>
+          <li><a href="#">📷 Instagram</a></li>
+          <li><a href="#">🐦 X / Twitter</a></li>
+          <li><a href="#">📚 Goodreads</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bawah">
+      <span>© 2026 Alwi Abdullah &amp; Penerbit Contoh Pustaka.</span>
+      <span>Halaman ini hanya memperkenalkan buku — tidak menjual apa pun. ✺</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ animasi muncul saat scroll ============ */
+const pengamat = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('tampil'); pengamat.unobserve(e.target); } });
+}, { threshold:.12 });
+document.querySelectorAll('.muncul').forEach(el => pengamat.observe(el));
+
+/* ============ progress bar baca ============ */
+const bar = document.getElementById('progress');
+addEventListener('scroll', () => {
+  const t = document.documentElement;
+  bar.style.width = (t.scrollTop / (t.scrollHeight - t.clientHeight) * 100) + '%';
+}, { passive:true });
+
+/* ============ buku 3D mengikuti kursor ============ */
+const buku = document.getElementById('buku3d');
+const panggung = buku.closest('.panggung');
+panggung.addEventListener('mousemove', e => {
+  const r = panggung.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - .5;
+  const y = (e.clientY - r.top) / r.height - .5;
+  buku.style.transform = `rotateY(${-24 + x * 22}deg) rotateX(${4 - y * 14}deg)`;
+});
+panggung.addEventListener('mouseleave', () => {
+  buku.style.transform = 'rotateY(-24deg) rotateX(4deg)';
+});
+
+/* ============ slider kutipan ============ */
+const kutips = [...document.querySelectorAll('.kutip')];
+let idxKutip = 0;
+function tampilkanKutip(i){
+  idxKutip = (i + kutips.length) % kutips.length;
+  kutips.forEach((k, j) => k.classList.toggle('aktif', j === idxKutip));
+}
+document.getElementById('kutipPrev').onclick = () => tampilkanKutip(idxKutip - 1);
+document.getElementById('kutipNext').onclick = () => tampilkanKutip(idxKutip + 1);
+setInterval(() => tampilkanKutip(idxKutip + 1), 8000); /* ganti otomatis tiap 8 detik */
+
+/* ============ duplikasi marquee agar mulus ============ */
+const jalur = document.getElementById('jalurMarquee');
+jalur.innerHTML += jalur.innerHTML;
+
+/* ============ tandai link nav yang aktif ============ */
+const navLinks = [...document.querySelectorAll('nav .links a')];
+const seksiNav = navLinks.map(a => document.querySelector(a.getAttribute('href')));
+const pengamatNav = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('aktif', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin:'-40% 0px -55% 0px' });
+seksiNav.forEach(s => s && pengamatNav.observe(s));
+</script>
+</body>
+</html>

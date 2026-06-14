@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary</title>
-<meta name="description" content="Teks lengkap buku 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' karya K.H. Bahaudin Mudhary — dialog sembilan malam di Sumenep, 1970. Baca gratis, bab demi bab.">
+<meta name="description" content="De volledige tekst van 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' van K.H. Bahaudin Mudhary — een dialoog van negen avonden in Sumenep, 1970. Gratis te lezen, hoofdstuk voor hoofdstuk.">
 <meta property="og:title" content="Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary">
 <meta property="og:image" content="book_front_cover.jpg">
 
@@ -14,10 +14,9 @@
 
 <style>
 /* ===================================================================
-   DIALOOG OVER DE GODDELIJKHEID VAN JEZUS — halaman baca buku
-   Gaya: editorial-vintage, kertas hangat, kartu katalog perpustakaan
-   Struktur: daftar isi → klik bab → tampilan baca teks lengkap
-   Multi-bahasa UI: ID / EN / NL (teks buku dalam bahasa Belanda)
+   DIALOOG OVER DE GODDELIJKHEID VAN JEZUS — pembaca buku (Belanda)
+   Situs fokus penuh pada isi buku: bilah atas + teks + daftar isi.
+   Data teks ada di boek.js (dihasilkan dari PDF asli).
    =================================================================== */
 
 :root{
@@ -40,464 +39,166 @@
 
 *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
 
-html{ scroll-behavior:smooth; }
+html,body{ height:100%; }
 
 body{
   font-family:var(--sans);
   background:var(--paper);
   color:var(--ink);
   line-height:1.7;
-  overflow-x:hidden;
+  overflow:hidden;
   -webkit-font-smoothing:antialiased;
 }
 
 ::selection{ background:var(--terracotta); color:var(--cream); }
 
-/* ---- tekstur kertas (grain halus di seluruh halaman) ---- */
+/* ---- tekstur kertas (grain halus) ---- */
 body::after{
   content:"";
   position:fixed; inset:0;
   pointer-events:none;
-  z-index:9990;
+  z-index:200;
   opacity:.5;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 img{ max-width:100%; display:block; }
 a{ color:inherit; }
-
-.wrap{ width:min(1180px, 92vw); margin-inline:auto; }
-
-/* ============ progress bar baca ============ */
-#progress{
-  position:fixed; top:0; left:0; height:4px; width:0%;
-  background:linear-gradient(90deg, var(--terracotta), var(--gold));
-  z-index:10000;
-  transition:width .1s linear;
-}
-
-/* ============ NAVBAR ============ */
-nav{
-  position:fixed; top:14px; left:50%; translate:-50% 0;
-  z-index:9999;
-  display:flex; align-items:center; gap:6px;
-  background:rgba(255,253,246,.82);
-  backdrop-filter:blur(12px);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:8px 10px 8px 18px;
-  box-shadow:0 10px 30px -12px rgba(37,33,26,.25);
-  width:max-content; max-width:94vw;
-}
-nav .brand{
-  font-family:var(--serif); font-weight:700; font-size:1.05rem;
-  letter-spacing:.01em; margin-right:10px; text-decoration:none;
-  white-space:nowrap;
-}
-nav .brand span{ color:var(--terracotta); }
-nav .links{ display:flex; gap:2px; }
-nav .links a{
-  text-decoration:none; font-size:.82rem; font-weight:600;
-  padding:8px 13px; border-radius:999px; color:var(--ink-soft);
-  transition:.25s;
-  white-space:nowrap;
-}
-nav .links a:hover, nav .links a.aktif{ background:var(--ink); color:var(--cream); }
-
-@media (max-width:880px){
-  nav .links{ display:none; }
-  nav{ padding:8px 10px 8px 16px; }
-}
-
-/* ============ HERO ============ */
-header#atas{
-  min-height:100svh;
-  display:grid; align-items:center;
-  position:relative;
-  padding:130px 0 70px;
-  background:
-    radial-gradient(900px 500px at 85% 10%, rgba(212,90,56,.10), transparent 60%),
-    radial-gradient(700px 500px at 5% 90%, rgba(46,90,76,.12), transparent 60%),
-    var(--paper);
-  overflow:hidden;
-}
-
-/* garis-garis halus seperti kertas tulis di latar hero */
-header#atas::before{
-  content:"";
-  position:absolute; inset:0;
-  background-image:repeating-linear-gradient(transparent 0 38px, rgba(37,33,26,.045) 38px 39px);
-  mask-image:radial-gradient(800px 600px at 30% 40%, #000, transparent 75%);
-  pointer-events:none;
-}
-
-.hero-grid{
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:clamp(30px, 5vw, 70px);
-  align-items:center;
-}
-@media (max-width:880px){ .hero-grid{ grid-template-columns:1fr; } }
-
-.kicker{
-  display:inline-flex; align-items:center; gap:10px;
-  font-family:var(--mono); font-size:.8rem; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--forest);
-  border:1.5px solid var(--forest);
-  padding:7px 16px; border-radius:999px;
-  rotate:-1.5deg;
-  background:var(--cream);
-  box-shadow:3px 3px 0 var(--forest);
-  margin-bottom:26px;
-}
-.kicker .dot{ width:8px; height:8px; border-radius:50%; background:var(--terracotta); animation:denyut 1.6s infinite; flex-shrink:0; }
-@keyframes denyut{ 0%,100%{ transform:scale(1); opacity:1 } 50%{ transform:scale(1.5); opacity:.5 } }
-
-h1{
-  font-family:var(--serif);
-  font-size:clamp(2.7rem, 6.6vw, 5.1rem);
-  line-height:1.04;
-  font-weight:600;
-  letter-spacing:-.02em;
-}
-h1 em{
-  font-style:italic;
-  font-variation-settings:"SOFT" 100, "WONK" 1;
-  color:var(--terracotta);
-}
-.coretan{ position:relative; white-space:nowrap; }
-.coretan svg{
-  position:absolute; left:-2%; bottom:-.18em; width:104%; height:.45em;
-  overflow:visible;
-}
-.coretan svg path{
-  fill:none; stroke:var(--gold); stroke-width:7; stroke-linecap:round;
-  stroke-dasharray:1000; stroke-dashoffset:1000;
-  animation:gambar 1.4s .9s ease forwards;
-}
-@keyframes gambar{ to{ stroke-dashoffset:0 } }
-
-.hero-sub{
-  margin-top:26px;
-  font-size:clamp(1rem, 1.4vw, 1.15rem);
-  color:var(--ink-soft);
-  max-width:54ch;
-}
-.hero-sub b{ color:var(--ink); }
-
-.penulis-chip{
-  margin-top:32px;
-  display:inline-flex; align-items:center; gap:14px;
-  background:var(--cream); border:1px solid var(--line);
-  padding:10px 22px 10px 12px; border-radius:999px;
-  box-shadow:0 8px 22px -10px rgba(37,33,26,.25);
-}
-.penulis-chip .ava{
-  width:44px; height:44px; border-radius:50%;
-  background:linear-gradient(135deg, var(--forest), var(--gold));
-  display:grid; place-items:center;
-  color:var(--cream); font-family:var(--serif); font-weight:700;
-}
-.penulis-chip small{ display:block; font-size:.72rem; color:var(--ink-soft); letter-spacing:.08em; text-transform:uppercase; }
-.penulis-chip b{ font-size:.95rem; }
-
-.hero-aksi{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; }
-.tbl{
-  display:inline-flex; align-items:center; gap:10px;
-  text-decoration:none; font-weight:700; font-size:.92rem;
-  padding:14px 28px; border-radius:999px;
-  transition:.25s;
-  border:none; cursor:pointer; font-family:var(--sans);
-}
-.tbl.isi{ background:var(--ink); color:var(--cream); box-shadow:4px 4px 0 var(--terracotta); }
-.tbl.isi:hover{ translate:2px 2px; box-shadow:1px 1px 0 var(--terracotta); }
-.tbl.garis{ border:1.5px solid var(--ink); background:none; }
-.tbl.garis:hover{ background:var(--ink); color:var(--cream); }
-
-/* ---- buku 3D dengan sampul asli ---- */
-.panggung{
-  perspective:1400px;
-  display:grid; place-items:center;
-  position:relative;
-  padding:30px 0;
-}
-.buku{
-  position:relative;
-  width:min(300px, 62vw);
-  aspect-ratio:0.7;
-  transform-style:preserve-3d;
-  transform:rotateY(-24deg) rotateX(4deg);
-  transition:transform .5s cubic-bezier(.2,.7,.3,1);
-  animation:melayang 5.5s ease-in-out infinite;
-}
-@keyframes melayang{
-  0%,100%{ translate:0 0 }
-  50%{ translate:0 -16px }
-}
-.buku .muka{
-  position:absolute; inset:0;
-  border-radius:5px 12px 12px 5px;
-  overflow:hidden;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.08),
-    25px 35px 70px -20px rgba(37,33,26,.55);
-  background:#10245c;
-}
-.buku .muka img{
-  width:100%; height:100%; object-fit:cover;
-}
-.buku .muka::after{ /* kilau halus di sampul */
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.12) 45%, transparent 60%);
-  pointer-events:none;
-}
-.buku .punggung{
-  position:absolute; top:0; bottom:0; left:0; width:42px;
-  background:linear-gradient(#1b3a8a, #0d1d4d);
-  transform:rotateY(-90deg) translateX(-21px);
-  transform-origin:left;
-  border-radius:4px 0 0 4px;
-}
-.buku .halaman{
-  position:absolute; top:1.2%; bottom:1.2%; right:-14px; width:16px;
-  background:repeating-linear-gradient(90deg, #FFFDF6 0 2px, #E8E0CC 2px 4px);
-  transform:rotateY(38deg);
-  transform-origin:left;
-  border-radius:0 3px 3px 0;
-}
-
-/* stiker berputar */
-.stiker{
-  position:absolute; top:2%; right:4%;
-  width:124px; height:124px;
-  animation:putar 14s linear infinite;
-  z-index:3;
-  filter:drop-shadow(0 8px 16px rgba(37,33,26,.25));
-}
-@keyframes putar{ to{ rotate:360deg } }
-.stiker text{
-  font-family:var(--mono); font-size:11.5px; letter-spacing:3.5px;
-  fill:var(--cream); text-transform:uppercase;
-}
-@media (max-width:880px){ .stiker{ width:96px; height:96px; right:0; top:-2%; } }
-
-/* panah scroll */
-.gulir{
-  position:absolute; bottom:26px; left:50%; translate:-50% 0;
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.25em;
-  text-transform:uppercase; color:var(--ink-soft);
-  display:flex; flex-direction:column; align-items:center; gap:8px;
-  text-decoration:none;
-}
-.gulir::after{
-  content:""; width:1px; height:42px;
-  background:linear-gradient(var(--ink-soft), transparent);
-  animation:turun 1.8s ease-in-out infinite;
-}
-@keyframes turun{ 0%{ transform:scaleY(.2); transform-origin:top } 60%{ transform:scaleY(1); transform-origin:top } 100%{ opacity:0 } }
-
-/* ============ MARQUEE ============ */
-.marquee{
-  background:var(--ink); color:var(--paper);
-  overflow:hidden; white-space:nowrap;
-  rotate:-1.2deg; scale:1.03 1;
-  padding:16px 0;
-  border-block:3px solid var(--terracotta);
-  position:relative; z-index:5;
-}
-.marquee .jalur{
-  display:inline-flex; gap:0;
-  animation:jalan 26s linear infinite;
-}
-.marquee span{
-  font-family:var(--serif); font-style:italic; font-size:1.15rem;
-  padding:0 22px;
-  display:inline-flex; align-items:center; gap:22px;
-}
-.marquee i{ font-style:normal; color:var(--gold); }
-@keyframes jalan{ to{ translate:-50% 0 } }
-
-/* ============ SECTION dasar ============ */
-section{ padding:clamp(80px, 11vw, 140px) 0; position:relative; }
-
-.label-bab{
-  display:flex; align-items:center; gap:16px;
-  font-family:var(--mono); font-size:.78rem;
-  letter-spacing:.22em; text-transform:uppercase;
-  color:var(--terracotta);
-  margin-bottom:18px;
-}
-.label-bab::after{ content:""; height:1px; width:64px; background:var(--terracotta); }
-
 h2{
   font-family:var(--serif); font-weight:600;
-  font-size:clamp(2rem, 4.4vw, 3.3rem);
+  font-size:clamp(2rem, 4.4vw, 3.1rem);
   line-height:1.08; letter-spacing:-.015em;
-  max-width:22ch;
-}
-h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 100; }
-
-/* animasi muncul saat scroll */
-.muncul{ opacity:0; translate:0 36px; transition:opacity .8s ease, translate .8s cubic-bezier(.2,.7,.3,1); }
-.muncul.tampil{ opacity:1; translate:0 0; }
-.muncul:nth-child(2){ transition-delay:.08s } .muncul:nth-child(3){ transition-delay:.16s }
-.muncul:nth-child(4){ transition-delay:.24s } .muncul:nth-child(5){ transition-delay:.32s }
-
-/* ============ TENTANG BUKU ============ */
-#tentang .isi-grid{
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:clamp(30px, 5vw, 80px);
-  margin-top:48px; align-items:start;
-}
-@media (max-width:880px){ #tentang .isi-grid{ grid-template-columns:1fr; } }
-
-.kapital::first-letter{
-  font-family:var(--serif);
-  font-size:4.4em; float:left; line-height:.78;
-  padding:6px 14px 0 0;
-  color:var(--terracotta); font-weight:600;
-}
-#tentang p{ color:var(--ink-soft); font-size:1.03rem; margin-bottom:1.2em; }
-#tentang p b{ color:var(--ink); }
-
-.kartu-tema{
-  background:var(--cream);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:30px 32px;
-  rotate:1.2deg;
-  box-shadow:8px 10px 0 var(--paper-deep), 8px 10px 0 1px var(--line);
-}
-.kartu-tema h3{ font-family:var(--serif); font-size:1.25rem; margin-bottom:16px; }
-.kartu-tema ul{ list-style:none; display:grid; gap:12px; }
-.kartu-tema li{
-  display:flex; gap:12px; align-items:baseline;
-  font-size:.95rem; color:var(--ink-soft);
-}
-.kartu-tema li::before{ content:"✦"; color:var(--gold); flex-shrink:0; }
-
-/* ============ DAFTAR ISI (inti situs) ============ */
-#daftarisi{ background:var(--paper-deep); }
-#daftarisi::before, #daftarisi::after{ /* sobekan kertas atas-bawah */
-  content:""; position:absolute; left:0; right:0; height:14px;
-  background-image:radial-gradient(circle at 8px -4px, transparent 12px, var(--paper-deep) 13px);
-  background-size:24px 14px;
-}
-#daftarisi::before{ top:-13px; }
-#daftarisi::after{ bottom:-13px; rotate:180deg; }
-
-.toc-note{
-  margin-top:14px;
-  font-family:var(--mono); font-size:.84rem; color:var(--ink-soft);
-  display:flex; align-items:center; gap:10px;
-}
-.toc-note::before{ content:"☞"; color:var(--terracotta); font-size:1.1rem; }
-
-.bab-list{ margin-top:42px; border-top:1px solid var(--line); }
-.bab{
-  display:grid;
-  grid-template-columns:90px 1fr auto;
-  gap:24px; align-items:center;
-  padding:24px 12px;
-  border-bottom:1px solid var(--line);
-  position:relative;
-  transition:.3s;
-  cursor:pointer;
-  width:100%; text-align:left;
-  background:none; border-left:none; border-right:none; border-top:none;
-  font-family:var(--sans);
-}
-.bab:hover{ background:var(--cream); padding-left:26px; }
-.bab .no{
-  font-family:var(--serif); font-style:italic;
-  font-size:2rem; color:transparent;
-  -webkit-text-stroke:1.2px var(--ink-soft);
-  transition:.3s;
-}
-.bab:hover .no{ color:var(--terracotta); -webkit-text-stroke:0px; }
-.bab h3{ font-family:var(--serif); font-weight:600; font-size:clamp(1.05rem, 2vw, 1.4rem); color:var(--ink); }
-.bab p{ font-size:.86rem; color:var(--ink-soft); margin-top:4px; }
-.bab .kanan{ text-align:right; }
-.bab .hal{ font-family:var(--mono); font-size:.78rem; color:var(--ink-soft); white-space:nowrap; display:block; }
-.bab .lees{
-  display:inline-block; margin-top:6px;
-  font-size:.82rem; font-weight:700; color:var(--terracotta);
-  opacity:0; translate:-6px 0; transition:.3s;
-  white-space:nowrap;
-}
-.bab:hover .lees{ opacity:1; translate:0 0; }
-.bab.tussen{ /* pemisah kelompok (voorwerk / dialog) */
-  cursor:default; background:none!important;
-  padding:34px 12px 12px; border-bottom:none;
-  display:block;
-}
-.bab.tussen span{
-  font-family:var(--mono); font-size:.74rem; letter-spacing:.22em;
-  text-transform:uppercase; color:var(--forest);
-}
-@media (max-width:640px){
-  .bab{ grid-template-columns:52px 1fr; }
-  .bab .no{ font-size:1.4rem; }
-  .bab .kanan{ display:none; }
 }
 
-/* ============ TAMPILAN BACA (lezer) ============ */
-#lezer{
-  position:fixed; inset:0; z-index:10001;
-  background:var(--paper);
-  display:none;
-  flex-direction:column;
+/* ============ KERANGKA PEMBACA ============ */
+.lezer{
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
 }
-#lezer.open{ display:flex; }
-#lezer .balk{
-  position:sticky; top:0; z-index:5;
+
+/* ---- bilah atas ---- */
+.balk{
+  position:relative; z-index:5;
   background:rgba(246,240,227,.94);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
-#lezer .balk .balk-in{
-  width:min(900px, 94vw); margin-inline:auto;
+.balk-in{
+  width:min(1120px, 94vw); margin-inline:auto;
   display:flex; align-items:center; gap:14px;
-  padding:14px 0;
+  padding:13px 0;
 }
-#lezer .balk button{
-  border:1.5px solid var(--ink); background:none; cursor:pointer;
-  font-family:var(--sans); font-weight:700; font-size:.8rem;
-  padding:8px 16px; border-radius:999px;
-  transition:.25s; white-space:nowrap; color:var(--ink);
+.merk{
+  font-family:var(--serif); font-weight:700; font-size:1.05rem;
+  text-decoration:none; white-space:nowrap; letter-spacing:.01em;
+  background:none; border:none; cursor:pointer; color:var(--ink);
+  padding:0;
 }
-#lezer .balk button:hover{ background:var(--ink); color:var(--cream); }
-#lezer .balk .titel-klein{
+.merk span{ color:var(--terracotta); }
+.balk .titel-klein{
   font-family:var(--serif); font-weight:600; font-size:.95rem;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-  flex:1; text-align:center;
+  flex:1; text-align:center; color:var(--ink-soft);
 }
-#lezerVoortgang{
+.balk .knop{
+  border:1.5px solid var(--ink); background:none; cursor:pointer;
+  font-family:var(--sans); font-weight:700; font-size:.82rem;
+  padding:8px 15px; border-radius:999px;
+  transition:.25s; white-space:nowrap; color:var(--ink);
+  display:inline-flex; align-items:center; gap:7px;
+}
+.balk .knop:hover{ background:var(--ink); color:var(--cream); }
+.balk .knop:disabled{ opacity:.28; pointer-events:none; }
+.balk .menu-knop{ display:none; }
+#voortgang{
   height:3px; width:0%;
   background:linear-gradient(90deg, var(--terracotta), var(--gold));
-}
-#lezer .blad{
-  overflow-y:auto; flex:1;
-  overscroll-behavior:contain;
-}
-#lezer .lees-layout{
-  width:min(1120px, 94vw); margin-inline:auto;
-  display:grid; grid-template-columns:minmax(0, 760px) 250px;
-  gap:clamp(28px, 4vw, 64px);
-  justify-content:center;
-  align-items:start;
-}
-#lezer article{
-  width:100%; max-width:760px; margin-inline:auto; min-width:0;
-  padding:50px 0 40px;
+  transition:width .1s linear;
 }
 
-/* ---- sidebar daftar isi di kanan tampilan baca ---- */
+/* ---- area gulir ---- */
+.blad{ overflow-y:auto; flex:1; overscroll-behavior:contain; scroll-behavior:smooth; }
+.lees-layout{
+  width:min(1120px, 94vw); margin-inline:auto;
+  display:grid; grid-template-columns:minmax(0, 760px) 256px;
+  gap:clamp(28px, 4vw, 64px);
+  justify-content:center; align-items:start;
+}
+article.tekst-blok{
+  width:100%; max-width:760px; margin-inline:auto; min-width:0;
+  padding:46px 0 40px;
+}
+
+.hfd-label{
+  font-family:var(--mono); font-size:.78rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--terracotta);
+  display:flex; align-items:center; gap:14px;
+}
+.hfd-label::after{ content:""; height:1px; width:56px; background:var(--terracotta); }
+.tekst-blok h2{ margin-top:14px; }
+.tekst-blok h2 em{ font-style:italic; color:var(--forest); }
+.hfd-sub{
+  margin-top:10px; font-family:var(--serif); font-style:italic;
+  color:var(--ink-soft); font-size:1.05rem;
+}
+.legenda{
+  margin-top:26px;
+  background:var(--cream); border:1px dashed var(--ink-soft);
+  border-radius:14px; padding:14px 20px;
+  font-size:.85rem; color:var(--ink-soft);
+  display:flex; flex-wrap:wrap; gap:8px 22px;
+}
+.legenda .wie{ display:inline-flex; align-items:center; gap:9px; }
+.legenda .wie i{
+  font-style:italic; font-family:var(--serif); font-weight:700;
+  width:24px; height:24px; border-radius:50%;
+  display:inline-grid; place-items:center; font-size:.8rem;
+}
+.legenda .wie.a i{ background:var(--forest); color:var(--paper); }
+.legenda .wie.b i{ background:var(--terracotta); color:var(--cream); }
+
+.inhoud{ margin-top:36px; font-size:1.02rem; }
+.inhoud p{ margin-bottom:1.25em; color:var(--ink); }
+.inhoud ul{ margin:0 0 1.25em 1.2em; }
+.inhoud li{ margin-bottom:.45em; color:var(--ink); }
+
+.beurt{ display:flex; gap:16px; padding:13px 0; }
+.beurt + .beurt{ border-top:1px dashed rgba(37,33,26,.1); }
+.beurt .spreker{
+  flex-shrink:0;
+  width:34px; height:34px; border-radius:50%;
+  display:grid; place-items:center;
+  font-family:var(--serif); font-style:italic; font-weight:700; font-size:.95rem;
+}
+.beurt.a .spreker{ background:var(--forest); color:var(--paper); }
+.beurt.b .spreker{ background:var(--terracotta); color:var(--cream); }
+.beurt > div:last-child{ padding-top:4px; }
+.beurt.b > div:last-child{ color:var(--ink-soft); }
+
+.voet-nav{
+  display:flex; justify-content:space-between; gap:14px;
+  margin-top:60px; padding-top:30px;
+  border-top:1px solid var(--line);
+}
+.voet-nav button{
+  border:1.5px solid var(--ink); background:var(--cream); cursor:pointer;
+  font-family:var(--sans); font-weight:700; font-size:.88rem;
+  padding:13px 24px; border-radius:999px; transition:.25s;
+  max-width:46%; text-align:center; color:var(--ink);
+}
+.voet-nav button:hover{ background:var(--ink); color:var(--cream); }
+.voet-nav button:disabled{ opacity:.3; pointer-events:none; }
+.bron-noot{
+  margin-top:34px; text-align:center;
+  font-family:var(--mono); font-size:.74rem; color:var(--ink-soft);
+}
+
+/* ---- sidebar daftar isi (kanan) ---- */
 .zijbalk{
   position:sticky; top:0;
-  max-height:100%;
+  max-height:calc(100vh - 52px);
   overflow:auto;
-  padding:54px 4px 40px 0;
+  padding:46px 4px 40px 0;
   overscroll-behavior:contain;
 }
 .zij-titel{
@@ -507,6 +208,7 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
   margin-bottom:14px;
 }
 .zij-titel::after{ content:""; height:1px; flex:1; background:var(--terracotta); opacity:.5; }
+.zij-sluit{ display:none; }
 .zij-item{
   display:flex; gap:10px; align-items:baseline;
   width:100%; text-align:left;
@@ -535,961 +237,185 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
   text-transform:uppercase; color:var(--forest);
   padding:14px 10px 5px;
 }
+
+/* backdrop drawer (mobile) */
+.backdrop{
+  position:fixed; inset:0; z-index:40;
+  background:rgba(37,33,26,.45);
+  opacity:0; pointer-events:none; transition:.3s;
+}
+
+/* ---- mobile: sidebar jadi drawer dari kanan ---- */
 @media (max-width:1080px){
-  #lezer .lees-layout{ grid-template-columns:1fr; }
-  .zijbalk{ display:none; }
-}
-#lezer .hfd-label{
-  font-family:var(--mono); font-size:.78rem; letter-spacing:.22em;
-  text-transform:uppercase; color:var(--terracotta);
-  display:flex; align-items:center; gap:14px;
-}
-#lezer .hfd-label::after{ content:""; height:1px; width:56px; background:var(--terracotta); }
-#lezer h2{ margin-top:14px; max-width:none; }
-#lezer .hfd-sub{
-  margin-top:10px; font-family:var(--serif); font-style:italic;
-  color:var(--ink-soft); font-size:1.05rem;
-}
-#lezer .legenda{
-  margin-top:26px;
-  background:var(--cream); border:1px dashed var(--ink-soft);
-  border-radius:14px; padding:14px 20px;
-  font-size:.85rem; color:var(--ink-soft);
-  display:flex; flex-wrap:wrap; gap:8px 22px;
-}
-.legenda .wie{ display:inline-flex; align-items:center; gap:9px; }
-.legenda .wie i{
-  font-style:italic; font-family:var(--serif); font-weight:700;
-  width:24px; height:24px; border-radius:50%;
-  display:inline-grid; place-items:center; font-size:.8rem;
-}
-.legenda .wie.a i{ background:var(--forest); color:var(--paper); }
-.legenda .wie.b i{ background:var(--terracotta); color:var(--cream); }
-
-#lezer .tekst{ margin-top:36px; font-size:1.02rem; }
-#lezer .tekst p{ margin-bottom:1.25em; color:var(--ink); }
-#lezer .tekst ul{ margin:0 0 1.25em 1.2em; }
-#lezer .tekst li{ margin-bottom:.45em; color:var(--ink); }
-
-.beurt{
-  display:flex; gap:16px;
-  padding:13px 0;
-}
-.beurt + .beurt{ border-top:1px dashed rgba(37,33,26,.1); }
-.beurt .spreker{
-  flex-shrink:0;
-  width:34px; height:34px; border-radius:50%;
-  display:grid; place-items:center;
-  font-family:var(--serif); font-style:italic; font-weight:700; font-size:.95rem;
-}
-.beurt.a .spreker{ background:var(--forest); color:var(--paper); }
-.beurt.b .spreker{ background:var(--terracotta); color:var(--cream); }
-.beurt > div:last-child{ padding-top:4px; }
-.beurt.b > div:last-child{ color:var(--ink-soft); }
-
-#lezer .voet-nav{
-  display:flex; justify-content:space-between; gap:14px;
-  margin-top:60px; padding-top:30px;
-  border-top:1px solid var(--line);
-}
-#lezer .voet-nav button{
-  border:1.5px solid var(--ink); background:var(--cream); cursor:pointer;
-  font-family:var(--sans); font-weight:700; font-size:.88rem;
-  padding:13px 24px; border-radius:999px; transition:.25s;
-  max-width:46%; text-align:center; color:var(--ink);
-}
-#lezer .voet-nav button:hover{ background:var(--ink); color:var(--cream); }
-#lezer .voet-nav button:disabled{ opacity:.3; pointer-events:none; }
-#lezer .bron-noot{
-  margin-top:34px; text-align:center;
-  font-family:var(--mono); font-size:.74rem; color:var(--ink-soft);
+  .lees-layout{ grid-template-columns:1fr; }
+  .balk .menu-knop{ display:inline-flex; }
+  .zijbalk{
+    position:fixed; top:0; right:0; bottom:0;
+    width:min(330px, 86vw); max-height:none;
+    background:var(--paper);
+    z-index:50;
+    transform:translateX(100%);
+    transition:transform .32s cubic-bezier(.2,.7,.3,1);
+    box-shadow:-24px 0 60px -24px rgba(37,33,26,.5);
+    padding:22px 18px 40px;
+  }
+  .zijbalk.open{ transform:translateX(0); }
+  .backdrop.open{ opacity:1; pointer-events:auto; }
+  .zij-sluit{
+    display:grid; place-items:center;
+    margin-left:auto;
+    width:30px; height:30px; border-radius:50%;
+    border:1.5px solid var(--ink); background:none; cursor:pointer;
+    font-size:1rem; color:var(--ink); flex-shrink:0;
+  }
+  .zij-titel{ margin-bottom:18px; }
 }
 
-/* ============ KUTIPAN ============ */
-#kutipan{
-  background:var(--forest-deep);
-  color:var(--paper);
-  overflow:hidden;
-}
-#kutipan::before{
-  content:"\201C";
-  position:absolute; top:-.12em; left:2%;
-  font-family:var(--serif); font-size:28rem; line-height:1;
-  color:rgba(246,240,227,.06);
-  pointer-events:none;
-}
-#kutipan .label-bab{ color:var(--gold); }
-#kutipan .label-bab::after{ background:var(--gold); }
-
-.kutipan-rel{ position:relative; margin-top:30px; min-height:280px; }
-.kutip{
-  position:absolute; inset:0;
-  opacity:0; translate:0 24px;
-  transition:opacity .7s ease, translate .7s ease;
-  pointer-events:none;
-}
-.kutip.aktif{ opacity:1; translate:0 0; pointer-events:auto; position:relative; }
-.kutip blockquote{
-  font-family:var(--serif); font-style:italic;
-  font-size:clamp(1.5rem, 3.4vw, 2.4rem);
-  line-height:1.35; font-weight:400;
-  max-width:28ch;
-  font-variation-settings:"SOFT" 80;
-}
-.kutip blockquote mark{
-  background:none; color:var(--gold);
-  border-bottom:2px solid var(--gold);
-}
-.kutip cite{
-  display:block; margin-top:28px;
-  font-family:var(--mono); font-style:normal; font-size:.8rem;
-  letter-spacing:.18em; text-transform:uppercase; opacity:.65;
-}
-.kutip-nav{ display:flex; gap:10px; margin-top:40px; }
-.kutip-nav button{
-  width:46px; height:46px; border-radius:50%;
-  border:1.5px solid rgba(246,240,227,.4);
-  background:none; color:var(--paper);
-  font-size:1.1rem; cursor:pointer; transition:.25s;
-}
-.kutip-nav button:hover{ background:var(--gold); border-color:var(--gold); color:var(--ink); }
-
-/* ============ PENULIS ============ */
-#penulis .grid-penulis{
-  display:grid; grid-template-columns:.8fr 1.2fr;
-  gap:clamp(36px, 6vw, 90px); align-items:center;
-  margin-top:50px;
-}
-@media (max-width:880px){ #penulis .grid-penulis{ grid-template-columns:1fr; } }
-
-.polaroid{
-  background:#fff;
-  padding:16px 16px 60px;
-  rotate:-2.5deg;
-  box-shadow:0 22px 45px -16px rgba(37,33,26,.4);
-  position:relative;
-  width:min(360px, 100%);
-  margin-inline:auto;
-  transition:.4s;
-}
-.polaroid:hover{ rotate:0deg; scale:1.02; }
-.polaroid .selotip{
-  position:absolute; top:-16px; left:50%; translate:-50% 0; rotate:3deg;
-  width:120px; height:34px;
-  background:rgba(201,162,39,.4);
-  backdrop-filter:blur(1px);
-  box-shadow:0 2px 5px rgba(37,33,26,.12);
-}
-.polaroid .foto{
-  aspect-ratio:.95;
-  width:100%;
-  object-fit:cover;
-  object-position:center center;
-  background:var(--paper-deep);
-  display:block;
-  filter:saturate(.92) contrast(1.03);
-}
-.polaroid .ket{
-  position:absolute; bottom:16px; left:0; right:0;
-  text-align:center;
-  font-family:var(--serif); font-style:italic; font-size:1.05rem;
-  color:var(--ink-soft);
-}
-#penulis .bio p{ color:var(--ink-soft); margin-bottom:1.1em; }
-#penulis .bio p b{ color:var(--ink); }
-.fakta{
-  margin-top:28px;
-  display:flex; flex-wrap:wrap; gap:10px;
-}
-.fakta span{
-  font-family:var(--mono); font-size:.78rem;
-  border:1px solid var(--line); background:var(--cream);
-  padding:7px 16px; border-radius:999px;
+@media (max-width:560px){
+  .merk{ font-size:.95rem; }
+  .balk .titel-klein{ display:none; }
 }
 
-/* ============ DETAIL — kartu katalog perpustakaan ============ */
-#detail{ background:var(--paper-deep); }
-#detail::before{
-  content:""; position:absolute; left:0; right:0; top:-13px; height:14px;
-  background-image:radial-gradient(circle at 8px -4px, transparent 12px, var(--paper-deep) 13px);
-  background-size:24px 14px;
-}
-
-.katalog{
-  margin-top:52px;
-  background:#FBF7EA;
-  border:1px solid var(--line);
-  border-radius:6px;
-  max-width:760px; margin-inline:auto;
-  font-family:var(--mono);
-  box-shadow:0 20px 40px -18px rgba(37,33,26,.35), 0 0 0 6px var(--cream), 0 0 0 7px var(--line);
-  rotate:.6deg;
-  position:relative;
-  overflow:hidden;
-}
-.katalog::before{
-  content:""; position:absolute; bottom:14px; left:50%; translate:-50% 0;
-  width:26px; height:26px; border-radius:50%;
-  background:var(--paper-deep);
-  box-shadow:inset 0 2px 5px rgba(37,33,26,.25);
-}
-.katalog header{
-  all:unset; display:flex; justify-content:space-between; align-items:center;
-  padding:18px 30px;
-  border-bottom:2px solid var(--terracotta);
-  background:repeating-linear-gradient(90deg, transparent 0 6px, rgba(212,90,56,.06) 6px 12px);
-  font-size:.8rem; letter-spacing:.2em; text-transform:uppercase;
-}
-.katalog header b{ color:var(--terracotta); }
-.katalog .baris{
-  display:grid; grid-template-columns:200px 1fr;
-  padding:13px 30px;
-  border-bottom:1px dashed var(--line);
-  font-size:.92rem;
-  transition:background .2s;
-}
-.katalog .baris:hover{ background:rgba(201,162,39,.08); }
-.katalog .baris:last-of-type{ border-bottom:none; padding-bottom:54px; }
-.katalog .baris .k{ color:var(--ink-soft); text-transform:uppercase; font-size:.78rem; letter-spacing:.12em; padding-top:2px; }
-@media (max-width:640px){ .katalog .baris{ grid-template-columns:1fr; gap:2px; } }
-.cap{
-  position:absolute; right:26px; bottom:30px;
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.15em;
-  color:var(--terra-deep);
-  border:2px solid var(--terra-deep);
-  border-radius:8px;
-  padding:8px 14px;
-  rotate:-9deg; opacity:.75;
-  text-transform:uppercase; text-align:center; line-height:1.5;
-}
-
-/* ============ FOOTER ============ */
-footer{
-  background:var(--ink); color:var(--paper);
-  padding:90px 0 40px;
-  margin-top:60px;
-  position:relative;
-}
-footer::before{
-  content:""; position:absolute; left:0; right:0; top:-13px; height:14px;
-  background-image:radial-gradient(circle at 8px -4px, transparent 12px, var(--ink) 13px);
-  background-size:24px 14px;
-}
-.footer-grid{
-  display:grid; grid-template-columns:1.4fr 1fr 1fr;
-  gap:40px; margin-bottom:70px;
-}
-@media (max-width:820px){ .footer-grid{ grid-template-columns:1fr; } }
-footer .judul-kecil{
-  font-family:var(--mono); font-size:.74rem; letter-spacing:.2em;
-  text-transform:uppercase; color:var(--gold); margin-bottom:18px;
-}
-footer .besar{
-  font-family:var(--serif); font-size:clamp(1.6rem, 3vw, 2.3rem);
-  line-height:1.2; font-weight:500; max-width:18ch;
-}
-footer .besar em{ font-style:italic; color:var(--terracotta); }
-footer ul{ list-style:none; display:grid; gap:10px; }
-footer ul a{
-  text-decoration:none; color:rgba(246,240,227,.7);
-  font-size:.92rem; transition:.2s;
-}
-footer ul a:hover{ color:var(--gold); padding-left:6px; }
-.footer-bawah{
-  border-top:1px solid rgba(246,240,227,.15);
-  padding-top:28px;
-  display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px;
-  font-size:.82rem; color:rgba(246,240,227,.55);
-  font-family:var(--mono);
-}
-
-/* hormati preferensi pengguna yang sensitif gerakan */
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{ animation:none!important; transition:none!important; }
-  .muncul{ opacity:1; translate:0 0; }
+  *,*::before,*::after{ transition:none!important; }
+  .blad{ scroll-behavior:auto; }
 }
 </style>
 </head>
 <body>
 
-<div id="progress"></div>
-
-<!-- ================= NAVBAR ================= -->
-<nav>
-  <a class="brand" href="#atas">De<span>Dialoog.</span></a>
-  <div class="links">
-    <a href="#tentang"   data-i18n="nav_tentang">Tentang</a>
-    <a href="#daftarisi" data-i18n="nav_daftar">Daftar Isi</a>
-    <a href="#kutipan"   data-i18n="nav_kutipan">Kutipan</a>
-    <a href="#penulis"   data-i18n="nav_penulis">Penulis</a>
-    <a href="#detail"    data-i18n="nav_detail">Detail</a>
-  </div>
-</nav>
-
-<!-- ================= HERO ================= -->
-<header id="atas">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="kicker" data-i18n="kicker"><span class="dot"></span> Terjemahan Belanda &middot; 1998</span>
-
-      <h1 data-i18n="h1">
-        Satu Tuhan,<br>
-        dua <em>keyakinan</em>,<br>
-        <span class="coretan">sembilan malam.<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg></span>
-      </h1>
-
-      <p class="hero-sub" data-i18n="hero_sub">
-        <b>Dialoog over de Goddelijkheid van Jezus</b> adalah catatan utuh
-        dialog sembilan malam di Sumenep (1970) antara K.H. Bahaudin Mudhary,
-        seorang ulama, dan Antonius Widuri, seorang Katolik. Seluruh teks
-        bukunya bisa dibaca gratis di halaman ini.
-      </p>
-
-      <div class="penulis-chip">
-        <div class="ava">BM</div>
-        <div>
-          <small data-i18n="chip_small">Ditulis oleh</small>
-          <b>K.H. Bahaudin Mudhary</b>
-        </div>
-      </div>
-
-      <div class="hero-aksi">
-        <a class="tbl isi"   href="#daftarisi" data-i18n="btn1">Mulai membaca ↓</a>
-        <a class="tbl garis" href="#tentang"   data-i18n="btn2">Tentang bukunya</a>
-      </div>
-    </div>
-
-    <!-- buku 3D dengan sampul asli -->
-    <div class="panggung">
-      <svg class="stiker" viewBox="0 0 124 124" aria-hidden="true">
-        <circle cx="62" cy="62" r="62" fill="#D45A38"/>
-        <circle cx="62" cy="62" r="22" fill="#F6F0E3"/>
-        <text><textPath href="#lingkar" data-i18n="stiker">baca gratis · baca gratis · baca gratis ·</textPath></text>
-        <defs><path id="lingkar" d="M62,62 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs>
-        <text x="62" y="67" text-anchor="middle" style="fill:#D45A38;font-size:20px;letter-spacing:0">✺</text>
-      </svg>
-
-      <div class="buku" id="buku3d">
-        <div class="punggung"></div>
-        <div class="halaman"></div>
-        <div class="muka">
-          <img src="book_front_cover.jpg" alt="Sampul buku Dialoog over de Goddelijkheid van Jezus uit de Bijbel — K.H. Bahaudin Mudhary">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <a class="gulir" href="#tentang" data-i18n="gulir">gulir</a>
-</header>
-
-<!-- ================= MARQUEE (diisi ulang oleh JS sesuai bahasa) ================= -->
-<div class="marquee" aria-hidden="true">
-  <div class="jalur" id="jalurMarquee"></div>
-</div>
-
-<!-- ================= TENTANG BUKU ================= -->
-<section id="tentang">
-  <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s1_label">01 — Tentang Buku</div>
-    <h2 class="muncul" data-i18n="s1_h2">Sembilan malam dialog yang <em>benar-benar terjadi</em></h2>
-
-    <div class="isi-grid">
-      <div class="muncul">
-        <p class="kapital" data-i18n="s1_p1">
-          Maret 1970, Sumenep, Madura. Seorang akuntan Katolik bernama Antonius
-          Widuri datang menemui K.H. Bahaudin Mudhary dengan satu permintaan:
-          berdialog tentang ketuhanan Yesus — jujur, terbuka, dan tanpa paksaan.
-          Kesepakatannya sederhana: percakapan dicatat kata demi kata, dan tidak
-          boleh ada yang saling menyinggung.
-        </p>
-        <p data-i18n="s1_p2">
-          Dialog itu berlangsung sembilan malam. Caranya khas: Antonius diminta
-          membuka Alkitabnya sendiri, membacakan ayatnya, lalu keduanya
-          menimbangnya dengan akal sehat — ayat demi ayat, tenang dan saling
-          menghormati. Buku ini adalah transkrip utuh percakapan itu, lengkap
-          dengan dua pidato penutupnya.
-        </p>
-        <p data-i18n="s1_p3">
-          Yang termuat di sini adalah terjemahan Belanda (1998) dari buku asli
-          berbahasa Indonesia <b>"Dialog Masalah Ketuhanan Jesus"</b>. Seluruh
-          teksnya bisa dibaca gratis lewat daftar isi di bawah — halaman ini
-          tidak menjual apa pun.
-        </p>
-      </div>
-
-      <div class="kartu-tema muncul">
-        <h3 data-i18n="tema_h3">Yang dibahas dalam dialog</h3>
-        <ul>
-          <li data-i18n="tema_1">Ketuhanan Yesus, ditelaah dari teks Alkitab sendiri</li>
-          <li data-i18n="tema_2">Makna "anak Allah" dan "anak manusia"</li>
-          <li data-i18n="tema_3">Dosa warisan dan tanggung jawab pribadi</li>
-          <li data-i18n="tema_4">Kisah Adam menurut Al-Quran</li>
-          <li data-i18n="tema_5">Teks-teks Alkitab yang saling bertentangan</li>
-          <li data-i18n="tema_6">Toleransi: dialog iman tanpa paksaan</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= DAFTAR ISI → BACA ================= -->
-<section id="daftarisi">
-  <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s2_label">02 — Daftar Isi</div>
-    <h2 class="muncul" data-i18n="s2_h2">Baca bukunya di sini, <em>bab demi bab</em></h2>
-    <p class="toc-note muncul" data-i18n="s2_note">Klik sebuah bagian untuk membuka teks lengkapnya. Teks buku dalam bahasa Belanda.</p>
-
-    <div class="bab-list muncul" id="tocList"><!-- diisi oleh JS dari boek.js --></div>
-  </div>
-</section>
-
-<!-- ================= KUTIPAN ================= -->
-<section id="kutipan">
-  <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s3_label">03 — Kutipan</div>
-    <h2 class="muncul" style="color:var(--paper)" data-i18n="s3_h2">Beberapa kalimat dari dalam buku</h2>
-
-    <div class="kutipan-rel muncul">
-      <div class="kutip aktif">
-        <blockquote>&ldquo;Wij moeten <mark>tolerant</mark> zijn met alle godsdiensten.&rdquo;</blockquote>
-        <cite>— K.H. Bahaudin Mudhary, slotspeech</cite>
-      </div>
-      <div class="kutip">
-        <blockquote>&ldquo;Ik zoek de <mark>ware godsdienst</mark>&hellip; die overtuigt door rationeel onderzoek.&rdquo;</blockquote>
-        <cite>— Antonius Widuri, de eerste avond</cite>
-      </div>
-      <div class="kutip">
-        <blockquote>&ldquo;Het is dus puur een <mark>dialoog</mark> tussen twee personen.&rdquo;</blockquote>
-        <cite>— Het begin van de ontmoeting</cite>
-      </div>
-    </div>
-
-    <div class="kutip-nav muncul">
-      <button id="kutipPrev" aria-label="Kutipan sebelumnya">←</button>
-      <button id="kutipNext" aria-label="Kutipan berikutnya">→</button>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PENULIS ================= -->
-<section id="penulis">
-  <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s4_label">04 — Penulis</div>
-    <h2 class="muncul" data-i18n="s4_h2">Orang di balik <em>dialog ini</em></h2>
-
-    <div class="grid-penulis">
-      <div class="polaroid muncul">
-        <div class="selotip"></div>
-        <!-- GANTI DI SINI : ganti div .foto dengan <img src="foto-penulis.jpg" alt="..."> bila ada foto -->
-        <img class="foto" src="bahaudin.jpg" alt="K.H. Bahaudin Mudhary" loading="lazy">
-        <div class="ket">— Sumenep, Madura, 1970 —</div>
-      </div>
-
-      <div class="bio muncul">
-        <p data-i18n="bio_p1">
-          <b>K.H. Bahaudin Mudhary</b> (1921–1979) adalah ulama kelahiran
-          Sumenep, Madura. Ia menguasai banyak bahasa — Indonesia, Arab,
-          Inggris, Jerman, Belanda, Prancis — menggemari filsafat dan ilmu
-          kerohanian, serta piawai memainkan beragam alat musik.
-        </p>
-        <p data-i18n="bio_p2">
-          Hampir seluruh hidupnya diabdikan untuk mengajar: guru sekolah
-          Muallimin Muhammadiyah, kepala sekolah, dosen, pendiri sekolah Islam
-          di Madura (1949) dan Akademi Metafisika (1960-an). Dalam dialog ini
-          ia dikenang karena satu hal: hafal teks Alkitab di luar kepala, dan
-          menjawab semuanya dengan logika yang tenang.
-        </p>
-        <div class="fakta">
-          <span data-i18n="fakta_1">📍 Sumenep, Madura</span>
-          <span data-i18n="fakta_2">🕌 Ulama &amp; pengajar</span>
-          <span data-i18n="fakta_3">🗣️ Menguasai 6 bahasa</span>
-          <span data-i18n="fakta_4">🎼 Pemain musik</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= DETAIL BUKU ================= -->
-<section id="detail">
-  <div class="wrap">
-    <div class="label-bab muncul" data-i18n="s5_label">05 — Lembar Data</div>
-    <h2 class="muncul" data-i18n="s5_h2">Detail buku, ala kartu <em>katalog perpustakaan</em></h2>
-
-    <div class="katalog muncul">
-      <header>
-        <span data-i18n="cat_kiri">KARTU KATALOG <b>№ 001</b></span>
-        <span data-i18n="cat_kanan">RAK: DIALOG ANTARAGAMA</span>
-      </header>
-      <div class="baris"><div class="k" data-i18n="rk_judul">Judul</div><div>Dialoog over de Goddelijkheid van Jezus uit de Bijbel</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_penulis">Penulis</div><div>K.H. Bahaudin Mudhary (1921–1979)</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_asli">Judul asli</div><div data-i18n="rv_asli">"Dialog Masalah Ketuhanan Jesus" (bahasa Indonesia)</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_vertaling">Terjemahan</div><div data-i18n="rv_vertaling">Bahasa Belanda — Maret 1998</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_vorm">Bentuk</div><div data-i18n="rv_vorm">Tanya-jawab — dialog sembilan malam</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_plaats">Tempat &amp; waktu</div><div data-i18n="rv_plaats">Sumenep, Madura — Maret 1970</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_tebal">Tebal</div><div data-i18n="rv_tebal">72 halaman</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_kategori">Kategori</div><div data-i18n="rv_kategori">Agama / Dialog antaragama</div></div>
-      <div class="baris"><div class="k" data-i18n="rk_akses">Akses</div><div data-i18n="rv_akses">Dapat dibaca gratis dan utuh di halaman ini</div></div>
-      <div class="cap" data-i18n="cap">teks<br>lengkap</div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer>
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <div class="judul-kecil">Dialoog over de Goddelijkheid van Jezus — 1998</div>
-        <p class="besar" data-i18n="f_terima">Terima kasih sudah mampir dan <em>membaca</em> buku ini.</p>
-      </div>
-      <div>
-        <div class="judul-kecil" data-i18n="f_jelajah">Jelajahi</div>
-        <ul>
-          <li><a href="#tentang"   data-i18n="f_l1">Tentang buku</a></li>
-          <li><a href="#daftarisi" data-i18n="f_l2">Daftar isi</a></li>
-          <li><a href="#kutipan"   data-i18n="f_l3">Kutipan</a></li>
-          <li><a href="#penulis"   data-i18n="f_l4">Tentang penulis</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="judul-kecil" data-i18n="f_sapa">Kontak</div>
-        <!-- GANTI DI SINI : kontak & media sosial asli -->
-        <ul>
-          <li><a href="mailto:halo@contoh.com">✉️ halo@contoh.com</a></li>
-          <li><a href="#">📷 Instagram</a></li>
-          <li><a href="#">📚 Goodreads</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bawah">
-      <span>© K.H. Bahaudin Mudhary &amp; de vertaler (1998).</span>
-      <span data-i18n="f_note">Halaman ini hanya menyajikan buku untuk dibaca — tidak menjual apa pun. ✺</span>
-    </div>
-  </div>
-</footer>
-
-<!-- ================= TAMPILAN BACA (overlay) ================= -->
-<div id="lezer" role="dialog" aria-modal="true">
+<div class="lezer">
+  <!-- ===== bilah atas ===== -->
   <div class="balk">
     <div class="balk-in">
-      <button id="lezerTerug" data-i18n="lezer_terug">← Daftar Isi</button>
-      <div class="titel-klein" id="lezerTitelKlein"></div>
-      <button id="lezerVorige2">←</button>
-      <button id="lezerVolgende2">→</button>
+      <button class="merk" id="merkKnop" title="Naar het begin">De<span>Dialoog.</span></button>
+      <button class="knop menu-knop" id="menuKnop" aria-label="Inhoud openen">☰ Inhoud</button>
+      <div class="titel-klein" id="titelKlein"></div>
+      <button class="knop" id="vorige2" aria-label="Vorige">←</button>
+      <button class="knop" id="volgende2" aria-label="Volgende">→</button>
     </div>
-    <div id="lezerVoortgang"></div>
+    <div id="voortgang"></div>
   </div>
-  <div class="blad" id="lezerBlad">
+
+  <!-- ===== area baca ===== -->
+  <div class="blad" id="blad">
     <div class="lees-layout">
-    <article>
-      <div class="hfd-label" id="lezerNr"></div>
-      <h2 id="lezerTitel"></h2>
-      <p class="hfd-sub" id="lezerSub"></p>
-      <div class="legenda" id="lezerLegenda">
-        <span class="wie a"><i>A</i> K.H. Bahaudin Mudhary</span>
-        <span class="wie b"><i>B</i> Antonius Widuri / dhr. Markan</span>
-      </div>
-      <div class="tekst" id="lezerTekst"></div>
-      <div class="voet-nav">
-        <button id="lezerVorige"></button>
-        <button id="lezerVolgende"></button>
-      </div>
-      <p class="bron-noot" data-i18n="lezer_noot">Teks asli terjemahan Belanda (1998) — ejaan dipertahankan apa adanya.</p>
-    </article>
-    <aside class="zijbalk" role="navigation" aria-label="Inhoudsopgave">
-      <div class="zij-titel" data-i18n="zij_titel">Daftar Isi</div>
-      <div id="zijLijst"></div>
-    </aside>
+      <article class="tekst-blok">
+        <div class="hfd-label" id="hfdLabel"></div>
+        <h2 id="hfdTitel"></h2>
+        <p class="hfd-sub" id="hfdSub"></p>
+        <div class="legenda" id="legenda">
+          <span class="wie a"><i>A</i> K.H. Bahaudin Mudhary</span>
+          <span class="wie b"><i>B</i> Antonius Widuri / dhr. Markan</span>
+        </div>
+        <div class="inhoud" id="inhoud"></div>
+        <div class="voet-nav">
+          <button id="vorige"></button>
+          <button id="volgende"></button>
+        </div>
+        <p class="bron-noot">Originele Nederlandse vertaaltekst (1998) — spelling behouden zoals in het boek.</p>
+      </article>
+
+      <aside class="zijbalk" id="zijbalk" aria-label="Inhoudsopgave">
+        <div class="zij-titel">Inhoud <button class="zij-sluit" id="zijSluit" aria-label="Sluiten">✕</button></div>
+        <div id="zijLijst"></div>
+      </aside>
     </div>
   </div>
 </div>
+
+<div class="backdrop" id="backdrop"></div>
 
 <script src="boek.js"></script>
 <script>
 /* ===================================================================
-   KAMUS BAHASA UI (ID / EN / NL) — teks buku sendiri dalam bahasa
-   Belanda dan tidak ikut diterjemahkan (lihat boek.js).
+   Pembaca buku — Belanda saja, fokus pada isi.
+   BOEK berasal dari boek.js: [{id, nr, titel, sub, blz, html}, ...]
    =================================================================== */
-const SVG_CORETAN = '<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg>';
+const VOORWERK_N = 4;                 /* 4 bagian pertama = voorwerk (I–IV) */
+const VOORWERK = "Voorwerk";
+const DIALOOGDEEL = "De dialoog & speeches";
 
-const I18N = {
-  /* ---------------- BAHASA INDONESIA ---------------- */
-  id: {
-    _title:"Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary",
-    _desc:"Teks lengkap buku 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' karya K.H. Bahaudin Mudhary — dialog sembilan malam di Sumenep, 1970. Baca gratis, bab demi bab.",
-    _marquee:["teks lengkap buku, bab demi bab","dialog nyata dari tahun 1970","bukan halaman jualan","baca pelan-pelan saja"],
-    _prev:"Kutipan sebelumnya", _next:"Kutipan berikutnya",
-    _lees:"Baca →", _vorige:"← Sebelumnya", _volgende:"Berikutnya →",
-    _voorwerk:"Bagian pembuka", _dialoogdeel:"Dialog & pidato",
-    nav_tentang:"Tentang", nav_daftar:"Daftar Isi", nav_kutipan:"Kutipan", nav_penulis:"Penulis", nav_detail:"Detail",
-    kicker:'<span class="dot"></span> Terjemahan Belanda &middot; 1998',
-    h1:`Satu Tuhan,<br>dua <em>keyakinan</em>,<br><span class="coretan">sembilan malam.${SVG_CORETAN}</span>`,
-    hero_sub:"<b>Dialoog over de Goddelijkheid van Jezus</b> adalah catatan utuh dialog sembilan malam di Sumenep (1970) antara K.H. Bahaudin Mudhary, seorang ulama, dan Antonius Widuri, seorang Katolik. Seluruh teks bukunya bisa dibaca gratis di halaman ini.",
-    chip_small:"Ditulis oleh",
-    btn1:"Mulai membaca ↓", btn2:"Tentang bukunya",
-    stiker:"baca gratis · baca gratis · baca gratis ·",
-    gulir:"gulir",
-    s1_label:"01 — Tentang Buku",
-    s1_h2:"Sembilan malam dialog yang <em>benar-benar terjadi</em>",
-    s1_p1:"Maret 1970, Sumenep, Madura. Seorang akuntan Katolik bernama Antonius Widuri datang menemui K.H. Bahaudin Mudhary dengan satu permintaan: berdialog tentang ketuhanan Yesus — jujur, terbuka, dan tanpa paksaan. Kesepakatannya sederhana: percakapan dicatat kata demi kata, dan tidak boleh ada yang saling menyinggung.",
-    s1_p2:"Dialog itu berlangsung sembilan malam. Caranya khas: Antonius diminta membuka Alkitabnya sendiri, membacakan ayatnya, lalu keduanya menimbangnya dengan akal sehat — ayat demi ayat, tenang dan saling menghormati. Buku ini adalah transkrip utuh percakapan itu, lengkap dengan dua pidato penutupnya.",
-    s1_p3:'Yang termuat di sini adalah terjemahan Belanda (1998) dari buku asli berbahasa Indonesia <b>"Dialog Masalah Ketuhanan Jesus"</b>. Seluruh teksnya bisa dibaca gratis lewat daftar isi di bawah — halaman ini tidak menjual apa pun.',
-    tema_h3:"Yang dibahas dalam dialog",
-    tema_1:"Ketuhanan Yesus, ditelaah dari teks Alkitab sendiri",
-    tema_2:'Makna "anak Allah" dan "anak manusia"',
-    tema_3:"Dosa warisan dan tanggung jawab pribadi",
-    tema_4:"Kisah Adam menurut Al-Quran",
-    tema_5:"Teks-teks Alkitab yang saling bertentangan",
-    tema_6:"Toleransi: dialog iman tanpa paksaan",
-    s2_label:"02 — Daftar Isi",
-    s2_h2:"Baca bukunya di sini, <em>bab demi bab</em>",
-    s2_note:"Klik sebuah bagian untuk membuka teks lengkapnya. Teks buku dalam bahasa Belanda.",
-    s3_label:"03 — Kutipan",
-    s3_h2:"Beberapa kalimat dari dalam buku",
-    s4_label:"04 — Penulis",
-    s4_h2:"Orang di balik <em>dialog ini</em>",
-    foto_ph:"tempat foto<br>K.H. Bahaudin Mudhary",
-    bio_p1:"<b>K.H. Bahaudin Mudhary</b> (1921–1979) adalah ulama kelahiran Sumenep, Madura. Ia menguasai banyak bahasa — Indonesia, Arab, Inggris, Jerman, Belanda, Prancis — menggemari filsafat dan ilmu kerohanian, serta piawai memainkan beragam alat musik.",
-    bio_p2:"Hampir seluruh hidupnya diabdikan untuk mengajar: guru sekolah Muallimin Muhammadiyah, kepala sekolah, dosen, pendiri sekolah Islam di Madura (1949) dan Akademi Metafisika (1960-an). Dalam dialog ini ia dikenang karena satu hal: hafal teks Alkitab di luar kepala, dan menjawab semuanya dengan logika yang tenang.",
-    fakta_1:"📍 Sumenep, Madura", fakta_2:"🕌 Ulama & pengajar", fakta_3:"🗣️ Menguasai 6 bahasa", fakta_4:"🎼 Pemain musik",
-    s5_label:"05 — Lembar Data",
-    s5_h2:"Detail buku, ala kartu <em>katalog perpustakaan</em>",
-    cat_kiri:"KARTU KATALOG <b>№ 001</b>", cat_kanan:"RAK: DIALOG ANTARAGAMA",
-    rk_judul:"Judul", rk_penulis:"Penulis",
-    rk_asli:"Judul asli", rv_asli:'"Dialog Masalah Ketuhanan Jesus" (bahasa Indonesia)',
-    rk_vertaling:"Terjemahan", rv_vertaling:"Bahasa Belanda — Maret 1998",
-    rk_vorm:"Bentuk", rv_vorm:"Tanya-jawab — dialog sembilan malam",
-    rk_plaats:"Tempat & waktu", rv_plaats:"Sumenep, Madura — Maret 1970",
-    rk_tebal:"Tebal", rv_tebal:"72 halaman",
-    rk_kategori:"Kategori", rv_kategori:"Agama / Dialog antaragama",
-    rk_akses:"Akses", rv_akses:"Dapat dibaca gratis dan utuh di halaman ini",
-    cap:"teks<br>lengkap",
-    f_terima:"Terima kasih sudah mampir dan <em>membaca</em> buku ini.",
-    f_jelajah:"Jelajahi",
-    f_l1:"Tentang buku", f_l2:"Daftar isi", f_l3:"Kutipan", f_l4:"Tentang penulis",
-    f_sapa:"Kontak",
-    f_note:"Halaman ini hanya menyajikan buku untuk dibaca — tidak menjual apa pun. ✺",
-    lezer_terug:"← Daftar Isi",
-    lezer_noot:"Teks asli terjemahan Belanda (1998) — ejaan dipertahankan apa adanya.",
-    zij_titel:"Daftar Isi"
-  },
+const $ = id => document.getElementById(id);
+const blad = $('blad'), zijbalk = $('zijbalk'), backdrop = $('backdrop');
+let idx = -1;
 
-  /* ---------------- ENGLISH ---------------- */
-  en: {
-    _title:"Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary",
-    _desc:"The full text of 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' by K.H. Bahaudin Mudhary — a nine-evening dialogue held in Sumenep, 1970. Free to read, chapter by chapter.",
-    _marquee:["the full text, chapter by chapter","a real dialogue from 1970","not a sales page","take your time reading"],
-    _prev:"Previous quote", _next:"Next quote",
-    _lees:"Read →", _vorige:"← Previous", _volgende:"Next →",
-    _voorwerk:"Front matter", _dialoogdeel:"The dialogue & speeches",
-    nav_tentang:"About", nav_daftar:"Contents", nav_kutipan:"Quotes", nav_penulis:"Author", nav_detail:"Details",
-    kicker:'<span class="dot"></span> Dutch translation &middot; 1998',
-    h1:`One God,<br>two <em>faiths</em>,<br><span class="coretan">nine evenings.${SVG_CORETAN}</span>`,
-    hero_sub:"<b>Dialoog over de Goddelijkheid van Jezus</b> is the complete record of a nine-evening dialogue held in Sumenep (1970) between K.H. Bahaudin Mudhary, an Islamic scholar, and Antonius Widuri, a Catholic. The full text of the book can be read here, free.",
-    chip_small:"Written by",
-    btn1:"Start reading ↓", btn2:"About the book",
-    stiker:"read it free · read it free · read it free ·",
-    gulir:"scroll",
-    s1_label:"01 — About the Book",
-    s1_h2:"Nine evenings of dialogue that <em>really happened</em>",
-    s1_p1:"March 1970, Sumenep, Madura. A Catholic accountant named Antonius Widuri came to see K.H. Bahaudin Mudhary with one request: a dialogue about the divinity of Jesus — honest, open, and without coercion. The agreement was simple: the conversation would be recorded word for word, and no one was to give offence.",
-    s1_p2:"The dialogue lasted nine evenings. Its method was distinctive: Antonius was asked to open his own Bible and read the verse aloud, after which the two weighed it together with common sense — verse by verse, calm and respectful. This book is the complete transcript of that conversation, including the two closing speeches.",
-    s1_p3:'What you find here is the Dutch translation (1998) of the original Indonesian book <b>"Dialog Masalah Ketuhanan Jesus"</b>. The entire text can be read for free via the table of contents below — this page sells nothing.',
-    tema_h3:"Discussed in the dialogue",
-    tema_1:"The divinity of Jesus, examined from the Bible's own texts",
-    tema_2:'The meaning of "son of God" and "son of man"',
-    tema_3:"Original sin and personal responsibility",
-    tema_4:"The story of Adam according to the Quran",
-    tema_5:"Contradictory passages in the Bible",
-    tema_6:"Tolerance: a dialogue of faith without coercion",
-    s2_label:"02 — Table of Contents",
-    s2_h2:"Read the book here, <em>chapter by chapter</em>",
-    s2_note:"Click a section to open its full text. The book text is in Dutch.",
-    s3_label:"03 — Quotes",
-    s3_h2:"A few lines from the book",
-    s4_label:"04 — The Author",
-    s4_h2:"The man behind <em>this dialogue</em>",
-    foto_ph:"photo of<br>K.H. Bahaudin Mudhary goes here",
-    bio_p1:"<b>K.H. Bahaudin Mudhary</b> (1921–1979) was an Islamic scholar born in Sumenep, Madura. He spoke many languages — Indonesian, Arabic, English, German, Dutch, French — loved philosophy and spirituality, and played a wide range of musical instruments.",
-    bio_p2:"He devoted nearly his whole life to teaching: teacher at the Muallimin Muhammadiyah school, headmaster, lecturer, founder of an Islamic school on Madura (1949) and of an Academy of Metaphysics (1960s). In this dialogue he is remembered for one thing above all: knowing the Bible by heart, and answering everything with calm logic.",
-    fakta_1:"📍 Sumenep, Madura", fakta_2:"🕌 Scholar & teacher", fakta_3:"🗣️ Spoke 6 languages", fakta_4:"🎼 Musician",
-    s5_label:"05 — Data Sheet",
-    s5_h2:"Book details, in the style of a <em>library catalog card</em>",
-    cat_kiri:"CATALOG CARD <b>№ 001</b>", cat_kanan:"SHELF: INTERFAITH DIALOGUE",
-    rk_judul:"Title", rk_penulis:"Author",
-    rk_asli:"Original title", rv_asli:'"Dialog Masalah Ketuhanan Jesus" (Indonesian)',
-    rk_vertaling:"Translation", rv_vertaling:"Dutch — March 1998",
-    rk_vorm:"Form", rv_vorm:"Q&A — a dialogue over nine evenings",
-    rk_plaats:"Place & time", rv_plaats:"Sumenep, Madura — March 1970",
-    rk_tebal:"Length", rv_tebal:"72 pages",
-    rk_kategori:"Category", rv_kategori:"Religion / Interfaith dialogue",
-    rk_akses:"Access", rv_akses:"Free to read in full on this page",
-    cap:"full<br>text",
-    f_terima:"Thank you for stopping by and <em>reading</em> this book.",
-    f_jelajah:"Explore",
-    f_l1:"About the book", f_l2:"Table of contents", f_l3:"Quotes", f_l4:"About the author",
-    f_sapa:"Contact",
-    f_note:"This page only presents a book to read — it sells nothing. ✺",
-    lezer_terug:"← Contents",
-    lezer_noot:"Original Dutch translation text (1998) — spelling preserved as in the book.",
-    zij_titel:"Contents"
-  },
-
-  /* ---------------- NEDERLANDS ---------------- */
-  nl: {
-    _title:"Dialoog over de Goddelijkheid van Jezus — K.H. Bahaudin Mudhary",
-    _desc:"De volledige tekst van 'Dialoog over de Goddelijkheid van Jezus uit de Bijbel' van K.H. Bahaudin Mudhary — een dialoog van negen avonden in Sumenep, 1970. Gratis te lezen, hoofdstuk voor hoofdstuk.",
-    _marquee:["de volledige tekst, hoofdstuk voor hoofdstuk","een echte dialoog uit 1970","geen verkooppagina","lees rustig mee"],
-    _prev:"Vorig citaat", _next:"Volgend citaat",
-    _lees:"Lees →", _vorige:"← Vorige", _volgende:"Volgende →",
-    _voorwerk:"Voorwerk", _dialoogdeel:"De dialoog & speeches",
-    nav_tentang:"Over", nav_daftar:"Inhoud", nav_kutipan:"Citaten", nav_penulis:"Auteur", nav_detail:"Details",
-    kicker:'<span class="dot"></span> Nederlandse vertaling &middot; 1998',
-    h1:`Eén God,<br>twee <em>gelovigen</em>,<br><span class="coretan">negen avonden.${SVG_CORETAN}</span>`,
-    hero_sub:"<b>Dialoog over de Goddelijkheid van Jezus</b> is het volledige verslag van een dialoog van negen avonden in Sumenep (1970) tussen K.H. Bahaudin Mudhary, een islamitische geleerde, en Antonius Widuri, een katholiek. De volledige tekst van het boek is hier gratis te lezen.",
-    chip_small:"Geschreven door",
-    btn1:"Begin met lezen ↓", btn2:"Over het boek",
-    stiker:"gratis lezen · gratis lezen · gratis lezen ·",
-    gulir:"scroll",
-    s1_label:"01 — Over het boek",
-    s1_h2:"Negen avonden dialoog die <em>echt hebben plaatsgevonden</em>",
-    s1_p1:"Maart 1970, Sumenep, Madura. Een katholieke accountant, Antonius Widuri, zocht K.H. Bahaudin Mudhary op met één verzoek: een dialoog over de goddelijkheid van Jezus — eerlijk, open en zonder dwang. De afspraak was eenvoudig: het gesprek zou woord voor woord worden vastgelegd, en niemand mocht beledigd worden.",
-    s1_p2:"De dialoog duurde negen avonden. De werkwijze was kenmerkend: Antonius werd gevraagd zijn eigen Bijbel te openen en de tekst voor te lezen, waarna beiden die samen met gezond verstand wogen — tekst voor tekst, rustig en respectvol. Dit boek is het volledige verslag van dat gesprek, inclusief de twee slotspeeches.",
-    s1_p3:'Wat u hier vindt is de Nederlandse vertaling (1998) van het oorspronkelijke Indonesische boek <b>"Dialog Masalah Ketuhanan Jesus"</b>. De volledige tekst is gratis te lezen via de inhoudsopgave hieronder — deze pagina verkoopt niets.',
-    tema_h3:"Besproken in de dialoog",
-    tema_1:"De goddelijkheid van Jezus, onderzocht vanuit de Bijbeltekst zelf",
-    tema_2:'De betekenis van "zoon van God" en "mensenzoon"',
-    tema_3:"Erfzonde en eigen verantwoordelijkheid",
-    tema_4:"Het verhaal van Adam volgens de Koran",
-    tema_5:"Tegenstrijdige teksten in de Bijbel",
-    tema_6:"Tolerantie: een geloofsdialoog zonder dwang",
-    s2_label:"02 — Inhoudsopgave",
-    s2_h2:"Lees het boek hier, <em>hoofdstuk voor hoofdstuk</em>",
-    s2_note:"Klik op een deel om de volledige tekst te openen.",
-    s3_label:"03 — Citaten",
-    s3_h2:"Een paar zinnen uit het boek",
-    s4_label:"04 — De auteur",
-    s4_h2:"De man achter <em>deze dialoog</em>",
-    foto_ph:"hier komt de foto van<br>K.H. Bahaudin Mudhary",
-    bio_p1:"<b>K.H. Bahaudin Mudhary</b> (1921–1979) was een islamitische geleerde, geboren in Sumenep, Madura. Hij sprak veel talen — Indonesisch, Arabisch, Engels, Duits, Nederlands, Frans — hield van filosofie en het spirituele, en bespeelde uiteenlopende muziekinstrumenten.",
-    bio_p2:"Vrijwel zijn hele leven stond in het teken van onderwijs: leraar aan de Muallimin Moehammadiyah-school, hoofdleraar, docent, stichter van een islamitische school op Madura (1949) en van de Academie Metafysica (jaren '60). In deze dialoog wordt hij om één ding herinnerd: hij kende de Bijbelteksten uit zijn hoofd, en beantwoordde alles met rustige logica.",
-    fakta_1:"📍 Sumenep, Madura", fakta_2:"🕌 Geleerde & leraar", fakta_3:"🗣️ Sprak 6 talen", fakta_4:"🎼 Musicus",
-    s5_label:"05 — Gegevensblad",
-    s5_h2:"Boekgegevens, in de stijl van een <em>bibliotheekkaart</em>",
-    cat_kiri:"CATALOGUSKAART <b>№ 001</b>", cat_kanan:"PLANK: INTERRELIGIEUZE DIALOOG",
-    rk_judul:"Titel", rk_penulis:"Auteur",
-    rk_asli:"Oorspronkelijke titel", rv_asli:'"Dialog Masalah Ketuhanan Jesus" (Indonesisch)',
-    rk_vertaling:"Vertaling", rv_vertaling:"Nederlands — maart 1998",
-    rk_vorm:"Vorm", rv_vorm:"Vraag en antwoord — een dialoog van negen avonden",
-    rk_plaats:"Plaats & tijd", rv_plaats:"Sumenep, Madura — maart 1970",
-    rk_tebal:"Omvang", rv_tebal:"72 pagina's",
-    rk_kategori:"Categorie", rv_kategori:"Religie / Interreligieuze dialoog",
-    rk_akses:"Toegang", rv_akses:"Volledig en gratis te lezen op deze pagina",
-    cap:"volledige<br>tekst",
-    f_terima:"Bedankt voor je bezoek en het <em>lezen</em> van dit boek.",
-    f_jelajah:"Ontdek",
-    f_l1:"Over het boek", f_l2:"Inhoudsopgave", f_l3:"Citaten", f_l4:"Over de auteur",
-    f_sapa:"Contact",
-    f_note:"Deze pagina presenteert alleen een boek om te lezen — er wordt niets verkocht. ✺",
-    lezer_terug:"← Inhoud",
-    lezer_noot:"Originele vertaaltekst (1998) — spelling behouden zoals in het boek.",
-    zij_titel:"Inhoud"
-  }
-};
-
-/* ============ bahasa: hanya Belanda ============ */
-const bahasa = 'nl';
-
-function setLang(){
-  const t = I18N[bahasa];
-
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const v = t[el.dataset.i18n];
-    if (v != null) el.innerHTML = v;
-  });
-
-  /* marquee */
-  const jalur = document.getElementById('jalurMarquee');
-  const ikon = ['✺','✦'];
-  const satuPutaran = t._marquee.map((teks,i) => `<span>${teks} <i>${ikon[i%2]}</i></span>`).join('');
-  jalur.innerHTML = satuPutaran + satuPutaran;
-
-  /* metadata & aksesibilitas */
-  document.documentElement.lang = bahasa;
-  document.title = t._title;
-  document.querySelector('meta[name="description"]').setAttribute('content', t._desc);
-  document.getElementById('kutipPrev').setAttribute('aria-label', t._prev);
-  document.getElementById('kutipNext').setAttribute('aria-label', t._next);
-
-  buildTOC();
-  if (hoofdstukIdx >= 0) vulLezer(hoofdstukIdx);
-}
-
-/* ============ DAFTAR ISI dari boek.js ============ */
-const VOORWERK_N = 4; /* 4 bagian pertama = voorwerk (I–IV) */
-
-function buildTOC(){
-  const t = I18N[bahasa];
-  const list = document.getElementById('tocList');
-  let htmlOut = `<div class="bab tussen"><span>${t._voorwerk}</span></div>`;
+/* ---- bangun daftar isi di sidebar ---- */
+function bouwInhoud(){
+  let html = `<div class="zij-sep">${VOORWERK}</div>`;
   BOEK.forEach((h, i) => {
-    if (i === VOORWERK_N) htmlOut += `<div class="bab tussen"><span>${t._dialoogdeel}</span></div>`;
-    htmlOut += `
-    <button class="bab" data-idx="${i}">
-      <span class="no">${h.nr}</span>
-      <span><h3>${h.titel}</h3><p>${h.sub}</p></span>
-      <span class="kanan"><span class="hal">${h.blz}</span><span class="lees">${t._lees}</span></span>
-    </button>`;
+    if (i === VOORWERK_N) html += `<div class="zij-sep">${DIALOOGDEEL}</div>`;
+    html += `<button class="zij-item" data-idx="${i}"><i>${h.nr}</i><span>${h.titel}</span></button>`;
   });
-  list.innerHTML = htmlOut;
-  list.querySelectorAll('button.bab').forEach(b =>
-    b.addEventListener('click', () => openLezer(+b.dataset.idx)));
-  buildZijbalk();
+  $('zijLijst').innerHTML = html;
+  $('zijLijst').querySelectorAll('.zij-item').forEach(b =>
+    b.addEventListener('click', () => { toon(+b.dataset.idx); sluitDrawer(); }));
 }
 
-/* sidebar daftar isi di dalam tampilan baca */
-function buildZijbalk(){
-  const t = I18N[bahasa];
-  const el = document.getElementById('zijLijst');
-  let htmlOut = `<div class="zij-sep">${t._voorwerk}</div>`;
-  BOEK.forEach((h, i) => {
-    if (i === VOORWERK_N) htmlOut += `<div class="zij-sep">${t._dialoogdeel}</div>`;
-    htmlOut += `<button class="zij-item${i === hoofdstukIdx ? ' aktif' : ''}" data-idx="${i}"><i>${h.nr}</i><span>${h.titel}</span></button>`;
-  });
-  el.innerHTML = htmlOut;
-  el.querySelectorAll('.zij-item').forEach(b =>
-    b.addEventListener('click', () => openLezer(+b.dataset.idx)));
-}
+/* ---- tampilkan bagian ke-i ---- */
+function toon(i, push = true){
+  idx = Math.max(0, Math.min(i, BOEK.length - 1));
+  const h = BOEK[idx];
 
-/* ============ TAMPILAN BACA ============ */
-const lezer = document.getElementById('lezer');
-const lezerBlad = document.getElementById('lezerBlad');
-let hoofdstukIdx = -1;
+  $('hfdLabel').textContent = h.nr + ' — ' + h.blz;
+  $('hfdTitel').textContent = h.titel;
+  $('titelKlein').textContent = h.nr + '. ' + h.titel;
+  $('hfdSub').textContent = h.sub;
+  $('inhoud').innerHTML = h.html;
+  $('legenda').style.display = h.html.includes('class="beurt') ? 'flex' : 'none';
 
-function vulLezer(i){
-  const t = I18N[bahasa];
-  const h = BOEK[i];
-  document.getElementById('lezerNr').textContent = h.nr + ' — ' + h.blz;
-  document.getElementById('lezerTitel').textContent = h.titel;
-  document.getElementById('lezerTitelKlein').textContent = h.nr + '. ' + h.titel;
-  document.getElementById('lezerSub').textContent = h.sub;
-  document.getElementById('lezerTekst').innerHTML = h.html;
-  document.getElementById('lezerLegenda').style.display = h.html.includes('class="beurt') ? 'flex' : 'none';
+  const vorige = $('vorige'), volgende = $('volgende');
+  vorige.textContent  = idx > 0 ? `←  ${BOEK[idx-1].titel}` : '←  Vorige';
+  volgende.textContent = idx < BOEK.length-1 ? `${BOEK[idx+1].titel}  →` : 'Volgende  →';
+  const eerste = idx === 0, laatste = idx === BOEK.length-1;
+  vorige.disabled = $('vorige2').disabled = eerste;
+  volgende.disabled = $('volgende2').disabled = laatste;
 
-  const prev = document.getElementById('lezerVorige');
-  const next = document.getElementById('lezerVolgende');
-  prev.textContent = i > 0 ? `${t._vorige}  ·  ${BOEK[i-1].titel}` : t._vorige;
-  next.textContent = i < BOEK.length-1 ? `${BOEK[i+1].titel}  ·  ${t._volgende}` : t._volgende;
-  prev.disabled = i === 0;
-  next.disabled = i === BOEK.length-1;
-  document.getElementById('lezerVorige2').disabled = i === 0;
-  document.getElementById('lezerVolgende2').disabled = i === BOEK.length-1;
-
-  /* tandai bab aktif di sidebar & jaga tetap terlihat */
-  document.querySelectorAll('#zijLijst .zij-item').forEach(b =>
-    b.classList.toggle('aktif', +b.dataset.idx === i));
-  const akt = document.querySelector('#zijLijst .zij-item.aktif');
+  document.querySelectorAll('.zij-item').forEach(b =>
+    b.classList.toggle('aktif', +b.dataset.idx === idx));
+  const akt = document.querySelector('.zij-item.aktif');
   if (akt) akt.scrollIntoView({ block:'nearest' });
+
+  document.title = `${h.titel} — Dialoog over de Goddelijkheid van Jezus`;
+  blad.scrollTop = 0;
+  if (push) history.replaceState(null, '', '#lees-' + h.id);
 }
 
-function openLezer(i, gantiHash = true){
-  hoofdstukIdx = Math.max(0, Math.min(i, BOEK.length-1));
-  vulLezer(hoofdstukIdx);
-  lezer.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  lezerBlad.scrollTop = 0;
-  if (gantiHash) history.pushState(null, '', '#lees-' + BOEK[hoofdstukIdx].id);
-}
+/* ---- drawer (mobile) ---- */
+function openDrawer(){ zijbalk.classList.add('open'); backdrop.classList.add('open'); }
+function sluitDrawer(){ zijbalk.classList.remove('open'); backdrop.classList.remove('open'); }
 
-function sluitLezer(gantiHash = true){
-  if (hoofdstukIdx < 0) return;
-  hoofdstukIdx = -1;
-  lezer.classList.remove('open');
-  document.body.style.overflow = '';
-  if (gantiHash) history.pushState(null, '', '#daftarisi');
-}
+$('menuKnop').addEventListener('click', openDrawer);
+$('zijSluit').addEventListener('click', sluitDrawer);
+backdrop.addEventListener('click', sluitDrawer);
+$('merkKnop').addEventListener('click', () => toon(0));
+$('vorige').addEventListener('click', () => toon(idx-1));
+$('volgende').addEventListener('click', () => toon(idx+1));
+$('vorige2').addEventListener('click', () => toon(idx-1));
+$('volgende2').addEventListener('click', () => toon(idx+1));
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') sluitDrawer();
+  else if (e.key === 'ArrowLeft' && idx > 0) toon(idx-1);
+  else if (e.key === 'ArrowRight' && idx < BOEK.length-1) toon(idx+1);
+});
 
-document.getElementById('lezerTerug').addEventListener('click', () => sluitLezer());
-document.getElementById('lezerVorige').addEventListener('click', () => openLezer(hoofdstukIdx-1));
-document.getElementById('lezerVolgende').addEventListener('click', () => openLezer(hoofdstukIdx+1));
-document.getElementById('lezerVorige2').addEventListener('click', () => openLezer(hoofdstukIdx-1));
-document.getElementById('lezerVolgende2').addEventListener('click', () => openLezer(hoofdstukIdx+1));
-addEventListener('keydown', e => { if (e.key === 'Escape') sluitLezer(); });
+/* ---- progress bar baca ---- */
+blad.addEventListener('scroll', () => {
+  const v = blad.scrollTop / (blad.scrollHeight - blad.clientHeight) * 100;
+  $('voortgang').style.width = (isFinite(v) ? v : 0) + '%';
+}, { passive:true });
 
-/* deep-link: #lees-<id> membuka bab langsung */
-function checkHash(){
+/* ---- routing via hash (#lees-<id>) ---- */
+function vanHash(){
   const m = location.hash.match(/^#lees-(.+)$/);
-  if (m){
-    const i = BOEK.findIndex(h => h.id === m[1]);
-    if (i >= 0){ openLezer(i, false); return; }
-  }
-  sluitLezer(false);
+  if (m){ const i = BOEK.findIndex(h => h.id === m[1]); if (i >= 0) return i; }
+  return 0;
 }
-addEventListener('popstate', checkHash);
+addEventListener('popstate', () => toon(vanHash(), false));
 
-/* progress bar di dalam tampilan baca */
-lezerBlad.addEventListener('scroll', () => {
-  const v = lezerBlad.scrollTop / (lezerBlad.scrollHeight - lezerBlad.clientHeight) * 100;
-  document.getElementById('lezerVoortgang').style.width = (isFinite(v) ? v : 0) + '%';
-}, { passive:true });
-
-/* ============ init teks + TOC + deep-link ============ */
-setLang();
-/* halaman dibuka langsung pada pembaca: daftar isi (sidebar) + isi buku tampil seketika.
-   Deep-link #lees-<id> tetap membuka bab yang dimaksud; hash bagian lain (mis. #tentang)
-   menutup pembaca agar halaman profil/tentang bisa dilihat. */
-if (!location.hash) openLezer(0, false);
-else checkHash();
-
-/* ============ animasi muncul saat scroll ============ */
-const pengamat = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('tampil'); pengamat.unobserve(e.target); } });
-}, { threshold:.12 });
-document.querySelectorAll('.muncul').forEach(el => pengamat.observe(el));
-
-/* ============ progress bar halaman ============ */
-const bar = document.getElementById('progress');
-addEventListener('scroll', () => {
-  const t = document.documentElement;
-  bar.style.width = (t.scrollTop / (t.scrollHeight - t.clientHeight) * 100) + '%';
-}, { passive:true });
-
-/* ============ buku 3D mengikuti kursor ============ */
-const buku = document.getElementById('buku3d');
-const panggung = buku.closest('.panggung');
-panggung.addEventListener('mousemove', e => {
-  const r = panggung.getBoundingClientRect();
-  const x = (e.clientX - r.left) / r.width - .5;
-  const y = (e.clientY - r.top) / r.height - .5;
-  buku.style.transform = `rotateY(${-24 + x * 22}deg) rotateX(${4 - y * 14}deg)`;
-});
-panggung.addEventListener('mouseleave', () => {
-  buku.style.transform = 'rotateY(-24deg) rotateX(4deg)';
-});
-
-/* ============ slider kutipan ============ */
-const kutips = [...document.querySelectorAll('.kutip')];
-let idxKutip = 0;
-function tampilkanKutip(i){
-  idxKutip = (i + kutips.length) % kutips.length;
-  kutips.forEach((k, j) => k.classList.toggle('aktif', j === idxKutip));
-}
-document.getElementById('kutipPrev').onclick = () => tampilkanKutip(idxKutip - 1);
-document.getElementById('kutipNext').onclick = () => tampilkanKutip(idxKutip + 1);
-setInterval(() => tampilkanKutip(idxKutip + 1), 8000);
-
-/* ============ tandai link nav yang aktif ============ */
-const navLinks = [...document.querySelectorAll('nav .links a')];
-const seksiNav = navLinks.map(a => document.querySelector(a.getAttribute('href')));
-const pengamatNav = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      navLinks.forEach(a => a.classList.toggle('aktif', a.getAttribute('href') === '#' + e.target.id));
-    }
-  });
-}, { rootMargin:'-40% 0px -55% 0px' });
-seksiNav.forEach(s => s && pengamatNav.observe(s));
+/* ---- init ---- */
+bouwInhoud();
+toon(vanHash(), false);
 </script>
 </body>
 </html>

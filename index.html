@@ -1436,11 +1436,7 @@ lezerBlad.addEventListener('scroll', () => {
 
 /* ============ init teks + TOC + deep-link ============ */
 setLang();
-/* halaman dibuka langsung pada pembaca: daftar isi (sidebar) + isi buku tampil seketika.
-   Deep-link #lees-<id> tetap membuka bab yang dimaksud; hash bagian lain (mis. #tentang)
-   menutup pembaca agar halaman profil/tentang bisa dilihat. */
-if (!location.hash) openLezer(0, false);
-else checkHash();
+checkHash();
 
 /* ============ animasi muncul saat scroll ============ */
 const pengamat = new IntersectionObserver(entries => {

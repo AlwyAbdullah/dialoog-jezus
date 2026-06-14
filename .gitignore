@@ -2,7 +2,9 @@
 .claude/settings.local.json
 
 # sumber & berkas kerja lokal (tidak perlu ikut deploy)
-Dialoog_Lengkap_Final.pdf
-_dialoog_extract.txt
-_parse_boek.py
-_check_boek.js
+sumber/
+image_part2_back.jpg
+_*.jpg
+_*.png
+_*.py
+_*.js

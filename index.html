@@ -703,13 +703,12 @@ h2 em{ font-style:italic; color:var(--forest); font-variation-settings:"SOFT" 10
 }
 .polaroid .foto{
   aspect-ratio:.95;
-  background:
-    radial-gradient(circle at 35% 30%, #E7DDC6, transparent 50%),
-    linear-gradient(160deg, var(--forest) 0%, var(--forest-deep) 100%);
-  display:grid; place-items:center;
-  font-family:var(--serif); font-style:italic;
-  color:var(--paper); font-size:.9rem;
-  text-align:center; padding:20px;
+  width:100%;
+  object-fit:cover;
+  object-position:center 32%;
+  background:var(--paper-deep);
+  display:block;
+  filter:saturate(.92) contrast(1.03);
 }
 .polaroid .ket{
   position:absolute; bottom:16px; left:0; right:0;
@@ -1008,7 +1007,7 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
       <div class="polaroid muncul">
         <div class="selotip"></div>
         <!-- GANTI DI SINI : ganti div .foto dengan <img src="foto-penulis.jpg" alt="..."> bila ada foto -->
-        <div class="foto" data-i18n="foto_ph">tempat foto<br>K.H. Bahaudin Mudhary</div>
+        <img class="foto" src="bahaudin.jpg" alt="K.H. Bahaudin Mudhary" loading="lazy">
         <div class="ket">— Sumenep, Madura, 1970 —</div>
       </div>
 

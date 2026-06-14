@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -103,27 +103,6 @@ nav .links a{
   white-space:nowrap;
 }
 nav .links a:hover, nav .links a.aktif{ background:var(--ink); color:var(--cream); }
-
-/* tombol pindah bahasa */
-.lang{
-  display:flex; gap:3px;
-  background:var(--paper-deep);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:3px;
-  margin-left:8px;
-  flex-shrink:0;
-}
-.lang button{
-  border:none; background:none; cursor:pointer;
-  font-family:var(--mono); font-size:.72rem; font-weight:700;
-  letter-spacing:.06em;
-  padding:6px 11px; border-radius:999px;
-  color:var(--ink-soft);
-  transition:.2s;
-}
-.lang button:hover{ color:var(--ink); }
-.lang button.aktif{ background:var(--terracotta); color:var(--cream); }
 
 @media (max-width:880px){
   nav .links{ display:none; }
@@ -845,11 +824,6 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
     <a href="#penulis"   data-i18n="nav_penulis">Penulis</a>
     <a href="#detail"    data-i18n="nav_detail">Detail</a>
   </div>
-  <div class="lang" role="group" aria-label="Pilih bahasa">
-    <button data-lang="id" class="aktif" title="Bahasa Indonesia">ID</button>
-    <button data-lang="en" title="English">EN</button>
-    <button data-lang="nl" title="Nederlands">NL</button>
-  </div>
 </nav>
 
 <!-- ================= HERO ================= -->
@@ -1324,13 +1298,10 @@ const I18N = {
   }
 };
 
-/* ============ status bahasa ============ */
-const tombolBahasa = [...document.querySelectorAll('.lang button')];
-let bahasa = 'id';
-try{ bahasa = localStorage.getItem('bahasa') || 'id'; }catch(e){}
+/* ============ bahasa: hanya Belanda ============ */
+const bahasa = 'nl';
 
-function setLang(lang){
-  bahasa = I18N[lang] ? lang : 'id';
+function setLang(){
   const t = I18N[bahasa];
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1351,14 +1322,9 @@ function setLang(lang){
   document.getElementById('kutipPrev').setAttribute('aria-label', t._prev);
   document.getElementById('kutipNext').setAttribute('aria-label', t._next);
 
-  tombolBahasa.forEach(b => b.classList.toggle('aktif', b.dataset.lang === bahasa));
-  try{ localStorage.setItem('bahasa', bahasa); }catch(e){}
-
   buildTOC();
-  if (hoofdstukIdx >= 0) vulLezer(hoofdstukIdx); /* segarkan label tombol pembaca */
+  if (hoofdstukIdx >= 0) vulLezer(hoofdstukIdx);
 }
-
-tombolBahasa.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
 
 /* ============ DAFTAR ISI dari boek.js ============ */
 const VOORWERK_N = 4; /* 4 bagian pertama = voorwerk (I–IV) */
@@ -1468,8 +1434,8 @@ lezerBlad.addEventListener('scroll', () => {
   document.getElementById('lezerVoortgang').style.width = (isFinite(v) ? v : 0) + '%';
 }, { passive:true });
 
-/* ============ init bahasa + TOC + deep-link ============ */
-setLang(bahasa);
+/* ============ init teks + TOC + deep-link ============ */
+setLang();
 checkHash();
 
 /* ============ animasi muncul saat scroll ============ */

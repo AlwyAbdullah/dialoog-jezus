@@ -29,7 +29,7 @@ const BOEK = [
   "id": "bronvermelding",
   "nr": "IV",
   "titel": "Bronvermelding",
-  "sub": "Gebruikte Bijbel- en Koranvertalingen",
+  "sub": "",
   "blz": "blz. 3",
   "html": "<ul><li>Groot Nieuws Bijbel vertaling in omgangstaal 1995, uitgave van het Nederlands Bijbelgenootschap Haarlem, in samenwerking met het Belgisch Bijbelgenootschap.</li><li>The meaning of Glorious Koran — Dar Al Kitab Al masri, vertaald door Abdullah Yusuf Ali.</li><li>De Nederlandse vertaling van de Koran, vertaald door Fred Leemhuis.</li><li>Indonesische vertaling van de Koran, vertaald door Yayasan Penyelenggaraan Penterjemah al Quran in Indonesië.</li></ul><p>Voor inlichtingen over de Islam:</p><ul><li>Islamitische Stichting of Moskeeën.</li></ul>"
  },

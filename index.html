@@ -177,6 +177,29 @@ h1 em{
 }
 @keyframes gambar{ to{ stroke-dashoffset:0 } }
 
+/* judul buku (menggantikan H1 lama) */
+h1.boek-titel{
+  font-size:clamp(2.1rem, 4.6vw, 3.5rem);
+  line-height:1.1;
+}
+h1.boek-titel .boek-sub{
+  display:block;
+  font-style:italic; color:var(--terracotta);
+  font-size:.5em; margin-top:.18em;
+  font-variation-settings:"SOFT" 100;
+}
+.boek-auteur{
+  margin-top:22px;
+  font-family:var(--mono); font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase;
+  font-size:.92rem; color:var(--forest);
+}
+.boek-vert{
+  margin-top:10px;
+  font-style:italic; font-size:.9rem;
+  color:var(--ink-soft); max-width:50ch;
+}
+
 .hero-sub{
   margin-top:26px;
   font-size:clamp(1rem, 1.4vw, 1.15rem);
@@ -832,11 +855,12 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
     <div>
       <span class="kicker" data-i18n="kicker"><span class="dot"></span> Terjemahan Belanda &middot; 1998</span>
 
-      <h1 data-i18n="h1">
-        Satu Tuhan,<br>
-        dua <em>keyakinan</em>,<br>
-        <span class="coretan">sembilan malam.<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M4 16 Q 50 4, 100 14 T 196 10"/></svg></span>
+      <h1 class="boek-titel">
+        Dialoog over de Goddelijkheid van Jezus
+        <span class="boek-sub">Uit de Bijbel</span>
       </h1>
+      <p class="boek-auteur">K.H. Bahaudin Mudhary</p>
+      <p class="boek-vert">(Vertaling van het boek &ldquo;Dialog masalah ketuhanan jesus, KH Bahaudin Mudhary&rdquo; uit het Indonesisch naar het Nederlands)</p>
 
       <p class="hero-sub" data-i18n="hero_sub">
         <b>Dialoog over de Goddelijkheid van Jezus</b> adalah catatan utuh
@@ -844,14 +868,6 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
         seorang ulama, dan Antonius Widuri, seorang Katolik. Seluruh teks
         bukunya bisa dibaca gratis di halaman ini.
       </p>
-
-      <div class="penulis-chip">
-        <div class="ava">BM</div>
-        <div>
-          <small data-i18n="chip_small">Ditulis oleh</small>
-          <b>K.H. Bahaudin Mudhary</b>
-        </div>
-      </div>
 
       <div class="hero-aksi">
         <a class="tbl isi"   href="#daftarisi" data-i18n="btn1">Mulai membaca ↓</a>
@@ -891,43 +907,17 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <section id="tentang">
   <div class="wrap">
     <div class="label-bab muncul" data-i18n="s1_label">01 — Tentang Buku</div>
-    <h2 class="muncul" data-i18n="s1_h2">Sembilan malam dialog yang <em>benar-benar terjadi</em></h2>
 
-    <div class="isi-grid">
-      <div class="muncul">
-        <p class="kapital" data-i18n="s1_p1">
-          Maret 1970, Sumenep, Madura. Seorang akuntan Katolik bernama Antonius
-          Widuri datang menemui K.H. Bahaudin Mudhary dengan satu permintaan:
-          berdialog tentang ketuhanan Yesus — jujur, terbuka, dan tanpa paksaan.
-          Kesepakatannya sederhana: percakapan dicatat kata demi kata, dan tidak
-          boleh ada yang saling menyinggung.
-        </p>
-        <p data-i18n="s1_p2">
-          Dialog itu berlangsung sembilan malam. Caranya khas: Antonius diminta
-          membuka Alkitabnya sendiri, membacakan ayatnya, lalu keduanya
-          menimbangnya dengan akal sehat — ayat demi ayat, tenang dan saling
-          menghormati. Buku ini adalah transkrip utuh percakapan itu, lengkap
-          dengan dua pidato penutupnya.
-        </p>
-        <p data-i18n="s1_p3">
-          Yang termuat di sini adalah terjemahan Belanda (1998) dari buku asli
-          berbahasa Indonesia <b>"Dialog Masalah Ketuhanan Jesus"</b>. Seluruh
-          teksnya bisa dibaca gratis lewat daftar isi di bawah — halaman ini
-          tidak menjual apa pun.
-        </p>
-      </div>
-
-      <div class="kartu-tema muncul">
-        <h3 data-i18n="tema_h3">Yang dibahas dalam dialog</h3>
-        <ul>
-          <li data-i18n="tema_1">Ketuhanan Yesus, ditelaah dari teks Alkitab sendiri</li>
-          <li data-i18n="tema_2">Makna "anak Allah" dan "anak manusia"</li>
-          <li data-i18n="tema_3">Dosa warisan dan tanggung jawab pribadi</li>
-          <li data-i18n="tema_4">Kisah Adam menurut Al-Quran</li>
-          <li data-i18n="tema_5">Teks-teks Alkitab yang saling bertentangan</li>
-          <li data-i18n="tema_6">Toleransi: dialog iman tanpa paksaan</li>
-        </ul>
-      </div>
+    <div class="kartu-tema muncul" style="margin-top:36px; max-width:560px;">
+      <h3 data-i18n="tema_h3">Yang dibahas dalam dialog</h3>
+      <ul>
+        <li data-i18n="tema_1">Ketuhanan Yesus, ditelaah dari teks Alkitab sendiri</li>
+        <li data-i18n="tema_2">Makna "anak Allah" dan "anak manusia"</li>
+        <li data-i18n="tema_3">Dosa warisan dan tanggung jawab pribadi</li>
+        <li data-i18n="tema_4">Kisah Adam menurut Al-Quran</li>
+        <li data-i18n="tema_5">Teks-teks Alkitab yang saling bertentangan</li>
+        <li data-i18n="tema_6">Toleransi: dialog iman tanpa paksaan</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -936,8 +926,7 @@ footer ul a:hover{ color:var(--gold); padding-left:6px; }
 <section id="daftarisi">
   <div class="wrap">
     <div class="label-bab muncul" data-i18n="s2_label">02 — Daftar Isi</div>
-    <h2 class="muncul" data-i18n="s2_h2">Baca bukunya di sini, <em>bab demi bab</em></h2>
-    <p class="toc-note muncul" data-i18n="s2_note">Klik sebuah bagian untuk membuka teks lengkapnya. Teks buku dalam bahasa Belanda.</p>
+    <p class="toc-note muncul" data-i18n="s2_note" style="margin-top:18px;">Klik sebuah bagian untuk membuka teks lengkapnya. Teks buku dalam bahasa Belanda.</p>
 
     <div class="bab-list muncul" id="tocList"><!-- diisi oleh JS dari boek.js --></div>
   </div>
